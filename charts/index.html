@@ -1,206 +1,724 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Labari Charts — African Data Visualisations | Labari Data</title>
-<meta name="description" content="Interactive data visualisations from the Labari Data team — charts and graphics illustrating economic, political, and social trends across Africa.">
-<meta name="author" content="Labari Data">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://labaridata.com/charts">
-<meta property="og:title" content="Labari Charts — African Data Visualisations | Labari Data">
-<meta property="og:description" content="Interactive charts and data graphics covering economic, political, and social trends across Africa.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://labaridata.com/charts">
-<meta property="og:site_name" content="Labari Data">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@labarijournal">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%236CF0E8'/><text y='.9em' font-size='72' x='50%' text-anchor='middle' dy='0.15em'>📊</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{--teal:#0BC4BA;--teal-dim:rgba(11,196,186,0.1);--bg:#FAFBFC;--surface:#FFF;--border:#E5E7EB;--ink:#111;--ink-mid:#444;--ink-soft:#888;}
-html{font-size:16px;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-/* ── LABARI DATA NAV ── */
-.ld-nav{background:#0F0F1A;border-bottom:1px solid #2E2E4A;padding:0 24px;height:48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
-.ld-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
-.ld-logo{width:24px;height:24px;background:#E8A838;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;color:#0F0F1A;}
-.ld-wordmark{font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:700;color:#F0EDE8;letter-spacing:-.01em;}
-.ld-wordmark span{color:#E8A838;}
-.ld-back{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#5A5A78;text-decoration:none;transition:color .2s;}
-.ld-back:hover{color:#E8A838;}
+  <!-- SEO -->
+  <title>Labari Data — African Charts & Data Visualisations</title>
+  <meta name="description" content="Data visualisations covering African economic indicators, election data, and sector analysis. Powered by Labari Media." />
+  <meta name="keywords" content="Africa data, African economics, Ghana data, African elections, data journalism, charts, visualisations, Labari" />
+  <meta name="author" content="Labari Media" />
+  <link rel="canonical" href="https://joe-phoenix.github.io/charts/" />
 
-.tool-header{background:linear-gradient(135deg,#0a2828 0%,#0d3535 100%);padding:40px 32px 36px;border-bottom:3px solid var(--teal);}
-.tool-header-inner{max-width:1100px;margin:0 auto;}
-.tool-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(11,196,186,.7);margin-bottom:12px;}
-.tool-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.02em;}
-.tool-title span{color:#6CF0E8;}
-.tool-sub{font-size:14px;color:rgba(255,255,255,.5);max-width:500px;line-height:1.65;}
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://joe-phoenix.github.io/charts/" />
+  <meta property="og:title" content="Labari Data — African Charts & Data Visualisations" />
+  <meta property="og:description" content="Data visualisations covering African economic indicators, election data, and sector analysis." />
+  <meta property="og:site_name" content="Labari Media" />
 
-.controls{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:48px;z-index:90;}
-.search-wrap{position:relative;flex:1;min-width:180px;max-width:280px;}
-.search-wrap input{width:100%;padding:8px 12px 8px 34px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;font-family:inherit;background:var(--bg);color:var(--ink);outline:none;transition:border-color .15s;}
-.search-wrap input:focus{border-color:var(--teal);}
-.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink-soft);pointer-events:none;}
-.filter-chip{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--ink-soft);}
-.filter-chip:hover{border-color:var(--ink);color:var(--ink);}
-.filter-chip.active{background:var(--teal);border-color:var(--teal);color:#fff;}
-.chart-count{font-size:.75rem;color:var(--ink-soft);margin-left:auto;}
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Labari Data — African Charts & Data Visualisations" />
+  <meta name="twitter:description" content="Data visualisations covering African economic indicators, election data, and sector analysis." />
+  <meta name="twitter:site" content="@labarijournal" />
 
-.main{max-width:1100px;margin:0 auto;padding:28px 32px 60px;}
+  <!-- Favicon — inline SVG bar chart -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231A56DB'/><rect x='4' y='18' width='5' height='10' rx='1' fill='white'/><rect x='11' y='12' width='5' height='16' rx='1' fill='white'/><rect x='18' y='6' width='5' height='22' rx='1' fill='white'/><rect x='25' y='15' width='4' height='13' rx='1' fill='white' opacity='.7'/></svg>" />
 
-.charts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;}
-.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:box-shadow .2s,transform .2s;}
-.chart-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08);transform:translateY(-2px);}
-.chart-embed{width:100%;border:none;display:block;}
-.chart-meta{padding:14px 16px 12px;}
-.chart-title{font-family:'Space Grotesk',sans-serif;font-size:.88rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.3;}
-.chart-desc{font-size:.75rem;color:var(--ink-soft);line-height:1.5;margin-bottom:8px;}
-.chart-footer{display:flex;align-items:center;justify-content:space-between;}
-.chart-tag{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:var(--teal-dim);color:var(--teal);}
-.chart-date{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--ink-soft);}
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
 
-.empty{text-align:center;padding:80px 24px;color:var(--ink-soft);}
-.empty-icon{font-size:3rem;margin-bottom:16px;}
-.empty h3{font-size:1.1rem;font-weight:600;color:var(--ink-mid);margin-bottom:8px;}
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DataCatalog",
+    "name": "Labari Data",
+    "description": "Data visualisations covering African economic indicators, election data, and sector analysis.",
+    "url": "https://joe-phoenix.github.io/charts/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Labari Media",
+      "url": "https://labarijournal.com"
+    }
+  }
+  </script>
 
-/* ── LABARI DATA FOOTER ── */
-.ld-footer{background:#0F0F1A;border-top:1px solid #2E2E4A;padding:1.5rem 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
-.ld-footer-brand{font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:600;color:#5A5A78;}
-.ld-footer-brand span{color:#E8A838;}
-.ld-footer-links{display:flex;gap:1.5rem;list-style:none;}
-.ld-footer-links a{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#3D3D5C;text-decoration:none;transition:color .2s;}
-.ld-footer-links a:hover{color:#E8A838;}
-.ld-footer-copy{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#3D3D5C;}
+  <style>
+    :root {
+      --ink:        #0F0F0E;
+      --paper:      #F7F5F0;
+      --mid:        #E8E5DE;
+      --muted:      #9A9690;
+      --accent:     #1A56DB;
+      --accent-dim: #DBEAFE;
+      --accent-dark:#1040B0;
+      --dark:       #111827;
+      --mono:       'IBM Plex Mono', monospace;
+      --sans:       'DM Sans', sans-serif;
+      --serif:      'DM Serif Display', serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
 
-@media(max-width:680px){
-  .tool-header,.main{padding-left:20px;padding-right:20px;}
-  .controls{padding:10px 20px;}
-  .charts-grid{grid-template-columns:1fr;}
-  .ld-footer{flex-direction:column;align-items:flex-start;}
-}
-</style>
+    /* ── HEADER ─────────────────────────────────────────────── */
+    header {
+      border-bottom: 2px solid var(--ink);
+      padding: 0 clamp(16px,4vw,48px);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      height: 60px; background: var(--paper);
+    }
+    .header-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .wordmark { font-family: var(--serif); font-size: 1.45rem; font-weight: 400; letter-spacing: -0.01em; line-height: 1; }
+    .wordmark span { color: var(--accent); }
+    .header-divider { width: 1px; height: 20px; background: var(--mid); }
+    .header-eyebrow { font-family: var(--sans); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
+    .back-link {
+      font-family: var(--sans); font-size: 0.78rem; font-weight: 600;
+      color: var(--ink); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      opacity: 0.65; transition: opacity 0.15s;
+    }
+    .back-link:hover { opacity: 1; }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    .hero {
+      background: var(--dark);
+      padding: clamp(48px, 8vw, 80px) clamp(16px,4vw,48px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle grid pattern */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    /* animated gradient blob */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -60px; right: -80px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(26,86,219,0.25) 0%, transparent 70%);
+      pointer-events: none;
+      animation: blobDrift 12s ease-in-out infinite alternate;
+    }
+    @keyframes blobDrift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(-40px, 30px) scale(1.1); }
+    }
+
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 720px;
+    }
+
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .hero-kicker::before {
+      content: '';
+      display: block; width: 24px; height: 1.5px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: white;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      color: rgba(255,255,255,0.5);
+      line-height: 1.65;
+      max-width: 540px;
+      margin-bottom: 36px;
+    }
+
+    .hero-stats {
+      display: flex; gap: 32px; flex-wrap: wrap;
+    }
+    .hero-stat { }
+    .hero-stat-num {
+      font-family: var(--serif); font-size: 1.6rem;
+      color: white; line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hero-stat-label {
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .hero-stat-divider {
+      width: 1px; background: rgba(255,255,255,0.1);
+      align-self: stretch;
+    }
+
+    /* ── TOOLBAR ────────────────────────────────────────────── */
+    .toolbar {
+      border-bottom: 1px solid var(--mid);
+      padding: 14px clamp(16px,4vw,48px);
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+      position: sticky; top: 0; background: var(--paper); z-index: 100;
+      box-shadow: 0 1px 0 var(--mid);
+    }
+    .search-wrap { position: relative; flex: 1; min-width: 220px; max-width: 440px; }
+    .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+    .search-input {
+      width: 100%; padding: 9px 12px 9px 36px;
+      border: 1.5px solid var(--mid); background: white;
+      font-family: var(--sans); font-size: 0.875rem; color: var(--ink);
+      outline: none; transition: border-color 0.15s, box-shadow 0.15s; border-radius: 6px;
+    }
+    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26,86,219,0.1); }
+    .search-input::placeholder { color: var(--muted); }
+
+    .filter-group { display: flex; align-items: center; gap: 8px; }
+    .filter-label { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    .filter-select {
+      padding: 8px 28px 8px 10px; border: 1.5px solid var(--mid); background: white;
+      font-family: var(--sans); font-size: 0.82rem; color: var(--ink);
+      outline: none; cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239A9690'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 8px center;
+      transition: border-color 0.15s; border-radius: 6px;
+    }
+    .filter-select:focus { border-color: var(--accent); }
+
+    .toolbar-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .count-badge { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; background: var(--ink); color: var(--paper); padding: 3px 10px; border-radius: 20px; }
+    .view-toggle { display: flex; border: 1.5px solid var(--mid); border-radius: 6px; overflow: hidden; }
+    .view-btn { padding: 6px 9px; background: white; border: none; cursor: pointer; color: var(--muted); display: flex; align-items: center; transition: background 0.15s, color 0.15s; }
+    .view-btn.active { background: var(--ink); color: var(--paper); }
+    .clear-btn { padding: 8px 14px; background: none; border: 1.5px solid var(--mid); font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; color: var(--muted); cursor: pointer; text-transform: uppercase; transition: all 0.15s; border-radius: 6px; }
+    .clear-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .clear-btn.hidden { display: none; }
+
+    /* CHIPS */
+    .active-filters { padding: 10px clamp(16px,4vw,48px); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border-bottom: 1px solid var(--mid); }
+    .active-filters.hidden { display: none; }
+    .filter-chip { display: flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--accent-dim); border: 1px solid var(--accent); font-family: var(--sans); font-size: 0.72rem; font-weight: 500; color: var(--accent); border-radius: 20px; }
+    .filter-chip button { background: none; border: none; cursor: pointer; color: var(--accent); font-size: 0.9rem; line-height: 1; padding: 0; }
+
+    /* ── MAIN ───────────────────────────────────────────────── */
+    main { padding: clamp(28px,4vw,48px) clamp(16px,4vw,48px); flex: 1; }
+    .results-meta { display: flex; align-items: baseline; gap: 10px; margin-bottom: 20px; }
+    .results-count { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+    .results-query { font-family: var(--sans); font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+
+    /* ── GRID ───────────────────────────────────────────────── */
+    .chart-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+    .chart-grid.list-view { grid-template-columns: 1fr; gap: 12px; }
+
+    /* ── CARD ───────────────────────────────────────────────── */
+    .chart-card {
+      background: white; border-radius: 12px; border: 1.5px solid var(--mid);
+      display: flex; flex-direction: column; overflow: hidden; cursor: pointer;
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+    }
+    .chart-card:hover { border-color: var(--accent); box-shadow: 0 8px 28px rgba(26,86,219,0.12); transform: translateY(-2px); }
+    .chart-card:hover .view-btn-card { background: var(--accent); color: white; }
+
+    .card-top { padding: 20px 20px 14px; flex: 1; }
+    .card-eyebrow { margin-bottom: 10px; }
+    .card-category { font-family: var(--sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; background: var(--accent-dim); color: var(--accent); padding: 3px 10px; border-radius: 20px; display: inline-block; }
+    .card-title { font-family: var(--sans); font-size: 1.05rem; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em; margin-bottom: 8px; color: var(--ink); }
+    .card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .card-bottom { padding: 12px 20px; border-top: 1px solid var(--mid); display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #FAFAF8; }
+    .card-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+    .card-date { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.05em; white-space: nowrap; }
+    .tag { font-family: var(--sans); font-size: 0.65rem; font-weight: 500; color: var(--muted); border: 1px solid var(--mid); padding: 2px 8px; border-radius: 4px; cursor: pointer; transition: all 0.12s; white-space: nowrap; background: white; }
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
+    .view-btn-card { display: flex; align-items: center; gap: 5px; font-family: var(--sans); font-size: 0.72rem; font-weight: 600; color: var(--accent); white-space: nowrap; flex-shrink: 0; background: var(--accent-dim); border: none; padding: 5px 12px; border-radius: 6px; transition: background 0.15s, color 0.15s; }
+
+    /* LIST VIEW */
+    .list-view .chart-card { flex-direction: row; }
+    .list-view .card-top { border-right: 1px solid var(--mid); }
+    .list-view .card-bottom { flex-direction: column; align-items: flex-end; justify-content: center; min-width: 160px; border-top: none; }
+    .list-view .card-left { flex-direction: column; align-items: flex-end; }
+
+    /* STATES */
+    .state-display { padding: 80px 24px; text-align: center; grid-column: 1/-1; }
+    .state-icon { font-size: 2.5rem; margin-bottom: 16px; display: block; }
+    .state-display h3 { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 8px; }
+    .state-display p { font-size: 0.85rem; color: var(--muted); max-width: 420px; margin: 0 auto 6px; }
+    .spinner { width: 28px; height: 28px; border: 2.5px solid var(--mid); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* PAGINATION */
+    .pagination { margin-top: 36px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .page-btn { padding: 7px 14px; background: white; border: 1.5px solid var(--mid); font-family: var(--sans); font-size: 0.78rem; font-weight: 600; color: var(--ink); cursor: pointer; transition: all 0.12s; border-radius: 6px; }
+    .page-btn:hover, .page-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+    .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* ── MODAL ──────────────────────────────────────────────── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,15,14,0.65); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 24px; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: white; width: 100%; max-width: 880px; max-height: 90vh; display: flex; flex-direction: column; border-radius: 16px; box-shadow: 0 32px 80px rgba(0,0,0,0.22); animation: modalIn 0.2s ease; overflow: hidden; }
+    @keyframes modalIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    .modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--mid); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-shrink: 0; }
+    .modal-header-left { flex: 1; min-width: 0; }
+    .modal-eyebrow { margin-bottom: 8px; }
+    .modal-category { font-family: var(--sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; background: var(--accent-dim); color: var(--accent); padding: 3px 10px; border-radius: 20px; display: inline-block; }
+    .modal-title { font-family: var(--sans); font-size: 1.25rem; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
+    .modal-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+    .modal-close { background: var(--paper); border: 1.5px solid var(--mid); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); flex-shrink: 0; transition: all 0.15s; font-size: 1rem; }
+    .modal-close:hover { background: var(--ink); color: white; border-color: var(--ink); }
+    .modal-body { flex: 1; overflow-y: auto; padding: 24px; min-height: 0; }
+    .modal-body iframe { width: 100%; border: none; display: block; min-height: 460px; }
+    .modal-footer { padding: 14px 24px; border-top: 1px solid var(--mid); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; background: #FAFAF8; }
+    .modal-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .modal-date { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.05em; }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      padding: clamp(28px,4vw,40px) clamp(16px,4vw,48px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+    .footer-left { }
+    .footer-brand { font-family: var(--serif); font-size: 1.2rem; color: white; margin-bottom: 6px; }
+    .footer-brand span { color: white; }
+    .footer-tagline { font-size: 0.78rem; color: white; line-height: 1.5; max-width: 340px; }
+    .footer-copy { font-family: var(--sans); font-size: 0.72rem; color: white; margin-top: 16px; }
+    .footer-links { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+    .footer-link { font-family: var(--sans); font-size: 0.75rem; color: white; text-decoration: none; transition: opacity 0.15s; }
+    .footer-link:hover { opacity: 0.7; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .chart-grid { grid-template-columns: 1fr; }
+      .list-view .chart-card { flex-direction: column; }
+      .list-view .card-top { border-right: none; border-bottom: 1px solid var(--mid); }
+      .list-view .card-bottom { flex-direction: row; align-items: center; min-width: auto; border-top: none; }
+      .list-view .card-left { flex-direction: row; align-items: center; }
+      .modal { border-radius: 16px 16px 0 0; max-height: 92vh; }
+      .modal-overlay { padding: 0; align-items: flex-end; }
+      .modal-body iframe { min-height: 320px; }
+      .header-eyebrow, .header-divider { display: none; }
+      .hero-stats { gap: 20px; }
+      .hero-stat-divider { display: none; }
+      footer { grid-template-columns: 1fr; }
+      .footer-links { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .spinner, .hero::after { animation: none; }
+      .modal, .chart-card { transition: none; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- LABARI DATA NAV -->
-<nav class="ld-nav">
-  <a href="https://labaridata.com" class="ld-brand">
-    <div class="ld-logo">LD</div>
-    <span class="ld-wordmark">Labari <span>Data</span></span>
+<!-- HEADER -->
+<header>
+  <a href="#" class="header-brand">
+    <div class="wordmark">Labari <span>Data</span></div>
+    <div class="header-divider"></div>
+    <span class="header-eyebrow">Charts &amp; Visualisations</span>
   </a>
-  <a href="https://labaridata.com" class="ld-back">← All Tools</a>
-</nav>
+  <a href="https://datadesk.labarijournal.com" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to Data Desk
+  </a>
+</header>
 
-<div class="tool-header">
-  <div class="tool-header-inner">
-    <div class="tool-eyebrow">labaridata.com/charts</div>
-    <h1 class="tool-title">Labari <span>Charts</span></h1>
-    <p class="tool-sub">Interactive data visualisations from the Labari Data team — charts and graphics illustrating trends across Africa.</p>
+<!-- HERO -->
+<section class="hero" aria-label="Page introduction">
+  <div class="hero-inner">
+    <div class="hero-kicker">Labari Media · Data Journalism</div>
+    <h1 class="hero-title">
+      Data Visualisations covering African <em>economic indicators,</em> election data, and sector analysis
+    </h1>
+    <p class="hero-sub">
+      Explore interactive charts and datasets produced by the Labari Data Desk. All data is sourced, verified, and updated continuously.
+    </p>
+
   </div>
-</div>
+</section>
 
-<div class="controls">
+<!-- TOOLBAR -->
+<div class="toolbar" role="search" aria-label="Filter charts">
   <div class="search-wrap">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input type="text" id="search" placeholder="Search charts…" oninput="filterCharts()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input class="search-input" id="searchInput" type="search" placeholder="Search charts, topics, datasets…" oninput="onFilterChange()" aria-label="Search charts" />
   </div>
-  <button class="filter-chip active" data-cat="all" onclick="setCategory(this,'all')">All</button>
-  <button class="filter-chip" data-cat="economy" onclick="setCategory(this,'economy')">Economy</button>
-  <button class="filter-chip" data-cat="politics" onclick="setCategory(this,'politics')">Politics</button>
-  <button class="filter-chip" data-cat="tech" onclick="setCategory(this,'tech')">Tech</button>
-  <button class="filter-chip" data-cat="society" onclick="setCategory(this,'society')">Society</button>
-  <span class="chart-count" id="chart-count"></span>
+  <div class="filter-group">
+    <span class="filter-label">Category</span>
+    <select class="filter-select" id="filterCategory" onchange="onFilterChange()" aria-label="Filter by category"><option value="">All</option></select>
+  </div>
+  <button class="clear-btn hidden" id="clearBtn" onclick="clearFilters()">Clear</button>
+  <div class="toolbar-right">
+    <span id="totalCount" class="count-badge">—</span>
+    <div class="view-toggle" role="group" aria-label="View mode">
+      <button class="view-btn active" id="viewGrid" onclick="setView('grid')" title="Grid view" aria-pressed="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </button>
+      <button class="view-btn" id="viewList" onclick="setView('list')" title="List view" aria-pressed="false">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
 </div>
 
-<main class="main">
-  <div class="charts-grid" id="charts-grid"></div>
-  <div class="empty" id="empty" style="display:none">
-    <div class="empty-icon">📊</div>
-    <h3>No charts found</h3>
-    <p>Try a different search or category.</p>
+<!-- ACTIVE FILTER CHIPS -->
+<div class="active-filters hidden" id="activeFilters" aria-live="polite"></div>
+
+<!-- MAIN -->
+<main>
+  <div class="results-meta" id="resultsMeta" style="display:none" aria-live="polite">
+    <span class="results-count" id="resultsCount"></span>
+    <span class="results-query" id="resultsQuery"></span>
   </div>
+  <div class="chart-grid" id="chartGrid" role="list">
+    <div class="state-display"><div class="spinner" role="status" aria-label="Loading"></div><p>Loading charts…</p></div>
+  </div>
+  <div class="pagination" id="pagination"></div>
 </main>
 
-<footer class="ld-footer">
-  <div class="ld-footer-brand">Labari <span>Data</span> — Labari Charts</div>
-  <ul class="ld-footer-links">
-    <li><a href="https://labaridata.com">All Tools</a></li>
-    <li><a href="https://labarijournal.com">Journal</a></li>
-    <li><a href="https://techlabari.com">TechLabari</a></li>
-    <li><a href="mailto:data@labarijournal.com">Contact</a></li>
-  </ul>
-  <div class="ld-footer-copy">© 2026 Labari Media. All rights reserved.</div>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-brand">Labari <span>Data</span></div>
+    <p class="footer-tagline">Pan-African data journalism powered by the Labari Media newsroom.</p>
+    <p class="footer-copy">&copy; 2026 Labari Media. All rights reserved.</p>
+  </div>
+  <div class="footer-links">
+    <a href="https://labarijournal.com" class="footer-link">Labari Journal</a>
+    <a href="https://techlabari.com" class="footer-link">TechLabari</a>
+    <a href="https://datadesk.labarijournal.com" class="footer-link">Data Desk</a>
+  </div>
 </footer>
 
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-eyebrow">
+          <span class="modal-category" id="modalCategory"></span>
+        </div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-desc" id="modalDesc"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()" title="Close" aria-label="Close chart">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <iframe id="modalIframe" title="" src="" scrolling="no" frameborder="0" loading="lazy" height="480"></iframe>
+    </div>
+    <div class="modal-footer">
+      <div class="modal-tags" id="modalTags"></div>
+      <span class="modal-date" id="modalDate"></span>
+    </div>
+  </div>
+</div>
+
 <script>
-// Charts are Datawrapper embeds stored in Baserow
-// Replace BASEROW_URL with your actual Cloudflare Worker proxy for the charts table
-const WORKER_URL='https://labari-charts.joseph-kuuire.workers.dev';
+  /* ── CONFIG ─────────────────────────────────────────────────── */
+  const BASEROW_TOKEN = 'yxrJPxubxNfVDWcPD6xUGcG16WRoLyXG';
+  const BASEROW_TABLE = '1038263';
+  /* ──────────────────────────────────────────────────────────── */
 
-// Fallback static charts if API unavailable
-const FALLBACK_CHARTS=[
-  {id:'fallback-1',title:'Ghana GDP Growth 2015–2025',description:'Annual GDP growth rate for Ghana over the past decade, with key economic events marked.',category:'economy',date:'Jun 2026',embedUrl:'https://datawrapper.dwcdn.net/example1/1/'},
-  {id:'fallback-2',title:'African Mobile Internet Penetration 2024',description:'Mobile internet penetration rates across Sub-Saharan Africa, by country.',category:'tech',date:'May 2026',embedUrl:'https://datawrapper.dwcdn.net/example2/1/'},
-  {id:'fallback-3',title:'West Africa Election Calendar 2025–2027',description:'Upcoming and recent elections across ECOWAS member states.',category:'politics',date:'Jun 2026',embedUrl:'https://datawrapper.dwcdn.net/example3/1/'},
-];
+  const PAGE_SIZE = 12;
+  let allCharts = [], filtered = [];
+  let currentPage = 1, currentView = 'grid';
 
-let allCharts=[],activeCategory='all';
+  window.addEventListener('DOMContentLoaded', fetchCharts);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-async function loadCharts(){
-  try{
-    const res=await fetch(WORKER_URL);
-    if(!res.ok)throw new Error(`HTTP ${res.status}`);
-    const json=await res.json();
-    allCharts=(json.results||[]).filter(r=>r['Chart URL']||r['Embed URL']||r['Title']);
-    if(!allCharts.length)throw new Error('No charts in database');
-    renderCharts();
-  }catch(err){
-    console.warn('Using fallback charts:',err.message);
-    allCharts=FALLBACK_CHARTS;
-    renderCharts();
+  async function fetchCharts() {
+    showLoading();
+    try {
+      let results = [], page = 1, hasMore = true;
+      while (hasMore) {
+        const res = await fetch(
+          `https://api.baserow.io/api/database/rows/table/${BASEROW_TABLE}/?user_field_names=true&size=100&page=${page}`,
+          { headers: { Authorization: `Token ${BASEROW_TOKEN}` } }
+        );
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}));
+          throw new Error(`Baserow ${res.status}${body.detail ? ': ' + body.detail : ''}`);
+        }
+        const data = await res.json();
+        results = results.concat(data.results);
+        hasMore = !!data.next;
+        page++;
+      }
+
+      allCharts = results.filter(r => r.Active !== false);
+
+      const chartCount = allCharts.length;
+      document.getElementById('totalCount').textContent = `${chartCount} chart${chartCount !== 1 ? 's' : ''}`;
+
+      if (!chartCount) { showState('empty-db'); return; }
+
+      buildFilterOptions();
+      applyFilters();
+    } catch (err) {
+      showState('error', err.message);
+      document.getElementById('totalCount').textContent = 'Error';
+      console.error('Baserow error:', err);
+    }
   }
-}
 
-function getField(r,keys){for(const k of keys){if(r[k])return r[k];}return '';}
+  function fieldVal(v) {
+    if (!v) return '';
+    if (typeof v === 'string') return v;
+    if (Array.isArray(v)) return v.map(i => i.value || i).join(', ');
+    if (v.value) return v.value;
+    return String(v);
+  }
+  function fieldArr(v) {
+    if (!v) return [];
+    if (Array.isArray(v)) return v.map(i => i.value || i);
+    if (typeof v === 'string') return v.split(',').map(s => s.trim()).filter(Boolean);
+    return [fieldVal(v)];
+  }
+  function toEmbedUrl(url, id) {
+    if (!url && !id) return '';
+    if (url && url.includes('dwcdn.net')) return url.replace(/^http:/, 'https:');
+    const match = (url || '').match(/datawrapper\.de\/_\/([A-Za-z0-9]+)/);
+    const chartId = (match && match[1]) || id;
+    return chartId ? `https://datawrapper.dwcdn.net/${chartId}/1/` : (url || '');
+  }
 
-function renderCharts(){
-  const q=document.getElementById('search').value.toLowerCase();
-  let charts=allCharts;
-  if(activeCategory!=='all')charts=charts.filter(r=>(getField(r,['Category','Tag','Type'])||'').toLowerCase()===activeCategory);
-  if(q)charts=charts.filter(r=>JSON.stringify(r).toLowerCase().includes(q));
-  document.getElementById('chart-count').textContent=`${charts.length} chart${charts.length!==1?'s':''}`;
-  const grid=document.getElementById('charts-grid');
-  const empty=document.getElementById('empty');
-  if(!charts.length){grid.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';
-  grid.innerHTML=charts.map(r=>{
-    const title=getField(r,['Title','Chart Title','Name']);
-    const desc=getField(r,['Description','Notes','About']);
-    const url=getField(r,['Chart URL','Embed URL','Datawrapper URL']);
-    const cat=getField(r,['Category','Tag','Type'])||'Data';
-    const date=getField(r,['Date','Published','Last Updated'])||'';
-    const height=r['Height']||400;
-    if(!url||url.includes('example'))return`<div class="chart-card">
-      <div style="height:${height}px;background:#F3F8F8;display:flex;align-items:center;justify-content:center;color:#9CA3AF;font-size:.8rem;">Chart preview unavailable</div>
-      <div class="chart-meta"><div class="chart-title">${title||'Untitled'}</div>${desc?`<div class="chart-desc">${desc}</div>`:''}<div class="chart-footer"><span class="chart-tag">${cat}</span>${date?`<span class="chart-date">${date}</span>`:''}</div></div>
-    </div>`;
-    return`<div class="chart-card">
-      <iframe class="chart-embed" src="${url}" height="${height}" scrolling="no" frameborder="0" title="${title}"></iframe>
-      <div class="chart-meta"><div class="chart-title">${title||'Untitled'}</div>${desc?`<div class="chart-desc">${desc}</div>`:''}<div class="chart-footer"><span class="chart-tag">${cat}</span>${date?`<span class="chart-date">${date}</span>`:''}</div></div>
-    </div>`;
-  }).join('');
-}
+  function buildFilterOptions() {
+    const cats = [...new Set(allCharts.map(c => fieldVal(c.Category)).filter(Boolean))].sort();
+    const sel = document.getElementById('filterCategory');
+    while (sel.options.length > 1) sel.remove(1);
+    cats.forEach(o => { const op = document.createElement('option'); op.value = o; op.textContent = o; sel.appendChild(op); });
+  }
 
-function filterCharts(){renderCharts();}
-function setCategory(el,cat){
-  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');activeCategory=cat;renderCharts();
-}
+  function onFilterChange() { currentPage = 1; applyFilters(); }
 
-loadCharts();
+  function applyFilters() {
+    const q   = document.getElementById('searchInput').value.trim().toLowerCase();
+    const cat = document.getElementById('filterCategory').value;
+
+    filtered = allCharts.filter(c => {
+      const title = (c.Title || '').toLowerCase();
+      const desc  = (c.Description || '').toLowerCase();
+      const tags  = fieldArr(c.Tags).join(' ').toLowerCase();
+      return (
+        (!q   || title.includes(q) || desc.includes(q) || tags.includes(q)) &&
+        (!cat || fieldVal(c.Category) === cat)
+      );
+    });
+
+    updateChips(q, cat);
+    updateMeta(q);
+    document.getElementById('clearBtn').classList.toggle('hidden', !(q || cat));
+    renderPage();
+    renderPagination();
+  }
+
+  function clearFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterCategory').value = '';
+    onFilterChange();
+  }
+
+  function updateChips(q, cat) {
+    const wrap = document.getElementById('activeFilters');
+    wrap.innerHTML = '';
+    const chips = [
+      q   && ['Search',   q,   () => { document.getElementById('searchInput').value='';    onFilterChange(); }],
+      cat && ['Category', cat, () => { document.getElementById('filterCategory').value=''; onFilterChange(); }],
+    ].filter(Boolean);
+    if (!chips.length) { wrap.classList.add('hidden'); return; }
+    wrap.classList.remove('hidden');
+    chips.forEach(([label, val, clear]) => {
+      const el = document.createElement('div');
+      el.className = 'filter-chip';
+      el.innerHTML = `<span>${label}: <strong>${val}</strong></span><button title="Remove">&#x2715;</button>`;
+      el.querySelector('button').onclick = clear;
+      wrap.appendChild(el);
+    });
+  }
+
+  function updateMeta(q) {
+    const meta = document.getElementById('resultsMeta');
+    if (filtered.length === allCharts.length && !q) { meta.style.display = 'none'; return; }
+    meta.style.display = 'flex';
+    document.getElementById('resultsCount').textContent = `${filtered.length} result${filtered.length!==1?'s':''}`;
+    document.getElementById('resultsQuery').textContent = q ? `for "${q}"` : '';
+  }
+
+  function showLoading() {
+    const g = document.getElementById('chartGrid');
+    g.className = 'chart-grid';
+    g.innerHTML = `<div class="state-display"><div class="spinner" role="status" aria-label="Loading"></div><p>Loading charts from Baserow…</p></div>`;
+    document.getElementById('pagination').innerHTML = '';
+  }
+
+  function showState(type, msg) {
+    const g = document.getElementById('chartGrid');
+    g.className = 'chart-grid';
+    const html = {
+      'empty':    `<span class="state-icon">&#x1F50D;</span><h3>No charts found</h3><p>Try adjusting your search or clearing your filters.</p>`,
+      'empty-db': `<span class="state-icon">&#x1F4ED;</span><h3>No charts yet</h3><p>Add rows to your Baserow Charts table and they will appear here automatically.</p>`,
+      'error':    `<span class="state-icon">&#x26A0;</span><h3>Could not load charts</h3><p>${msg || 'Unknown error.'}</p><p>Open the browser console (F12) for more detail.</p>`,
+    };
+    g.innerHTML = `<div class="state-display">${html[type]||html['error']}</div>`;
+    document.getElementById('pagination').innerHTML = '';
+  }
+
+  function renderPage() {
+    const grid = document.getElementById('chartGrid');
+    grid.innerHTML = '';
+    grid.className = `chart-grid${currentView==='list'?' list-view':''}`;
+    if (!filtered.length) { showState('empty'); return; }
+    filtered.slice((currentPage-1)*PAGE_SIZE, currentPage*PAGE_SIZE).forEach(c => grid.appendChild(buildCard(c)));
+    if (!document.getElementById('dw-script')) {
+      const s = document.createElement('script');
+      s.id = 'dw-script'; s.src = 'https://datawrapper.dwcdn.net/lib/embed.js';
+      document.head.appendChild(s);
+    }
+  }
+
+  function buildCard(chart) {
+    const title    = chart.Title || 'Untitled';
+    const desc     = chart.Description || '';
+    const embedUrl = toEmbedUrl(chart['Embed URL'], chart['Datawrapper ID']);
+    const category = fieldVal(chart.Category);
+    const tags     = fieldArr(chart.Tags);
+    const date     = chart['Date Published']
+      ? new Date(chart['Date Published']).toLocaleDateString('en-GB', {month:'short', year:'numeric'})
+      : '';
+
+    const card = document.createElement('div');
+    card.className = 'chart-card';
+    card.setAttribute('role', 'listitem');
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-eyebrow">
+          ${category ? `<span class="card-category">${category}</span>` : ''}
+        </div>
+        <div class="card-title">${title}</div>
+        ${desc ? `<div class="card-desc">${desc}</div>` : ''}
+      </div>
+      <div class="card-bottom">
+        <div class="card-left">
+          ${date ? `<span class="card-date">${date}</span>` : ''}
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            ${tags.map(t=>`<span class="tag">${t}</span>`).join('')}
+          </div>
+        </div>
+        ${embedUrl ? `<button class="view-btn-card">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          View
+        </button>` : ''}
+      </div>
+    `;
+
+    card.querySelectorAll('.tag').forEach(t => {
+      t.onclick = e => { e.stopPropagation(); document.getElementById('searchInput').value = t.textContent.trim(); onFilterChange(); };
+    });
+
+    if (embedUrl) card.onclick = () => openModal(chart);
+    return card;
+  }
+
+  function openModal(chart) {
+    const title    = chart.Title || 'Untitled';
+    const desc     = chart.Description || '';
+    const embedUrl = toEmbedUrl(chart['Embed URL'], chart['Datawrapper ID']);
+    const category = fieldVal(chart.Category);
+    const tags     = fieldArr(chart.Tags);
+    const date     = chart['Date Published']
+      ? new Date(chart['Date Published']).toLocaleDateString('en-GB', {month:'long', year:'numeric'})
+      : '';
+
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalDesc').textContent  = desc;
+    document.getElementById('modalDate').textContent  = date;
+    const catEl = document.getElementById('modalCategory');
+    catEl.textContent = category;
+    catEl.style.display = category ? '' : 'none';
+    document.getElementById('modalTags').innerHTML = tags.map(t => `<span class="tag" style="cursor:default">${t}</span>`).join('');
+    document.getElementById('modalIframe').src   = embedUrl;
+    document.getElementById('modalIframe').title = title;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.getElementById('modalIframe').src = '';
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  function renderPagination() {
+    const wrap  = document.getElementById('pagination');
+    const total = Math.ceil(filtered.length / PAGE_SIZE);
+    wrap.innerHTML = '';
+    if (total <= 1) return;
+    const btn = (label, page, disabled, active) => {
+      const b = document.createElement('button');
+      b.className = `page-btn${active?' active':''}`;
+      b.textContent = label; b.disabled = !!disabled;
+      b.onclick = () => goPage(page);
+      return b;
+    };
+    wrap.appendChild(btn('Prev', currentPage-1, currentPage===1, false));
+    for (let p=1; p<=total; p++) {
+      if (total>7 && p!==1 && p!==total && Math.abs(p-currentPage)>1) {
+        if (p===currentPage-2||p===currentPage+2) {
+          const d=document.createElement('span'); d.textContent='...';
+          d.style.cssText='font-family:var(--mono);font-size:.72rem;color:var(--muted);padding:0 4px';
+          wrap.appendChild(d);
+        }
+        continue;
+      }
+      wrap.appendChild(btn(p, p, false, p===currentPage));
+    }
+    wrap.appendChild(btn('Next', currentPage+1, currentPage===total, false));
+  }
+
+  function goPage(p) {
+    currentPage = p; renderPage(); renderPagination();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function setView(v) {
+    currentView = v;
+    document.getElementById('viewGrid').classList.toggle('active', v==='grid');
+    document.getElementById('viewList').classList.toggle('active', v==='list');
+    document.getElementById('viewGrid').setAttribute('aria-pressed', v==='grid');
+    document.getElementById('viewList').setAttribute('aria-pressed', v==='list');
+    renderPage();
+  }
 </script>
 </body>
 </html>
