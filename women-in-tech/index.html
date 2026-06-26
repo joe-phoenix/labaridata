@@ -783,35 +783,59 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
+    /* Header */
     .site-header   { padding: 0 16px; }
     .header-brand  { display: none; }
+    .back-btn      { font-size: 10px; }
+
+    /* Hero */
     .hero          { padding: 24px 16px 20px; }
-    .hero h1       { font-size: 24px; line-height: 1.2; }
-    .hero-desc     { font-size: 13px; line-height: 1.6; }
-    .controls-bar  { padding: 10px 16px; }
+    .hero h1       { font-size: 22px; line-height: 1.2; }
+    .hero-desc     { font-size: 14px; line-height: 1.65; }
+
+    /* Controls */
+    .controls-bar  { padding: 10px 16px; gap: 6px; }
+    .search-row    { gap: 8px; }
+    .search-input  { font-size: 14px; padding: 9px 12px 9px 34px; }
     .filter-row    { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
     .filter-row > *:last-child { grid-column: 1 / -1; }
     .filter-label  { display: none; }
-    .content-area  { padding: 14px 16px; }
-    .card-grid     { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .person-card   { padding: 14px; gap: 10px; }
-    .avatar        { width: 40px; height: 40px; font-size: 15px; }
-    .card-top      { gap: 10px; align-items: center; }
-    .card-name     { font-size: 13px; font-weight: 600; }
-    .card-role     { font-size: 11px; }
-    .card-country  { font-size: 11px; }
-    .tag           { font-size: 10px; padding: 2px 7px; }
-    .card-org      { font-size: 11px; }
-    .view-toggle   { margin-left: auto; }
-    .multi-select-btn { font-size: 12px; }
-    select.filter-select { font-size: 12px; min-width: 0; }
+    select.filter-select { font-size: 13px; min-width: 0; padding: 8px 24px 8px 9px; }
+    .multi-select-btn    { font-size: 13px; padding: 8px 24px 8px 9px; }
+    .clear-all-btn { font-size: 11px; padding: 7px 12px; }
+    .view-toggle   { margin-left: auto; flex-shrink: 0; }
+
+    /* Cards — single column, full width */
+    .content-area  { padding: 12px 16px; }
+    .card-grid     { grid-template-columns: 1fr; gap: 10px; }
+    .person-card   { padding: 16px; gap: 10px; height: auto; }
+    .avatar        { width: 52px; height: 52px; font-size: 18px; }
+    .card-top      { align-items: center; }
+    .card-name     { font-size: 16px; font-weight: 600; line-height: 1.25; }
+    .card-role     { font-size: 13px; -webkit-line-clamp: 2; }
+    .card-country  { font-size: 13px; }
+    .tag           { font-size: 12px; padding: 4px 9px; }
+    .card-org      { font-size: 13px; }
+
+    /* Modal */
     .modal-overlay { padding: 12px; align-items: flex-end; }
-    .modal-card    { max-height: 90vh; border-radius: 16px 16px 10px 10px; }
+    .modal-card    { max-height: 92vh; border-radius: 16px 16px 10px 10px; }
+    .panel-header  { padding: 24px 20px 20px; border-radius: 16px 16px 0 0; }
+    .panel-avatar  { width: 80px; height: 80px; font-size: 28px; }
+    .panel-name    { font-size: 20px; }
+    .panel-body    { padding: 20px; gap: 16px; }
+
+    /* Footer */
     .site-footer   { padding: 20px 16px; flex-direction: column; align-items: flex-start; gap: 6px; }
+
+    /* Pagination */
+    .pagination    { gap: 4px; padding: 20px 0 4px; }
+    .page-btn      { padding: 5px 9px; font-size: 10px; min-width: 30px; }
+    .page-info     { display: none; }
   }
+
   @media (max-width: 400px) {
-    .card-grid     { grid-template-columns: 1fr; }
-    .hero h1       { font-size: 22px; }
+    .hero h1       { font-size: 20px; }
     .modal-overlay { padding: 0; }
     .modal-card    { border-radius: 16px 16px 0 0; max-height: 95vh; }
   }
