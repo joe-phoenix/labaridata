@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Labari Charts — African Data Visualisations | Labari Data</title>
+<meta name="description" content="Interactive data visualisations from the Labari Data team — charts and graphics illustrating economic, political, and social trends across Africa.">
+<meta name="author" content="Labari Data">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://labaridata.com/charts">
+<meta property="og:title" content="Labari Charts — African Data Visualisations | Labari Data">
+<meta property="og:description" content="Interactive charts and data graphics covering economic, political, and social trends across Africa.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://labaridata.com/charts">
+<meta property="og:site_name" content="Labari Data">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@labarijournal">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%236CF0E8'/><text y='.9em' font-size='72' x='50%' text-anchor='middle' dy='0.15em'>📊</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--teal:#0BC4BA;--teal-dim:rgba(11,196,186,0.1);--bg:#FAFBFC;--surface:#FFF;--border:#E5E7EB;--ink:#111;--ink-mid:#444;--ink-soft:#888;}
+html{font-size:16px;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+
+/* ── LABARI DATA NAV ── */
+.ld-nav{background:#0F0F1A;border-bottom:1px solid #2E2E4A;padding:0 24px;height:48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
+.ld-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.ld-logo{width:24px;height:24px;background:#E8A838;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;color:#0F0F1A;}
+.ld-wordmark{font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:700;color:#F0EDE8;letter-spacing:-.01em;}
+.ld-wordmark span{color:#E8A838;}
+.ld-back{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#5A5A78;text-decoration:none;transition:color .2s;}
+.ld-back:hover{color:#E8A838;}
+
+.tool-header{background:linear-gradient(135deg,#0a2828 0%,#0d3535 100%);padding:40px 32px 36px;border-bottom:3px solid var(--teal);}
+.tool-header-inner{max-width:1100px;margin:0 auto;}
+.tool-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(11,196,186,.7);margin-bottom:12px;}
+.tool-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.02em;}
+.tool-title span{color:#6CF0E8;}
+.tool-sub{font-size:14px;color:rgba(255,255,255,.5);max-width:500px;line-height:1.65;}
+
+.controls{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:48px;z-index:90;}
+.search-wrap{position:relative;flex:1;min-width:180px;max-width:280px;}
+.search-wrap input{width:100%;padding:8px 12px 8px 34px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;font-family:inherit;background:var(--bg);color:var(--ink);outline:none;transition:border-color .15s;}
+.search-wrap input:focus{border-color:var(--teal);}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink-soft);pointer-events:none;}
+.filter-chip{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--ink-soft);}
+.filter-chip:hover{border-color:var(--ink);color:var(--ink);}
+.filter-chip.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+.chart-count{font-size:.75rem;color:var(--ink-soft);margin-left:auto;}
+
+.main{max-width:1100px;margin:0 auto;padding:28px 32px 60px;}
+
+.charts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:box-shadow .2s,transform .2s;}
+.chart-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08);transform:translateY(-2px);}
+.chart-embed{width:100%;border:none;display:block;}
+.chart-meta{padding:14px 16px 12px;}
+.chart-title{font-family:'Space Grotesk',sans-serif;font-size:.88rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.3;}
+.chart-desc{font-size:.75rem;color:var(--ink-soft);line-height:1.5;margin-bottom:8px;}
+.chart-footer{display:flex;align-items:center;justify-content:space-between;}
+.chart-tag{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:var(--teal-dim);color:var(--teal);}
+.chart-date{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--ink-soft);}
+
+.empty{text-align:center;padding:80px 24px;color:var(--ink-soft);}
+.empty-icon{font-size:3rem;margin-bottom:16px;}
+.empty h3{font-size:1.1rem;font-weight:600;color:var(--ink-mid);margin-bottom:8px;}
+
+/* ── LABARI DATA FOOTER ── */
+.ld-footer{background:#0F0F1A;border-top:1px solid #2E2E4A;padding:1.5rem 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.ld-footer-brand{font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:600;color:#5A5A78;}
+.ld-footer-brand span{color:#E8A838;}
+.ld-footer-links{display:flex;gap:1.5rem;list-style:none;}
+.ld-footer-links a{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#3D3D5C;text-decoration:none;transition:color .2s;}
+.ld-footer-links a:hover{color:#E8A838;}
+.ld-footer-copy{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#3D3D5C;}
+
+@media(max-width:680px){
+  .tool-header,.main{padding-left:20px;padding-right:20px;}
+  .controls{padding:10px 20px;}
+  .charts-grid{grid-template-columns:1fr;}
+  .ld-footer{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- LABARI DATA NAV -->
+<nav class="ld-nav">
+  <a href="https://labaridata.com" class="ld-brand">
+    <div class="ld-logo">LD</div>
+    <span class="ld-wordmark">Labari <span>Data</span></span>
+  </a>
+  <a href="https://labaridata.com" class="ld-back">← All Tools</a>
+</nav>
+
+<div class="tool-header">
+  <div class="tool-header-inner">
+    <div class="tool-eyebrow">labaridata.com/charts</div>
+    <h1 class="tool-title">Labari <span>Charts</span></h1>
+    <p class="tool-sub">Interactive data visualisations from the Labari Data team — charts and graphics illustrating trends across Africa.</p>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="search" placeholder="Search charts…" oninput="filterCharts()">
+  </div>
+  <button class="filter-chip active" data-cat="all" onclick="setCategory(this,'all')">All</button>
+  <button class="filter-chip" data-cat="economy" onclick="setCategory(this,'economy')">Economy</button>
+  <button class="filter-chip" data-cat="politics" onclick="setCategory(this,'politics')">Politics</button>
+  <button class="filter-chip" data-cat="tech" onclick="setCategory(this,'tech')">Tech</button>
+  <button class="filter-chip" data-cat="society" onclick="setCategory(this,'society')">Society</button>
+  <span class="chart-count" id="chart-count"></span>
+</div>
+
+<main class="main">
+  <div class="charts-grid" id="charts-grid"></div>
+  <div class="empty" id="empty" style="display:none">
+    <div class="empty-icon">📊</div>
+    <h3>No charts found</h3>
+    <p>Try a different search or category.</p>
+  </div>
+</main>
+
+<footer class="ld-footer">
+  <div class="ld-footer-brand">Labari <span>Data</span> — Labari Charts</div>
+  <ul class="ld-footer-links">
+    <li><a href="https://labaridata.com">All Tools</a></li>
+    <li><a href="https://labarijournal.com">Journal</a></li>
+    <li><a href="https://techlabari.com">TechLabari</a></li>
+    <li><a href="mailto:data@labarijournal.com">Contact</a></li>
+  </ul>
+  <div class="ld-footer-copy">© 2026 Labari Media. All rights reserved.</div>
+</footer>
+
+<script>
+// Charts are Datawrapper embeds stored in Baserow
+// Replace BASEROW_URL with your actual Cloudflare Worker proxy for the charts table
+const WORKER_URL='https://labari-charts.joseph-kuuire.workers.dev';
+
+// Fallback static charts if API unavailable
+const FALLBACK_CHARTS=[
+  {id:'fallback-1',title:'Ghana GDP Growth 2015–2025',description:'Annual GDP growth rate for Ghana over the past decade, with key economic events marked.',category:'economy',date:'Jun 2026',embedUrl:'https://datawrapper.dwcdn.net/example1/1/'},
+  {id:'fallback-2',title:'African Mobile Internet Penetration 2024',description:'Mobile internet penetration rates across Sub-Saharan Africa, by country.',category:'tech',date:'May 2026',embedUrl:'https://datawrapper.dwcdn.net/example2/1/'},
+  {id:'fallback-3',title:'West Africa Election Calendar 2025–2027',description:'Upcoming and recent elections across ECOWAS member states.',category:'politics',date:'Jun 2026',embedUrl:'https://datawrapper.dwcdn.net/example3/1/'},
+];
+
+let allCharts=[],activeCategory='all';
+
+async function loadCharts(){
+  try{
+    const res=await fetch(WORKER_URL);
+    if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    const json=await res.json();
+    allCharts=(json.results||[]).filter(r=>r['Chart URL']||r['Embed URL']||r['Title']);
+    if(!allCharts.length)throw new Error('No charts in database');
+    renderCharts();
+  }catch(err){
+    console.warn('Using fallback charts:',err.message);
+    allCharts=FALLBACK_CHARTS;
+    renderCharts();
+  }
+}
+
+function getField(r,keys){for(const k of keys){if(r[k])return r[k];}return '';}
+
+function renderCharts(){
+  const q=document.getElementById('search').value.toLowerCase();
+  let charts=allCharts;
+  if(activeCategory!=='all')charts=charts.filter(r=>(getField(r,['Category','Tag','Type'])||'').toLowerCase()===activeCategory);
+  if(q)charts=charts.filter(r=>JSON.stringify(r).toLowerCase().includes(q));
+  document.getElementById('chart-count').textContent=`${charts.length} chart${charts.length!==1?'s':''}`;
+  const grid=document.getElementById('charts-grid');
+  const empty=document.getElementById('empty');
+  if(!charts.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  grid.innerHTML=charts.map(r=>{
+    const title=getField(r,['Title','Chart Title','Name']);
+    const desc=getField(r,['Description','Notes','About']);
+    const url=getField(r,['Chart URL','Embed URL','Datawrapper URL']);
+    const cat=getField(r,['Category','Tag','Type'])||'Data';
+    const date=getField(r,['Date','Published','Last Updated'])||'';
+    const height=r['Height']||400;
+    if(!url||url.includes('example'))return`<div class="chart-card">
+      <div style="height:${height}px;background:#F3F8F8;display:flex;align-items:center;justify-content:center;color:#9CA3AF;font-size:.8rem;">Chart preview unavailable</div>
+      <div class="chart-meta"><div class="chart-title">${title||'Untitled'}</div>${desc?`<div class="chart-desc">${desc}</div>`:''}<div class="chart-footer"><span class="chart-tag">${cat}</span>${date?`<span class="chart-date">${date}</span>`:''}</div></div>
+    </div>`;
+    return`<div class="chart-card">
+      <iframe class="chart-embed" src="${url}" height="${height}" scrolling="no" frameborder="0" title="${title}"></iframe>
+      <div class="chart-meta"><div class="chart-title">${title||'Untitled'}</div>${desc?`<div class="chart-desc">${desc}</div>`:''}<div class="chart-footer"><span class="chart-tag">${cat}</span>${date?`<span class="chart-date">${date}</span>`:''}</div></div>
+    </div>`;
+  }).join('');
+}
+
+function filterCharts(){renderCharts();}
+function setCategory(el,cat){
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');activeCategory=cat;renderCharts();
+}
+
+loadCharts();
+</script>
+</body>
+</html>
