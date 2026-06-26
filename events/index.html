@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Africa Events Calendar | Labari Data</title>
+<meta name="description" content="A pan-African events database tracking conferences, summits, festivals, and cultural moments across the continent — from tech gatherings to Detty December.">
+<meta name="author" content="Labari Data">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://labaridata.com/events">
+<meta property="og:title" content="Africa Events Calendar | Labari Data">
+<meta property="og:description" content="Pan-African events — conferences, summits, festivals, and cultural moments across the continent.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://labaridata.com/events">
+<meta property="og:site_name" content="Labari Data">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@labarijournal">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23F09D6C'/><text y='.9em' font-size='72' x='50%' text-anchor='middle' dy='0.15em'>📅</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --orange:#F09D6C;--orange-dim:rgba(240,157,108,0.1);
+  --bg:#FDFBF9;--surface:#FFF;--border:#E8E0D8;--ink:#1A1208;--ink-mid:#5C4A30;--ink-soft:#9A8A6A;
+  --shadow:0 1px 4px rgba(26,18,8,.07),0 4px 16px rgba(26,18,8,.05);
+}
+html{font-size:16px;scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+
+/* ── LABARI DATA NAV ── */
+.ld-nav{background:#0F0F1A;border-bottom:1px solid #2E2E4A;padding:0 24px;height:48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
+.ld-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.ld-logo{width:24px;height:24px;background:#E8A838;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;color:#0F0F1A;}
+.ld-wordmark{font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:700;color:#F0EDE8;letter-spacing:-.01em;}
+.ld-wordmark span{color:#E8A838;}
+.ld-back{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#5A5A78;text-decoration:none;transition:color .2s;}
+.ld-back:hover{color:#E8A838;}
+
+.tool-header{background:linear-gradient(135deg,#1a0e04 0%,#2a1608 100%);padding:40px 32px 36px;border-bottom:3px solid var(--orange);}
+.tool-header-inner{max-width:1100px;margin:0 auto;}
+.tool-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,157,108,.7);margin-bottom:12px;}
+.tool-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.02em;}
+.tool-title span{color:var(--orange);}
+.tool-sub{font-size:14px;color:rgba(255,255,255,.5);max-width:520px;line-height:1.65;}
+
+.controls{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:48px;z-index:90;}
+.search-wrap{position:relative;flex:1;min-width:180px;max-width:280px;}
+.search-wrap input{width:100%;padding:8px 12px 8px 34px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;font-family:inherit;background:var(--bg);color:var(--ink);outline:none;transition:border-color .15s;}
+.search-wrap input:focus{border-color:var(--orange);}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink-soft);pointer-events:none;}
+.filter-select{padding:7px 28px 7px 10px;border:1px solid var(--border);border-radius:6px;font-size:.8rem;font-family:inherit;background:var(--bg);color:var(--ink);outline:none;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239A8A6A'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;}
+.filter-select:focus{border-color:var(--orange);}
+.view-toggle{display:flex;background:var(--bg);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.view-btn{width:34px;height:34px;border:none;background:transparent;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+.view-btn.active{background:var(--orange);color:#fff;}
+.event-count{font-size:.75rem;color:var(--ink-soft);margin-left:auto;}
+
+.main{max-width:1100px;margin:0 auto;padding:24px 32px 60px;}
+
+/* Cards view */
+.events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+.event-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s;cursor:pointer;}
+.event-card:hover{box-shadow:0 4px 20px rgba(26,18,8,.1);transform:translateY(-2px);}
+.event-card-top{padding:16px 16px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.event-date-box{text-align:center;background:var(--orange-dim);border:1px solid rgba(240,157,108,.25);border-radius:8px;padding:8px 10px;flex-shrink:0;min-width:52px;}
+.event-date-day{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:var(--orange);line-height:1;}
+.event-date-mon{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);opacity:.7;}
+.event-type{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--orange-dim);color:var(--orange);}
+.event-body{padding:12px 16px 16px;}
+.event-title{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:5px;line-height:1.3;}
+.event-location{font-size:.75rem;color:var(--ink-soft);display:flex;align-items:center;gap:4px;margin-bottom:8px;}
+.event-desc{font-size:.78rem;color:var(--ink-mid);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.event-footer{padding:10px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.event-country{font-size:.7rem;color:var(--ink-soft);}
+.event-link{font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:500;letter-spacing:.04em;color:var(--orange);text-decoration:none;text-transform:uppercase;transition:opacity .15s;}
+.event-link:hover{opacity:.7;}
+
+/* List view */
+.events-list{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
+.events-list-item{display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer;}
+.events-list-item:last-child{border-bottom:none;}
+.events-list-item:hover{background:var(--bg);}
+.list-date{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft);line-height:1.5;}
+.list-title{font-weight:600;font-size:.85rem;color:var(--ink);margin-bottom:2px;}
+.list-meta{font-size:.75rem;color:var(--ink-soft);}
+.list-type{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--orange-dim);color:var(--orange);}
+
+.empty{text-align:center;padding:80px 24px;color:var(--ink-soft);}
+.empty-icon{font-size:3rem;margin-bottom:16px;}
+.empty h3{font-size:1.1rem;font-weight:600;color:var(--ink-mid);margin-bottom:8px;}
+
+.error-banner{background:#fff8f3;border:1px solid #f0c090;border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:.84rem;color:#7A4010;display:none;}
+.skel{background:linear-gradient(90deg,#ede8e0 25%,#f5f2ec 50%,#ede8e0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:4px;height:14px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── LABARI DATA FOOTER ── */
+.ld-footer{background:#0F0F1A;border-top:1px solid #2E2E4A;padding:1.5rem 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.ld-footer-brand{font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:600;color:#5A5A78;}
+.ld-footer-brand span{color:#E8A838;}
+.ld-footer-links{display:flex;gap:1.5rem;list-style:none;}
+.ld-footer-links a{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#3D3D5C;text-decoration:none;transition:color .2s;}
+.ld-footer-links a:hover{color:#E8A838;}
+.ld-footer-copy{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#3D3D5C;}
+
+@media(max-width:680px){
+  .tool-header,.main{padding-left:20px;padding-right:20px;}
+  .controls{padding:10px 20px;}
+  .events-grid{grid-template-columns:1fr;}
+  .events-list-item{grid-template-columns:60px 1fr;}
+  .list-type{display:none;}
+  .ld-footer{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- LABARI DATA NAV -->
+<nav class="ld-nav">
+  <a href="https://labaridata.com" class="ld-brand">
+    <div class="ld-logo">LD</div>
+    <span class="ld-wordmark">Labari <span>Data</span></span>
+  </a>
+  <a href="https://labaridata.com" class="ld-back">← All Tools</a>
+</nav>
+
+<div class="tool-header">
+  <div class="tool-header-inner">
+    <div class="tool-eyebrow">labaridata.com/events</div>
+    <h1 class="tool-title">Africa <span>Events Calendar</span></h1>
+    <p class="tool-sub">A pan-African events database tracking conferences, summits, festivals, and cultural moments across the continent — from tech gatherings to Detty December.</p>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="search" placeholder="Search events…" oninput="applyFilters()">
+  </div>
+  <select class="filter-select" id="f-type" onchange="applyFilters()"><option value="">All types</option></select>
+  <select class="filter-select" id="f-country" onchange="applyFilters()"><option value="">All countries</option></select>
+  <select class="filter-select" id="f-month" onchange="applyFilters()">
+    <option value="">All months</option>
+    <option>January</option><option>February</option><option>March</option><option>April</option>
+    <option>May</option><option>June</option><option>July</option><option>August</option>
+    <option>September</option><option>October</option><option>November</option><option>December</option>
+  </select>
+  <div class="view-toggle">
+    <button class="view-btn active" id="vbtn-card" onclick="setView('card')" title="Card view">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    </button>
+    <button class="view-btn" id="vbtn-list" onclick="setView('list')" title="List view">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    </button>
+  </div>
+  <span class="event-count" id="event-count"></span>
+</div>
+
+<main class="main">
+  <div class="error-banner" id="error-banner"></div>
+  <div id="card-view" class="events-grid"></div>
+  <div id="list-view" class="events-list" style="display:none"></div>
+  <div class="empty" id="empty" style="display:none">
+    <div class="empty-icon">📅</div>
+    <h3>No events found</h3>
+    <p>Try adjusting your search or filters.</p>
+  </div>
+</main>
+
+<footer class="ld-footer">
+  <div class="ld-footer-brand">Labari <span>Data</span> — Africa Events Calendar</div>
+  <ul class="ld-footer-links">
+    <li><a href="https://labaridata.com">All Tools</a></li>
+    <li><a href="https://labarijournal.com">Journal</a></li>
+    <li><a href="https://techlabari.com">TechLabari</a></li>
+    <li><a href="mailto:data@labarijournal.com">Contact</a></li>
+  </ul>
+  <div class="ld-footer-copy">© 2026 Labari Media. All rights reserved.</div>
+</footer>
+
+<script>
+// Baserow-backed via Cloudflare Worker — same pattern as other Labari tools
+// Replace with your actual worker URL for the events table
+const WORKER_URL='https://labari-events.joseph-kuuire.workers.dev';
+
+let allEvents=[],filtered=[];
+let viewMode='card';
+
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function extractVal(v){if(!v)return '';if(typeof v==='object'&&v.value)return v.value;return String(v).trim();}
+function toArr(val){if(!val)return[];if(Array.isArray(val))return val.map(extractVal).filter(Boolean);if(typeof val==='object'&&val.value)return[val.value];return String(val).split(';').map(s=>s.trim()).filter(Boolean);}
+function getField(r,...keys){for(const k of keys){if(r[k])return r[k];}return '';}
+
+function parseDate(str){
+  if(!str)return null;
+  const d=new Date(str);return isNaN(d)?null:d;
+}
+function formatDate(d){
+  if(!d)return{day:'—',mon:'—',full:'—'};
+  return{day:d.getDate(),mon:MONTHS[d.getMonth()].slice(0,3).toUpperCase(),full:`${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`};
+}
+
+async function loadEvents(){
+  try{
+    let records=[],page=1,hasMore=true;
+    while(hasMore){
+      const r=await fetch(`${WORKER_URL}?page=${page}`);
+      if(!r.ok)throw new Error(`HTTP ${r.status}`);
+      const j=await r.json();
+      records=records.concat(j.results||[]);
+      hasMore=!!j.next;page++;
+    }
+    allEvents=records.filter(r=>getField(r,'Event Name','Title','Name'));
+    // Sort by date ascending
+    allEvents.sort((a,b)=>{
+      const da=parseDate(getField(a,'Date','Start Date','Event Date'));
+      const db=parseDate(getField(b,'Date','Start Date','Event Date'));
+      if(!da&&!db)return 0;if(!da)return 1;if(!db)return -1;
+      return da-db;
+    });
+    populateFilters();applyFilters();
+  }catch(err){
+    document.getElementById('error-banner').style.display='block';
+    document.getElementById('error-banner').textContent=`Could not load events: ${err.message}`;
+    // Show demo cards
+    allEvents=getDemoEvents();
+    populateFilters();applyFilters();
+  }
+}
+
+function getDemoEvents(){
+  return[
+    {_name:'Africa Fintech Summit 2026',_type:'Conference',_country:'Ghana',_date:'2026-09-15',_city:'Accra',_desc:'The premier gathering of African fintech founders, investors, and regulators.'},
+    {_name:'Detty December 2026',_type:'Festival',_country:'Ghana',_date:'2026-12-20',_city:'Accra',_desc:'Annual pan-African cultural festival season across Accra.',},
+    {_name:'Lagos Tech Week',_type:'Conference',_country:'Nigeria',_date:'2026-10-05',_city:'Lagos',_desc:'A week-long celebration of Nigerian and African technology.'},
+    {_name:'Nairobi Innovation Week',_type:'Summit',_country:'Kenya',_date:'2026-11-10',_city:'Nairobi',_desc:'Annual showcase of East African innovation across sectors.'},
+    {_name:'AFCON 2027 Qualifiers',_type:'Sports',_country:'Various',_date:'2026-09-01',_city:'Various',_desc:'Group stage qualifiers for Africa Cup of Nations 2027.'},
+  ].map(e=>({_demo:true,...e}));
+}
+
+function getEventField(r,...keys){
+  if(r._demo){const k=keys[0];return r[k]||'';}
+  return getField(r,...keys);
+}
+
+function populateFilters(){
+  const types=[...new Set(allEvents.map(r=>extractVal(getEventField(r,'Type','Event Type','Category','_type'))).filter(Boolean))].sort();
+  const countries=[...new Set(allEvents.map(r=>extractVal(getEventField(r,'Country','_country'))).filter(Boolean))].sort();
+  document.getElementById('f-type').innerHTML=`<option value="">All types</option>`+types.map(t=>`<option>${t}</option>`).join('');
+  document.getElementById('f-country').innerHTML=`<option value="">All countries</option>`+countries.map(c=>`<option>${c}</option>`).join('');
+}
+
+function applyFilters(){
+  const q=document.getElementById('search').value.toLowerCase();
+  const type=document.getElementById('f-type').value;
+  const country=document.getElementById('f-country').value;
+  const month=document.getElementById('f-month').value;
+  filtered=[...allEvents];
+  if(q)filtered=filtered.filter(r=>JSON.stringify(r).toLowerCase().includes(q));
+  if(type)filtered=filtered.filter(r=>extractVal(getEventField(r,'Type','Event Type','Category','_type'))===type);
+  if(country)filtered=filtered.filter(r=>extractVal(getEventField(r,'Country','_country'))===country);
+  if(month){
+    filtered=filtered.filter(r=>{
+      const d=parseDate(getEventField(r,'Date','Start Date','Event Date','_date'));
+      return d&&MONTHS[d.getMonth()]===month;
+    });
+  }
+  document.getElementById('event-count').textContent=`${filtered.length} event${filtered.length!==1?'s':''}`;
+  renderEvents();
+}
+
+function renderEvents(){
+  const cardView=document.getElementById('card-view');
+  const listView=document.getElementById('list-view');
+  const empty=document.getElementById('empty');
+  if(!filtered.length){
+    cardView.innerHTML='';listView.innerHTML='';empty.style.display='block';return;
+  }
+  empty.style.display='none';
+  if(viewMode==='card'){
+    cardView.innerHTML=filtered.map(r=>{
+      const name=getEventField(r,'Event Name','Title','Name','_name');
+      const type=extractVal(getEventField(r,'Type','Event Type','Category','_type'))||'Event';
+      const country=extractVal(getEventField(r,'Country','_country'))||'';
+      const city=getEventField(r,'City','Location','Venue','_city')||'';
+      const desc=getEventField(r,'Description','About','Notes','_desc')||'';
+      const url=getEventField(r,'URL','Website','Link','_url')||'';
+      const d=parseDate(getEventField(r,'Date','Start Date','Event Date','_date'));
+      const {day,mon}=formatDate(d);
+      return`<div class="event-card">
+        <div class="event-card-top">
+          <div class="event-date-box"><div class="event-date-day">${day}</div><div class="event-date-mon">${mon}</div></div>
+          <span class="event-type">${type}</span>
+        </div>
+        <div class="event-body">
+          <div class="event-title">${name}</div>
+          <div class="event-location">📍 ${[city,country].filter(Boolean).join(', ')||'Africa'}</div>
+          ${desc?`<div class="event-desc">${desc}</div>`:''}
+        </div>
+        <div class="event-footer">
+          <span class="event-country">${country||'Africa'}</span>
+          ${url?`<a class="event-link" href="${url}" target="_blank" rel="noopener">Register →</a>`:''}
+        </div>
+      </div>`;
+    }).join('');
+    listView.style.display='none';cardView.style.display='grid';
+  }else{
+    listView.innerHTML=filtered.map(r=>{
+      const name=getEventField(r,'Event Name','Title','Name','_name');
+      const type=extractVal(getEventField(r,'Type','Event Type','Category','_type'))||'Event';
+      const country=extractVal(getEventField(r,'Country','_country'))||'';
+      const city=getEventField(r,'City','Location','Venue','_city')||'';
+      const d=parseDate(getEventField(r,'Date','Start Date','Event Date','_date'));
+      const {day,mon,full}=formatDate(d);
+      return`<div class="events-list-item">
+        <div class="list-date">${day} ${mon}</div>
+        <div><div class="list-title">${name}</div><div class="list-meta">📍 ${[city,country].filter(Boolean).join(', ')||'Africa'}</div></div>
+        <span class="list-type">${type}</span>
+      </div>`;
+    }).join('');
+    cardView.style.display='none';listView.style.display='block';
+  }
+}
+
+function setView(mode){
+  viewMode=mode;
+  document.getElementById('vbtn-card').classList.toggle('active',mode==='card');
+  document.getElementById('vbtn-list').classList.toggle('active',mode==='list');
+  renderEvents();
+}
+
+loadEvents();
+</script>
+</body>
+</html>
