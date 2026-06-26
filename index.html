@@ -3,38 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Labari Data — African Data Intelligence</title>
-  <meta name="description" content="Labari Data is Africa's open data intelligence hub — tracking markets, governance, people, and mobility across the continent." />
+  <title>Labari Data — Essential Data Tracking Across Africa</title>
+  <meta name="description" content="Essential data and information tracking across Africa — markets, governance, people, and mobility." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6V7MF72R0Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-6V7MF72R0Q');
-</script>
-  
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0F0F1A;
-      --surface: #1A1A2E;
-      --card: #1E1E32;
-      --border: #2E2E4A;
-      --amber: #E8A838;
-      --amber-dim: rgba(232, 168, 56, 0.12);
-      --text: #F0EDE8;
-      --text-muted: #8A8AA8;
-      --text-dim: #5A5A78;
-      --green: #3DD68C;
-      --blue: #5B9CF6;
-      --rose: #F06C6C;
+      --bg: #ffffff;
+      --surface: #f8f8f8;
+      --card: #ffffff;
+      --border: #e8e8e8;
+      --accent: #2563EB;
+      --accent-dim: rgba(37, 99, 235, 0.08);
+      --text: #111111;
+      --text-muted: #555555;
+      --text-dim: #999999;
+      --green: #1a9e5c;
+      --rose: #dc2626;
     }
 
     html { scroll-behavior: smooth; }
@@ -42,48 +30,11 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
-    }
-
-    /* ── TICKER ── */
-    .ticker-wrap {
-      background: var(--amber);
-      overflow: hidden;
-      white-space: nowrap;
-      height: 32px;
-      display: flex;
-      align-items: center;
-    }
-
-    .ticker-track {
-      display: inline-flex;
-      animation: ticker 40s linear infinite;
-    }
-
-    .ticker-track:hover { animation-play-state: paused; }
-
-    .ticker-item {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      font-weight: 500;
-      color: #0F0F1A;
-      letter-spacing: 0.04em;
-      padding: 0 2rem;
-      text-transform: uppercase;
-    }
-
-    .ticker-item::before {
-      content: '▸ ';
-      opacity: 0.5;
-    }
-
-    @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
     }
 
     /* ── NAV ── */
@@ -95,47 +46,40 @@
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      background: rgba(15, 15, 26, 0.92);
+      background: rgba(255,255,255,0.96);
       backdrop-filter: blur(12px);
       z-index: 100;
     }
-
     .nav-brand {
       display: flex;
       align-items: center;
       gap: 0.6rem;
       text-decoration: none;
     }
-
     .nav-logo {
       width: 28px;
       height: 28px;
-      background: var(--amber);
+      background: var(--accent);
       border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
     .nav-logo svg { width: 16px; height: 16px; }
-
     .nav-wordmark {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 1rem;
       font-weight: 700;
       color: var(--text);
       letter-spacing: -0.01em;
     }
-
-    .nav-wordmark span { color: var(--amber); }
-
+    .nav-wordmark span { color: var(--accent); }
     .nav-links {
       display: flex;
       align-items: center;
       gap: 2rem;
       list-style: none;
     }
-
     .nav-links a {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 11px;
@@ -146,27 +90,23 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
-
-    .nav-links a:hover { color: var(--amber); }
-
+    .nav-links a:hover { color: var(--accent); }
     .nav-cta {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      background: var(--amber-dim);
-      color: var(--amber) !important;
-      border: 1px solid rgba(232, 168, 56, 0.3);
+      background: var(--accent-dim);
+      color: var(--accent) !important;
+      border: 1px solid rgba(37, 99, 235, 0.2);
       padding: 0.45rem 1rem;
       border-radius: 4px;
       transition: background 0.2s, border-color 0.2s !important;
     }
-
     .nav-cta:hover {
-      background: rgba(232, 168, 56, 0.2) !important;
-      border-color: var(--amber) !important;
-      color: var(--amber) !important;
+      background: rgba(37, 99, 235, 0.14) !important;
+      border-color: var(--accent) !important;
     }
 
     /* ── HERO ── */
@@ -176,88 +116,41 @@
       margin: 0 auto;
       text-align: center;
     }
-
-    .hero-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-
-    .hero-eyebrow::before,
-    .hero-eyebrow::after {
-      content: '';
-      display: block;
-      height: 1px;
-      width: 2.5rem;
-      background: var(--amber);
-      opacity: 0.4;
-    }
-
     .hero h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: -0.03em;
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
       color: var(--text);
       margin-bottom: 1.25rem;
     }
-
     .hero h1 em {
       font-style: normal;
-      color: var(--amber);
+      color: var(--accent);
     }
-
     .hero p {
       font-size: 1rem;
       color: var(--text-muted);
       max-width: 520px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 0.75rem;
       line-height: 1.7;
+      font-weight: 400;
     }
-
-    .hero-stats {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-value {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.02em;
-      line-height: 1;
-    }
-
-    .stat-label {
+    .hero-byline {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
+      font-size: 11px;
       letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--text-dim);
-      margin-top: 0.25rem;
+      margin-top: 0.5rem;
     }
-
-    .stat-divider {
-      width: 1px;
-      height: 2rem;
-      background: var(--border);
+    .hero-byline a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
     }
+    .hero-byline a:hover { text-decoration: underline; }
 
     /* ── GRID ── */
     .hub {
@@ -265,11 +158,7 @@
       margin: 0 auto;
       padding: 0 2rem 6rem;
     }
-
-    .category-section {
-      margin-bottom: 3.5rem;
-    }
-
+    .category-section { margin-bottom: 3.5rem; }
     .category-header {
       display: flex;
       align-items: center;
@@ -278,7 +167,6 @@
       padding-bottom: 0.75rem;
       border-bottom: 1px solid var(--border);
     }
-
     .category-label {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 10px;
@@ -287,14 +175,12 @@
       letter-spacing: 0.1em;
       color: var(--text-dim);
     }
-
     .category-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
       flex-shrink: 0;
     }
-
     .category-count {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 10px;
@@ -302,94 +188,75 @@
       margin-left: auto;
     }
 
+    /* ── CARD GRID ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
     }
 
     /* ── CARD ── */
     .card {
       background: var(--card);
-      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 12px;
       text-decoration: none;
-      transition: background 0.2s;
-      position: relative;
-      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
     }
-
-    .card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
+    .card:hover {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
     }
-
-    .card:hover { background: #222238; }
-    .card:hover::after { opacity: 1; }
-
     .card-top {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 1rem;
     }
-
     .card-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 16px;
+      font-size: 18px;
     }
-
     .card-arrow {
       color: var(--text-dim);
       transition: color 0.2s, transform 0.2s;
       margin-top: 2px;
       flex-shrink: 0;
     }
-
     .card:hover .card-arrow {
-      color: var(--amber);
+      color: var(--accent);
       transform: translate(2px, -2px);
     }
-
     .card-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
       color: var(--text);
-      letter-spacing: -0.01em;
       line-height: 1.3;
     }
-
     .card-desc {
-      font-size: 0.825rem;
+      font-size: 0.92rem;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.65;
       flex: 1;
+      font-weight: 400;
     }
-
     .card-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 0.25rem;
+      margin-top: 4px;
     }
-
     .card-tag {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 10px;
@@ -399,7 +266,6 @@
       padding: 0.2rem 0.55rem;
       border-radius: 3px;
     }
-
     .card-status {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 10px;
@@ -408,7 +274,6 @@
       align-items: center;
       gap: 0.3rem;
     }
-
     .card-status::before {
       content: '';
       display: block;
@@ -418,10 +283,7 @@
       background: var(--green);
       animation: pulse 2s ease-in-out infinite;
     }
-
-    .card-status.beta::before { background: var(--amber); animation: none; }
-    .card-status.soon::before { background: var(--text-dim); animation: none; }
-
+    .card-status.beta::before { background: var(--accent); animation: none; }
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
@@ -429,36 +291,32 @@
 
     /* ── PREMIUM CARD ── */
     .card.premium {
-      background: linear-gradient(135deg, #1E1E32 0%, #201a10 100%);
-      border-left: 2px solid var(--amber);
+      background: #f5f8ff;
+      border-left: 3px solid var(--accent);
     }
+    .card.premium:hover { background: #eef3ff; }
 
-    .card.premium:hover { background: linear-gradient(135deg, #222238 0%, #251e13 100%); }
+    /* ── CATEGORY COLORS ── */
+    .dot-markets    { background: #1a9e5c; }
+    .dot-networks   { background: #7C3AED; }
+    .dot-travel     { background: #dc2626; }
+    .dot-events     { background: #ea580c; }
+    .dot-intelligence { background: var(--accent); }
+    .dot-visuals    { background: #0891b2; }
 
-    /* ── COLORS PER CATEGORY ── */
-    .dot-markets { background: #3DD68C; }
-    .dot-governance { background: #5B9CF6; }
-    .dot-networks { background: #B57BFF; }
-    .dot-travel { background: #F06C6C; }
-    .dot-events { background: #F09D6C; }
-    .dot-intelligence { background: var(--amber); }
-    .dot-visuals { background: #6CF0E8; }
+    .tag-markets    { background: rgba(26,158,92,0.08);  color: #1a9e5c; }
+    .tag-networks   { background: rgba(124,58,237,0.08); color: #7C3AED; }
+    .tag-travel     { background: rgba(220,38,38,0.08);  color: #dc2626; }
+    .tag-events     { background: rgba(234,88,12,0.08);  color: #ea580c; }
+    .tag-intelligence { background: var(--accent-dim);   color: var(--accent); }
+    .tag-visuals    { background: rgba(8,145,178,0.08);  color: #0891b2; }
 
-    .tag-markets { background: rgba(61,214,140,0.1); color: #3DD68C; }
-    .tag-governance { background: rgba(91,156,246,0.1); color: #5B9CF6; }
-    .tag-networks { background: rgba(181,123,255,0.1); color: #B57BFF; }
-    .tag-travel { background: rgba(240,108,108,0.1); color: #F06C6C; }
-    .tag-events { background: rgba(240,157,108,0.1); color: #F09D6C; }
-    .tag-intelligence { background: var(--amber-dim); color: var(--amber); }
-    .tag-visuals { background: rgba(108,240,232,0.1); color: #6CF0E8; }
-
-    .icon-markets { background: rgba(61,214,140,0.1); }
-    .icon-governance { background: rgba(91,156,246,0.1); }
-    .icon-networks { background: rgba(181,123,255,0.1); }
-    .icon-travel { background: rgba(240,108,108,0.1); }
-    .icon-events { background: rgba(240,157,108,0.1); }
-    .icon-intelligence { background: var(--amber-dim); }
-    .icon-visuals { background: rgba(108,240,232,0.1); }
+    .icon-markets   { background: rgba(26,158,92,0.08); }
+    .icon-networks  { background: rgba(124,58,237,0.08); }
+    .icon-travel    { background: rgba(220,38,38,0.08); }
+    .icon-events    { background: rgba(234,88,12,0.08); }
+    .icon-intelligence { background: var(--accent-dim); }
+    .icon-visuals   { background: rgba(8,145,178,0.08); }
 
     /* ── FOOTER ── */
     footer {
@@ -470,22 +328,18 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
-
     .footer-brand {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-muted);
     }
-
-    .footer-brand span { color: var(--amber); }
-
+    .footer-brand span { color: var(--accent); }
     .footer-links {
       display: flex;
       gap: 1.5rem;
       list-style: none;
     }
-
     .footer-links a {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 10px;
@@ -495,14 +349,11 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-
-    .footer-links a:hover { color: var(--amber); }
-
+    .footer-links a:hover { color: var(--accent); }
     .footer-copy {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 10px;
       color: var(--text-dim);
-      letter-spacing: 0.04em;
     }
 
     /* ── RESPONSIVE ── */
@@ -511,61 +362,31 @@
       .nav-links { display: none; }
       .hero { padding: 3rem 1.25rem 2.5rem; }
       .hub { padding: 0 1.25rem 4rem; }
-      .card-grid { grid-template-columns: 1fr; }
-      .hero-stats { gap: 1.5rem; }
-      .stat-divider { display: none; }
       footer { flex-direction: column; align-items: flex-start; }
     }
-
     @media (prefers-reduced-motion: reduce) {
-      .ticker-track { animation: none; }
       .card-status::before { animation: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- TICKER -->
-  <div class="ticker-wrap" aria-hidden="true">
-    <div class="ticker-track">
-      <span class="ticker-item">Ghana FX Tracker</span>
-      <span class="ticker-item">Labari Markets</span>
-      <span class="ticker-item">Know Your MP</span>
-      <span class="ticker-item">Labari Network</span>
-      <span class="ticker-item">Women in Tech Africa</span>
-      <span class="ticker-item">African Visa Requirements</span>
-      <span class="ticker-item">Africa Events Calendar</span>
-      <span class="ticker-item">Labari Charts</span>
-      <span class="ticker-item">Labari Insights</span>
-      <span class="ticker-item">Ghana FX Tracker</span>
-      <span class="ticker-item">Labari Markets</span>
-      <span class="ticker-item">Know Your MP</span>
-      <span class="ticker-item">Labari Network</span>
-      <span class="ticker-item">Women in Tech Africa</span>
-      <span class="ticker-item">African Visa Requirements</span>
-      <span class="ticker-item">Africa Events Calendar</span>
-      <span class="ticker-item">Labari Charts</span>
-      <span class="ticker-item">Labari Insights</span>
-    </div>
-  </div>
-
   <!-- NAV -->
   <nav>
     <a href="/" class="nav-brand">
       <div class="nav-logo">
         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="5" height="5" fill="#0F0F1A"/>
-          <rect x="9" y="2" width="5" height="5" fill="#0F0F1A"/>
-          <rect x="2" y="9" width="5" height="5" fill="#0F0F1A"/>
-          <rect x="9" y="9" width="2.5" height="2.5" fill="#0F0F1A"/>
-          <rect x="11.5" y="11.5" width="2.5" height="2.5" fill="#0F0F1A"/>
+          <rect x="2" y="2" width="5" height="5" fill="#fff"/>
+          <rect x="9" y="2" width="5" height="5" fill="#fff"/>
+          <rect x="2" y="9" width="5" height="5" fill="#fff"/>
+          <rect x="9" y="9" width="2.5" height="2.5" fill="#fff"/>
+          <rect x="11.5" y="11.5" width="2.5" height="2.5" fill="#fff"/>
         </svg>
       </div>
       <span class="nav-wordmark">Labari <span>Data</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="#markets">Markets</a></li>
-      <li><a href="#governance">Governance</a></li>
       <li><a href="#networks">Networks</a></li>
       <li><a href="#intelligence">Intelligence</a></li>
       <li><a href="https://labarijournal.com" target="_blank" rel="noopener" class="nav-cta">Labari Journal ↗</a></li>
@@ -574,25 +395,9 @@
 
   <!-- HERO -->
   <header class="hero">
-    <p class="hero-eyebrow">African Data Intelligence</p>
-    <h1>Data that tracks the<br><em>pulse of Africa</em></h1>
-    <p>Open datasets, trackers, and tools covering markets, governance, people, and mobility across the continent — built by Labari.</p>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-value">9</div>
-        <div class="stat-label">Live Tools</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-value">54</div>
-        <div class="stat-label">Countries Covered</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-value">Free</div>
-        <div class="stat-label">Open Access</div>
-      </div>
-    </div>
+    <h1>Essential data and information<br>tracking <em>Across Africa</em></h1>
+    <p>Open datasets, trackers, and tools covering markets, governance, people, and mobility across the continent.</p>
+
   </header>
 
   <!-- HUB GRID -->
@@ -603,10 +408,9 @@
       <div class="category-header">
         <div class="category-dot dot-markets"></div>
         <span class="category-label">Markets & Economy</span>
-        <span class="category-count">2 tools</span>
+        <span class="category-count">1 tool</span>
       </div>
       <div class="card-grid">
-
         <a class="card" href="https://labaridata.com/fx" target="_blank" rel="noopener">
           <div class="card-top">
             <div class="card-icon icon-markets">📈</div>
@@ -619,45 +423,6 @@
             <span class="card-status">Live</span>
           </div>
         </a>
-
-        <a class="card" href="https://labaridata.com/markets" target="_blank" rel="noopener">
-          <div class="card-top">
-            <div class="card-icon icon-markets">🏦</div>
-            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="card-title">Labari Markets</div>
-          <div class="card-desc">Pan-African stock market tracker covering the Ghana Stock Exchange, Nigerian Exchange Group, Nairobi Securities Exchange, and more — in one unified dashboard.</div>
-          <div class="card-footer">
-            <span class="card-tag tag-markets">Stocks</span>
-            <span class="card-status beta">Beta</span>
-          </div>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- GOVERNANCE -->
-    <section class="category-section" id="governance">
-      <div class="category-header">
-        <div class="category-dot dot-governance"></div>
-        <span class="category-label">Governance</span>
-        <span class="category-count">1 tool</span>
-      </div>
-      <div class="card-grid">
-
-        <a class="card" href="https://labaridata.com/parliament" target="_blank" rel="noopener">
-          <div class="card-top">
-            <div class="card-icon icon-governance">🏛️</div>
-            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="card-title">Know Your MP</div>
-          <div class="card-desc">Ghana's parliamentary directory — search any constituency to find your Member of Parliament, their contact information, party affiliation, and committee assignments.</div>
-          <div class="card-footer">
-            <span class="card-tag tag-governance">Parliament</span>
-            <span class="card-status">Live</span>
-          </div>
-        </a>
-
       </div>
     </section>
 
@@ -669,7 +434,6 @@
         <span class="category-count">2 tools</span>
       </div>
       <div class="card-grid">
-
         <a class="card" href="https://labaridata.com/network" target="_blank" rel="noopener">
           <div class="card-top">
             <div class="card-icon icon-networks">📰</div>
@@ -682,7 +446,6 @@
             <span class="card-status">Live</span>
           </div>
         </a>
-
         <a class="card" href="https://labaridata.com/women-in-tech" target="_blank" rel="noopener">
           <div class="card-top">
             <div class="card-icon icon-networks">💻</div>
@@ -695,7 +458,6 @@
             <span class="card-status">Live</span>
           </div>
         </a>
-
       </div>
     </section>
 
@@ -707,7 +469,6 @@
         <span class="category-count">1 tool</span>
       </div>
       <div class="card-grid">
-
         <a class="card" href="https://labaridata.com/visa" target="_blank" rel="noopener">
           <div class="card-top">
             <div class="card-icon icon-travel">✈️</div>
@@ -720,7 +481,6 @@
             <span class="card-status">Live</span>
           </div>
         </a>
-
       </div>
     </section>
 
@@ -732,7 +492,6 @@
         <span class="category-count">1 tool</span>
       </div>
       <div class="card-grid">
-
         <a class="card" href="https://labaridata.com/events" target="_blank" rel="noopener">
           <div class="card-top">
             <div class="card-icon icon-events">📅</div>
@@ -745,7 +504,6 @@
             <span class="card-status">Live</span>
           </div>
         </a>
-
       </div>
     </section>
 
@@ -757,7 +515,6 @@
         <span class="category-count">1 tool</span>
       </div>
       <div class="card-grid">
-
         <a class="card" href="https://labaridata.com/charts" target="_blank" rel="noopener">
           <div class="card-top">
             <div class="card-icon icon-visuals">📊</div>
@@ -770,7 +527,6 @@
             <span class="card-status">Live</span>
           </div>
         </a>
-
       </div>
     </section>
 
@@ -782,20 +538,18 @@
         <span class="category-count">1 tool</span>
       </div>
       <div class="card-grid">
-
         <a class="card premium" href="https://insights.techlabari.com" target="_blank" rel="noopener">
           <div class="card-top">
             <div class="card-icon icon-intelligence">🔍</div>
             <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <div class="card-title">Labari Insights</div>
-          <div class="card-desc">Premium intelligence on African tech and business — curated datasets, company profiles, market analysis, and deep research for founders, investors, and analysts.</div>
+          <div class="card-desc">Premium intelligence on African tech and business — curated datasets, company profiles, and deep research for founders, investors, and analysts.</div>
           <div class="card-footer">
             <span class="card-tag tag-intelligence">Premium</span>
             <span class="card-status beta">Members</span>
           </div>
         </a>
-
       </div>
     </section>
 
@@ -805,12 +559,11 @@
   <footer>
     <div class="footer-brand">Labari <span>Data</span> — by Labari Media</div>
     <ul class="footer-links">
-      <li><a href="https://labarijournal.com" target="_blank" rel="noopener">Journal</a></li>
+      <li><a href="https://labarijournal.com" target="_blank" rel="noopener">Labari Journal</a></li>
       <li><a href="https://techlabari.com" target="_blank" rel="noopener">TechLabari</a></li>
-      <li><a href="https://insights.techlabari.com" target="_blank" rel="noopener">Insights</a></li>
       <li><a href="mailto:data@labarijournal.com">Contact</a></li>
     </ul>
-    <div class="footer-copy">© 2025 Labari Media. All rights reserved.</div>
+    <div class="footer-copy">© 2026 Labari Media. All rights reserved.</div>
   </footer>
 
 </body>
