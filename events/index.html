@@ -1,335 +1,1147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Africa Events Calendar | Labari Data</title>
-<meta name="description" content="A pan-African events database tracking conferences, summits, festivals, and cultural moments across the continent — from tech gatherings to Detty December.">
-<meta name="author" content="Labari Data">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://labaridata.com/events">
-<meta property="og:title" content="Africa Events Calendar | Labari Data">
-<meta property="og:description" content="Pan-African events — conferences, summits, festivals, and cultural moments across the continent.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://labaridata.com/events">
-<meta property="og:site_name" content="Labari Data">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@labarijournal">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23F09D6C'/><text y='.9em' font-size='72' x='50%' text-anchor='middle' dy='0.15em'>📅</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --orange:#F09D6C;--orange-dim:rgba(240,157,108,0.1);
-  --bg:#FDFBF9;--surface:#FFF;--border:#E8E0D8;--ink:#1A1208;--ink-mid:#5C4A30;--ink-soft:#9A8A6A;
-  --shadow:0 1px 4px rgba(26,18,8,.07),0 4px 16px rgba(26,18,8,.05);
-}
-html{font-size:16px;scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Africa Events Calendar — Discover Events Across Africa | Labari Data Desk</title>
+  <meta name="description" content="Your go-to pan-African events calendar. Discover conferences, festivals, summits, tech events and more across 50+ African countries — curated by Labari Data Desk." />
+  <meta name="keywords" content="Africa events, African conferences, pan-African calendar, Africa tech events, Africa business summit, African festivals, Labari, Ghana events, Nigeria events, Kenya events, South Africa events" />
+  <meta name="author" content="Labari Media" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://joe-phoenix.github.io/events/" />
 
-/* ── LABARI DATA NAV ── */
-.ld-nav{background:#0F0F1A;border-bottom:1px solid #2E2E4A;padding:0 24px;height:48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
-.ld-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
-.ld-logo{width:24px;height:24px;background:#E8A838;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;color:#0F0F1A;}
-.ld-wordmark{font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:700;color:#F0EDE8;letter-spacing:-.01em;}
-.ld-wordmark span{color:#E8A838;}
-.ld-back{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#5A5A78;text-decoration:none;transition:color .2s;}
-.ld-back:hover{color:#E8A838;}
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://joe-phoenix.github.io/events/" />
+  <meta property="og:title" content="Africa Events Calendar — Discover Events Across Africa" />
+  <meta property="og:description" content="Your go-to pan-African events calendar. Discover conferences, festivals, summits and more across Africa — curated by Labari Data Desk." />
+  <meta property="og:site_name" content="Labari Data Desk" />
+  <meta property="og:image" content="https://joe-phoenix.github.io/events/og-image.png" />
 
-.tool-header{background:linear-gradient(135deg,#1a0e04 0%,#2a1608 100%);padding:40px 32px 36px;border-bottom:3px solid var(--orange);}
-.tool-header-inner{max-width:1100px;margin:0 auto;}
-.tool-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,157,108,.7);margin-bottom:12px;}
-.tool-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.02em;}
-.tool-title span{color:var(--orange);}
-.tool-sub{font-size:14px;color:rgba(255,255,255,.5);max-width:520px;line-height:1.65;}
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@labarijournal" />
+  <meta name="twitter:title" content="Africa Events Calendar — Labari Data Desk" />
+  <meta name="twitter:description" content="Discover conferences, festivals, summits and more across Africa. Curated by Labari Data Desk." />
+  <meta name="twitter:image" content="https://joe-phoenix.github.io/events/og-image.png" />
 
-.controls{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:48px;z-index:90;}
-.search-wrap{position:relative;flex:1;min-width:180px;max-width:280px;}
-.search-wrap input{width:100%;padding:8px 12px 8px 34px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;font-family:inherit;background:var(--bg);color:var(--ink);outline:none;transition:border-color .15s;}
-.search-wrap input:focus{border-color:var(--orange);}
-.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink-soft);pointer-events:none;}
-.filter-select{padding:7px 28px 7px 10px;border:1px solid var(--border);border-radius:6px;font-size:.8rem;font-family:inherit;background:var(--bg);color:var(--ink);outline:none;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239A8A6A'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;}
-.filter-select:focus{border-color:var(--orange);}
-.view-toggle{display:flex;background:var(--bg);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
-.view-btn{width:34px;height:34px;border:none;background:transparent;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;}
-.view-btn.active{background:var(--orange);color:#fff;}
-.event-count{font-size:.75rem;color:var(--ink-soft);margin-left:auto;}
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Africa Events Calendar",
+    "url": "https://joe-phoenix.github.io/events/",
+    "description": "A pan-African events calendar covering technology, business, culture, media, policy and more.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Labari Media",
+      "url": "https://labarijournal.com"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f8fafc; color: #1e293b; font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #f1f5f9; } ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 
-.main{max-width:1100px;margin:0 auto;padding:24px 32px 60px;}
 
-/* Cards view */
-.events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
-.event-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s;cursor:pointer;}
-.event-card:hover{box-shadow:0 4px 20px rgba(26,18,8,.1);transform:translateY(-2px);}
-.event-card-top{padding:16px 16px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
-.event-date-box{text-align:center;background:var(--orange-dim);border:1px solid rgba(240,157,108,.25);border-radius:8px;padding:8px 10px;flex-shrink:0;min-width:52px;}
-.event-date-day{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:var(--orange);line-height:1;}
-.event-date-mon{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);opacity:.7;}
-.event-type{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--orange-dim);color:var(--orange);}
-.event-body{padding:12px 16px 16px;}
-.event-title{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:5px;line-height:1.3;}
-.event-location{font-size:.75rem;color:var(--ink-soft);display:flex;align-items:center;gap:4px;margin-bottom:8px;}
-.event-desc{font-size:.78rem;color:var(--ink-mid);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
-.event-footer{padding:10px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.event-country{font-size:.7rem;color:var(--ink-soft);}
-.event-link{font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:500;letter-spacing:.04em;color:var(--orange);text-decoration:none;text-transform:uppercase;transition:opacity .15s;}
-.event-link:hover{opacity:.7;}
 
-/* List view */
-.events-list{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
-.events-list-item{display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer;}
-.events-list-item:last-child{border-bottom:none;}
-.events-list-item:hover{background:var(--bg);}
-.list-date{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft);line-height:1.5;}
-.list-title{font-weight:600;font-size:.85rem;color:var(--ink);margin-bottom:2px;}
-.list-meta{font-size:.75rem;color:var(--ink-soft);}
-.list-type{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--orange-dim);color:var(--orange);}
+    /* TOP BAR */
+    .top-bar { background: #0f172a; padding: 0 28px; height: 42px; display: flex; align-items: center; justify-content: space-between; }
+    .top-bar-brand { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; color: #f1f5f9; letter-spacing: -.1px; display: flex; align-items: center; gap: 7px; text-decoration: none; }
+    .top-bar-brand span { color: #60a5fa; }
+    .top-bar-link { font-size: 12px; font-weight: 600; color: #94a3b8; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: color .15s; letter-spacing: .01em; }
+    .top-bar-link:hover { color: #60a5fa; }
+    .top-bar-link::after { content: "↗"; font-size: 11px; }
 
-.empty{text-align:center;padding:80px 24px;color:var(--ink-soft);}
-.empty-icon{font-size:3rem;margin-bottom:16px;}
-.empty h3{font-size:1.1rem;font-weight:600;color:var(--ink-mid);margin-bottom:8px;}
+    /* FOOTER */
+    .site-footer { background: #0f172a; border-top: 1px solid #1e293b; padding: 20px 28px; margin-top: 48px; }
+    .site-footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .footer-copy { font-size: 12px; color: #475569; font-weight: 500; }
+    .footer-copy a { color: #60a5fa; text-decoration: none; }
+    .footer-copy a:hover { text-decoration: underline; }
+    @media (max-width: 640px) {
+      .top-bar { padding: 0 14px; }
+      .site-footer { padding: 16px 14px; margin-top: 32px; }
+      .site-footer-inner { flex-direction: column; align-items: flex-start; gap: 4px; }
+    }
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #1d4ed8 100%); padding: 52px 28px 48px; position: relative; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .hero-left { flex: 1; min-width: 260px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15); border-radius: 99px; padding: 4px 12px; font-size: 11px; font-weight: 700; color: #93c5fd; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 16px; }
+    .hero-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 38px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 12px; letter-spacing: -.5px; }
+    .hero-title span { color: #60a5fa; }
+    .hero-sub { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 480px; margin-bottom: 28px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .hero-visual { flex-shrink: 0; width: 320px; display: flex; align-items: center; justify-content: center; opacity: .92; }
+    .hero-visual svg { width: 100%; height: auto; filter: drop-shadow(0 0 32px rgba(96,165,250,.25)); }
+    @media (max-width: 900px) { .hero-visual { display: none; } }
+    .hero-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #2563eb; color: #fff; padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all .15s; border: 2px solid #3b82f6; font-family: inherit; }
+    .hero-btn-primary:hover { background: #1d4ed8; border-color: #2563eb; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(37,99,235,.35); }
+    .hero-btn-primary .btn-icon { font-size: 16px; }
+    .hero-stats { display: flex; gap: 28px; flex-wrap: wrap; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-size: 26px; font-weight: 800; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1; }
+    .hero-stat-lbl { font-size: 11px; color: #64748b; margin-top: 3px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
 
-.error-banner{background:#fff8f3;border:1px solid #f0c090;border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:.84rem;color:#7A4010;display:none;}
-.skel{background:linear-gradient(90deg,#ede8e0 25%,#f5f2ec 50%,#ede8e0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:4px;height:14px;}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    @media (max-width: 640px) {
+      .hero { padding: 36px 16px 32px; }
+      .hero-title { font-size: 26px; }
+      .hero-sub { font-size: 13px; margin-bottom: 20px; }
+      .hero-btn-primary { padding: 10px 18px; font-size: 13px; width: 100%; justify-content: center; }
+      .hero-stats { gap: 20px; }
+      .hero-stat-num { font-size: 20px; }
+    }
+    /* HEADER */
+    #app-header { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 0 28px; box-shadow: 0 1px 3px rgba(0,0,0,.04); position: sticky; top: 0; z-index: 50; }
+    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { width: 34px; height: 34px; background: linear-gradient(135deg,#2563eb,#60a5fa); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+    .logo-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700; color: #1e293b; line-height: 1; }
+    .logo-sub { font-size: 10px; color: #94a3b8; letter-spacing: .07em; text-transform: uppercase; margin-top: 1px; }
+    .view-toggle { display: flex; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 10px; padding: 3px; }
+    .view-btn { padding: 7px 18px; border-radius: 8px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; background: transparent; color: #94a3b8; font-family: inherit; }
+    .view-btn.active { background: #2563eb; color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+    .demo-badge { font-size: 11px; color: #94a3b8; background: #f8fafc; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0; }
 
-/* ── LABARI DATA FOOTER ── */
-.ld-footer{background:#0F0F1A;border-top:1px solid #2E2E4A;padding:1.5rem 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
-.ld-footer-brand{font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:600;color:#5A5A78;}
-.ld-footer-brand span{color:#E8A838;}
-.ld-footer-links{display:flex;gap:1.5rem;list-style:none;}
-.ld-footer-links a{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#3D3D5C;text-decoration:none;transition:color .2s;}
-.ld-footer-links a:hover{color:#E8A838;}
-.ld-footer-copy{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#3D3D5C;}
+    /* MAIN */
+    #main { max-width: 1200px; margin: 0 auto; padding: 24px 28px; }
 
-@media(max-width:680px){
-  .tool-header,.main{padding-left:20px;padding-right:20px;}
-  .controls{padding:10px 20px;}
-  .events-grid{grid-template-columns:1fr;}
-  .events-list-item{grid-template-columns:60px 1fr;}
-  .list-type{display:none;}
-  .ld-footer{flex-direction:column;align-items:flex-start;}
-}
-</style>
+    /* FILTER BAR */
+    .filter-bar { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; margin-bottom: 22px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+    .search-wrap { position: relative; display: inline-block; }
+    .search-wrap::before { content: "🔍"; position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 13px; pointer-events: none; }
+    .search-input { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 11px 16px 11px 40px; color: #1e293b; font-size: 14px; outline: none; width: 320px; transition: border .15s; box-shadow: 0 1px 2px rgba(0,0,0,.04); font-family: inherit; }
+    .search-input:focus { border-color: #2563eb; }
+    .search-input::placeholder { color: #94a3b8; }
+    .divider { width: 1px; height: 28px; background: #e2e8f0; }
+    .select-wrap { position: relative; display: inline-block; }
+    .select-wrap::after { content: "▾"; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #94a3b8; font-size: 12px; }
+    .filter-select { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 28px 8px 12px; color: #374151; font-size: 13px; cursor: pointer; outline: none; box-shadow: 0 1px 2px rgba(0,0,0,.04); transition: border .15s; appearance: none; font-family: inherit; }
+    .filter-select:focus { border-color: #2563eb; }
+    .clear-btn { margin-left: auto; background: none; border: none; color: #94a3b8; font-size: 12px; cursor: pointer; font-weight: 500; padding: 4px 8px; border-radius: 6px; font-family: inherit; }
+    .clear-btn:hover { color: #dc2626; }
+
+    /* CALENDAR */
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .cal-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; color: #1e293b; }
+    .cal-title span { color: #2563eb; }
+    .cal-nav { display: flex; gap: 8px; }
+    .nav-btn { background: #fff; border: 1px solid #e2e8f0; color: #475569; padding: 7px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all .15s; box-shadow: 0 1px 2px rgba(0,0,0,.04); font-family: inherit; }
+    .nav-btn:hover { border-color: #2563eb; color: #1e293b; background: #eff6ff; }
+    .day-headers { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 4px; }
+    .day-hdr { text-align: center; font-size: 11px; font-weight: 700; color: #94a3b8; padding: 6px 0; letter-spacing: .06em; text-transform: uppercase; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .cal-cell { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 90px; padding: 6px; transition: border-color .15s; }
+    .cal-cell:hover { border-color: #94a3b8; }
+    .cal-cell.today { border-color: #2563eb !important; box-shadow: 0 0 0 2px #bfdbfe55; }
+    .cal-cell.empty { background: transparent; border: none; }
+    .day-num { font-size: 12px; font-weight: 500; color: #94a3b8; margin-bottom: 4px; text-align: right; }
+    .cal-cell.today .day-num { font-weight: 700; color: #2563eb; }
+    .ev-pill { font-size: 11px; padding: 2px 6px; border-radius: 4px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; font-weight: 500; border-left: 3px solid; transition: opacity .1s; }
+    .ev-pill:hover { opacity: .75; }
+    .more-label { font-size: 10px; color: #94a3b8; margin-top: 2px; }
+
+    /* LIST */
+    .list-header { display: flex; align-items: center; margin-bottom: 18px; }
+    .list-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; color: #1e293b; }
+    .list-count { color: #2563eb; font-size: 16px; font-family: 'DM Sans', sans-serif; font-weight: 600; margin-left: 8px; }
+    .list-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 10px; cursor: pointer; transition: all .18s; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+    .list-card:hover { border-color: #2563eb; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+    .date-block { min-width: 64px; text-align: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 8px; flex-shrink: 0; }
+    .date-block .day { font-size: 22px; font-weight: 700; color: #1e293b; line-height: 1; }
+    .date-block .mon { font-size: 11px; color: #2563eb; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+    .date-block .range { font-size: 9px; color: #94a3b8; margin-top: 4px; }
+    .card-body { flex: 1; }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 5px; }
+    .card-title { font-weight: 600; font-size: 15px; color: #1e293b; line-height: 1.3; }
+    .badges { display: flex; gap: 6px; flex-shrink: 0; flex-wrap: wrap; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 11px; font-weight: 600; letter-spacing: .03em; }
+    .card-loc { font-size: 12px; color: #64748b; margin-bottom: 6px; }
+    .card-desc { font-size: 13px; color: #64748b; line-height: 1.6; }
+    .empty-state { text-align: center; padding: 60px; color: #94a3b8; background: #fff; border-radius: 12px; border: 1px solid #e2e8f0; }
+    .empty-icon { font-size: 32px; margin-bottom: 10px; }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,.45); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.hidden { display: none; }
+    .modal { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; max-width: 520px; width: 100%; padding: 32px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.15); }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: 1px solid #e2e8f0; color: #64748b; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; font-family: inherit; }
+    .modal-badges { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+    .modal-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; margin: 0 0 14px; color: #1e293b; line-height: 1.3; }
+    .modal-meta { display: flex; gap: 28px; margin-bottom: 16px; flex-wrap: wrap; }
+    .meta-label { font-size: 10px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 3px; }
+    .meta-val { font-size: 14px; color: #1e293b; font-weight: 500; }
+    .meta-val span { color: #94a3b8; }
+    .modal-divider { border: none; border-top: 1px solid #f1f5f9; margin: 16px 0; }
+    .modal-desc { font-size: 14px; color: #475569; line-height: 1.7; margin-bottom: 16px; }
+    .add-cal-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+    .add-cal-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+    .cal-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cal-btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid #e2e8f0; background: #fff; color: #374151; transition: all .15s; text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,.04); font-family: inherit; }
+    .cal-btn:hover { border-color: #2563eb; color: #2563eb; background: #eff6ff; }
+    .modal-footer { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 16px; border-top: 1px solid #f1f5f9; }
+    .visit-btn { display: inline-flex; align-items: center; gap: 6px; background: #2563eb; color: #fff; padding: 10px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; }
+    .visit-btn:hover { background: #1d4ed8; }
+    .no-link { font-size: 13px; color: #94a3b8; font-style: italic; }
+    .event-url { font-size: 12px; color: #94a3b8; word-break: break-all; }
+
+
+    /* MOBILE CALENDAR — week strip + agenda */
+    .mob-cal { display: none; }
+    .desk-cal { display: block; }
+
+    /* Week strip */
+    .mob-cal-header { display: flex; align-items: center; justify-content: space-between; padding: 0 0 12px; }
+    .mob-cal-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; color: #1e293b; }
+    .mob-cal-title span { color: #2563eb; }
+    .mob-nav { display: flex; gap: 6px; }
+    .mob-nav-btn { background: #fff; border: 1px solid #e2e8f0; color: #475569; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 600; }
+    .mob-nav-btn:hover { border-color: #2563eb; color: #2563eb; }
+    .week-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 16px; }
+    .week-day { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 6px 2px; border-radius: 10px; transition: background .15s; }
+    .week-day:hover { background: #f1f5f9; }
+    .week-day.selected { background: #2563eb; }
+    .week-day.has-events .week-dot { opacity: 1; }
+    .week-lbl { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: .05em; }
+    .week-day.selected .week-lbl { color: #bfdbfe; }
+    .week-num { font-size: 17px; font-weight: 700; color: #1e293b; line-height: 1; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+    .week-day.selected .week-num { color: #fff; }
+    .week-day.is-today .week-num { color: #2563eb; }
+    .week-day.selected.is-today .week-num { color: #fff; }
+    .week-dot { width: 5px; height: 5px; border-radius: 50%; background: #2563eb; opacity: 0; transition: opacity .15s; }
+    .week-day.selected .week-dot { background: #fff; opacity: 1 !important; }
+
+    /* Agenda */
+    .agenda-empty { text-align: center; padding: 40px 20px; color: #94a3b8; }
+    .agenda-empty-icon { font-size: 28px; margin-bottom: 8px; }
+    .agenda-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer; display: flex; gap: 12px; align-items: flex-start; box-shadow: 0 1px 3px rgba(0,0,0,.04); transition: all .15s; }
+    .agenda-item:hover { border-color: #2563eb; transform: translateY(-1px); }
+    .agenda-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .agenda-body { flex: 1; }
+    .agenda-title { font-weight: 600; font-size: 14px; color: #1e293b; margin-bottom: 3px; line-height: 1.3; }
+    .agenda-loc { font-size: 12px; color: #64748b; margin-bottom: 4px; }
+    .agenda-badges { display: flex; gap: 5px; flex-wrap: wrap; }
+    .agenda-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+
+    /* Week nav row */
+    .week-nav-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .week-nav-btn { background: none; border: none; color: #94a3b8; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 6px; font-family: inherit; }
+    .week-nav-btn:hover { color: #2563eb; background: #eff6ff; }
+
+    @media (max-width: 640px) {
+      #app-header { padding: 0 14px; }
+      .logo-sub { display: none; }
+      .logo-title { font-size: 15px; }
+      .view-btn { padding: 6px 12px; font-size: 12px; }
+      #main { padding: 12px 14px; }
+      .filter-bar { padding: 10px 12px; gap: 8px; }
+      .search-input { width: 100%; padding: 10px 14px 10px 38px; font-size: 13px; }
+      .filter-select { font-size: 12px; }
+      /* Switch calendar views */
+      .mob-cal { display: block; }
+      .desk-cal { display: none; }
+      /* List mobile */
+      .list-card { padding: 14px; gap: 10px; }
+      .date-block { min-width: 50px; padding: 7px 5px; }
+      .date-block .day { font-size: 18px; }
+      .date-block .mon { font-size: 10px; }
+      .card-title { font-size: 14px; }
+      .card-top { flex-direction: column; gap: 6px; }
+      .badges { flex-direction: row; }
+      /* Modal mobile */
+      .modal { padding: 20px; border-radius: 12px; max-height: 95vh; }
+      .modal-title { font-size: 18px; }
+      .cal-btns { flex-direction: column; }
+      .cal-btn { width: 100%; justify-content: center; }
+    }
+    /* LOADING */
+    .loading { text-align: center; padding: 80px; color: #94a3b8; }
+    .loading-icon { font-size: 32px; margin-bottom: 12px; }
+  </style>
 </head>
 <body>
 
-<!-- LABARI DATA NAV -->
-<nav class="ld-nav">
-  <a href="https://labaridata.com" class="ld-brand">
-    <div class="ld-logo">LD</div>
-    <span class="ld-wordmark">Labari <span>Data</span></span>
-  </a>
-  <a href="https://labaridata.com" class="ld-back">← All Tools</a>
-</nav>
-
-<div class="tool-header">
-  <div class="tool-header-inner">
-    <div class="tool-eyebrow">labaridata.com/events</div>
-    <h1 class="tool-title">Africa <span>Events Calendar</span></h1>
-    <p class="tool-sub">A pan-African events database tracking conferences, summits, festivals, and cultural moments across the continent — from tech gatherings to Detty December.</p>
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <a href="https://datadesk.labarijournal.com" class="top-bar-brand">📊 <span>Labari</span> Data Desk</a>
+    <a href="https://datadesk.labarijournal.com" class="top-bar-link" target="_blank" rel="noreferrer">Back to Labari Data Desk</a>
   </div>
-</div>
 
-<div class="controls">
-  <div class="search-wrap">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input type="text" id="search" placeholder="Search events…" oninput="applyFilters()">
-  </div>
-  <select class="filter-select" id="f-type" onchange="applyFilters()"><option value="">All types</option></select>
-  <select class="filter-select" id="f-country" onchange="applyFilters()"><option value="">All countries</option></select>
-  <select class="filter-select" id="f-month" onchange="applyFilters()">
-    <option value="">All months</option>
-    <option>January</option><option>February</option><option>March</option><option>April</option>
-    <option>May</option><option>June</option><option>July</option><option>August</option>
-    <option>September</option><option>October</option><option>November</option><option>December</option>
-  </select>
-  <div class="view-toggle">
-    <button class="view-btn active" id="vbtn-card" onclick="setView('card')" title="Card view">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-    </button>
-    <button class="view-btn" id="vbtn-list" onclick="setView('list')" title="List view">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-    </button>
-  </div>
-  <span class="event-count" id="event-count"></span>
-</div>
+  <!-- HERO -->
+  <section class="hero" id="hero-section">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow">📊 Labari Data Desk</div>
+        <h1 class="hero-title">Discover Events<br><span>Across Africa</span></h1>
+        <p class="hero-sub">Your go-to calendar for conferences, festivals, summits and more — spanning every corner of the continent.</p>
+        <div class="hero-actions">
+          <a href="https://baserow.io/form/SZj6HavQ53MkG9wd63E-lRuqy-D6kj7fEbiHk_Vr3qM" target="_blank" rel="noreferrer" class="hero-btn-primary">
+            <span class="btn-icon">＋</span> Submit an Event
+          </a>
+        </div>
+      </div>
 
-<main class="main">
-  <div class="error-banner" id="error-banner"></div>
-  <div id="card-view" class="events-grid"></div>
-  <div id="list-view" class="events-list" style="display:none"></div>
-  <div class="empty" id="empty" style="display:none">
-    <div class="empty-icon">📅</div>
-    <h3>No events found</h3>
-    <p>Try adjusting your search or filters.</p>
-  </div>
-</main>
+      <!-- Africa illustration -->
+      <div class="hero-visual">
+        <svg viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" aria-label="Map of Africa">
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#1e3a5f" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="170" cy="210" rx="155" ry="195" fill="url(#glow)"/>
+          <!-- Africa outline -->
+          <path d="M148 12 C155 10 165 9 172 10 C188 11 205 14 218 20 C232 27 240 36 248 48 C258 63 262 80 265 95 C268 110 268 125 266 138 C264 150 260 160 262 172 C264 184 272 194 278 206 C285 220 288 234 287 248 C286 262 280 274 278 288 C276 302 278 316 274 328 C270 340 260 350 252 360 C244 370 235 378 225 385 C215 392 203 396 192 399 C181 402 170 402 160 400 C150 398 140 394 132 388 C122 381 114 372 108 362 C100 350 96 336 90 324 C83 310 76 296 72 282 C68 268 66 254 64 240 C62 226 60 212 58 198 C55 182 50 168 48 154 C46 140 46 126 48 113 C50 99 55 87 62 76 C70 64 80 54 90 46 C100 38 112 32 124 26 C133 21 141 14 148 12 Z" fill="#1e3a5f" opacity="0.6"/>
+          <path d="M148 12 C155 10 165 9 172 10 C188 11 205 14 218 20 C232 27 240 36 248 48 C258 63 262 80 265 95 C268 110 268 125 266 138 C264 150 260 160 262 172 C264 184 272 194 278 206 C285 220 288 234 287 248 C286 262 280 274 278 288 C276 302 278 316 274 328 C270 340 260 350 252 360 C244 370 235 378 225 385 C215 392 203 396 192 399 C181 402 170 402 160 400 C150 398 140 394 132 388 C122 381 114 372 108 362 C100 350 96 336 90 324 C83 310 76 296 72 282 C68 268 66 254 64 240 C62 226 60 212 58 198 C55 182 50 168 48 154 C46 140 46 126 48 113 C50 99 55 87 62 76 C70 64 80 54 90 46 C100 38 112 32 124 26 C133 21 141 14 148 12 Z" fill="none" stroke="#3b82f6" stroke-width="1.8" opacity="0.8"/>
+          <!-- Latitude lines -->
+          <line x1="48" y1="120" x2="268" y2="120" stroke="#3b82f6" stroke-width=".4" opacity="0.2"/>
+          <line x1="48" y1="200" x2="286" y2="200" stroke="#3b82f6" stroke-width=".4" opacity="0.2"/>
+          <line x1="58" y1="280" x2="278" y2="280" stroke="#3b82f6" stroke-width=".4" opacity="0.2"/>
+          <!-- Connection lines -->
+          <line x1="96" y1="230" x2="118" y2="222" stroke="#60a5fa" stroke-width=".6" opacity="0.3" stroke-dasharray="3,3"/>
+          <line x1="118" y1="222" x2="210" y2="248" stroke="#60a5fa" stroke-width=".6" opacity="0.3" stroke-dasharray="3,3"/>
+          <line x1="210" y1="248" x2="200" y2="272" stroke="#60a5fa" stroke-width=".6" opacity="0.3" stroke-dasharray="3,3"/>
+          <line x1="200" y1="272" x2="186" y2="340" stroke="#60a5fa" stroke-width=".6" opacity="0.3" stroke-dasharray="3,3"/>
+          <line x1="96" y1="230" x2="60" y2="168" stroke="#60a5fa" stroke-width=".6" opacity="0.3" stroke-dasharray="3,3"/>
+          <line x1="194" y1="68" x2="210" y2="248" stroke="#60a5fa" stroke-width=".6" opacity="0.2" stroke-dasharray="4,4"/>
+          <!-- Cairo -->
+          <circle cx="194" cy="68" r="10" fill="#3b82f6" opacity="0.1"/><circle cx="194" cy="68" r="3" fill="#60a5fa"/>
+          <text x="201" y="72" fill="#93c5fd" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">Cairo</text>
+          <!-- Dakar -->
+          <circle cx="60" cy="168" r="8" fill="#3b82f6" opacity="0.1"/><circle cx="60" cy="168" r="2.5" fill="#60a5fa"/>
+          <text x="66" y="172" fill="#93c5fd" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">Dakar</text>
+          <!-- Accra -->
+          <circle cx="96" cy="230" r="10" fill="#3b82f6" opacity="0.1"/><circle cx="96" cy="230" r="3" fill="#60a5fa"/>
+          <text x="103" y="234" fill="#93c5fd" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">Accra</text>
+          <!-- Lagos -->
+          <circle cx="118" cy="216" r="10" fill="#3b82f6" opacity="0.1"/><circle cx="118" cy="216" r="3" fill="#60a5fa"/>
+          <text x="125" y="220" fill="#93c5fd" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">Lagos</text>
+          <!-- Nairobi -->
+          <circle cx="210" cy="248" r="10" fill="#3b82f6" opacity="0.1"/><circle cx="210" cy="248" r="3" fill="#60a5fa"/>
+          <text x="217" y="252" fill="#93c5fd" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">Nairobi</text>
+          <!-- Johannesburg -->
+          <circle cx="186" cy="340" r="10" fill="#3b82f6" opacity="0.1"/><circle cx="186" cy="340" r="3" fill="#60a5fa"/>
+          <text x="142" y="354" fill="#93c5fd" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">Johannesburg</text>
 
-<footer class="ld-footer">
-  <div class="ld-footer-brand">Labari <span>Data</span> — Africa Events Calendar</div>
-  <ul class="ld-footer-links">
-    <li><a href="https://labaridata.com">All Tools</a></li>
-    <li><a href="https://labarijournal.com">Journal</a></li>
-    <li><a href="https://techlabari.com">TechLabari</a></li>
-    <li><a href="mailto:data@labarijournal.com">Contact</a></li>
-  </ul>
-  <div class="ld-footer-copy">© 2026 Labari Media. All rights reserved.</div>
-</footer>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HEADER -->
+  <header id="app-header">
+    <div class="header-inner">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="demo-badge" id="demo-badge" style="display:none;">Demo data — connect Baserow to go live</div>
+        <div class="view-toggle">
+          <button class="view-btn active" id="btn-calendar" onclick="setView('calendar')">Calendar</button>
+          <button class="view-btn" id="btn-list" onclick="setView('list')">List</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <div id="main">
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <div class="search-wrap">
+        <input class="search-input" id="search-input" type="text" placeholder="Search events or cities…" oninput="applyFilters()" />
+      </div>
+      <div class="divider"></div>
+      <div class="select-wrap">
+        <select class="filter-select" id="filter-category" onchange="applyFilters()">
+          <option value="All">All Categories</option>
+        </select>
+      </div>
+      <div class="select-wrap">
+        <select class="filter-select" id="filter-format" onchange="applyFilters()">
+          <option value="All">All Formats</option>
+          <option value="In-Person">📍 In-Person</option>
+          <option value="Virtual">💻 Virtual</option>
+          <option value="Hybrid">🔀 Hybrid</option>
+        </select>
+      </div>
+      <div class="select-wrap">
+        <select class="filter-select" id="filter-country" onchange="applyFilters()">
+          <option value="All">All Countries</option>
+        </select>
+      </div>
+      <button class="clear-btn" id="clear-btn" style="display:none;" onclick="clearFilters()">✕ Clear filters</button>
+    </div>
+
+    <!-- VIEWS -->
+    <div id="loading-state" class="loading">
+      <div class="loading-icon">⏳</div>
+      <div>Loading events…</div>
+    </div>
+    <div id="view-calendar" style="display:none;">
+
+      <!-- DESKTOP CALENDAR -->
+      <div class="desk-cal">
+        <div class="cal-header">
+          <h2 class="cal-title" id="cal-title">June <span>2026</span></h2>
+          <div class="cal-nav">
+            <button class="nav-btn" onclick="changeMonth(-1)">← Prev</button>
+            <button class="nav-btn" onclick="goToday()">Today</button>
+            <button class="nav-btn" onclick="changeMonth(1)">Next →</button>
+          </div>
+        </div>
+        <div class="day-headers">
+          <div class="day-hdr">Sun</div><div class="day-hdr">Mon</div><div class="day-hdr">Tue</div>
+          <div class="day-hdr">Wed</div><div class="day-hdr">Thu</div><div class="day-hdr">Fri</div><div class="day-hdr">Sat</div>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+
+      <!-- MOBILE CALENDAR: week strip + agenda -->
+      <div class="mob-cal">
+        <div class="mob-cal-header">
+          <h2 class="mob-cal-title" id="mob-cal-title">June <span>2026</span></h2>
+          <div class="mob-nav">
+            <button class="mob-nav-btn" onclick="mobChangeMonth(-1)" title="Prev month">&#8249;</button>
+            <button class="mob-nav-btn" onclick="mobGoToday()" title="Today" style="font-size:11px;font-weight:700;">Today</button>
+            <button class="mob-nav-btn" onclick="mobChangeMonth(1)" title="Next month">&#8250;</button>
+          </div>
+        </div>
+        <!-- Week navigation -->
+        <div class="week-nav-row">
+          <button class="week-nav-btn" onclick="mobChangeWeek(-1)">&#8249;</button>
+          <span id="mob-week-label" style="font-size:12px;color:#64748b;font-weight:500;"></span>
+          <button class="week-nav-btn" onclick="mobChangeWeek(1)">&#8250;</button>
+        </div>
+        <!-- Day strip -->
+        <div class="week-strip" id="mob-week-strip"></div>
+        <!-- Agenda for selected day -->
+        <div id="mob-agenda"></div>
+      </div>
+
+    </div>
+    <div id="view-list" style="display:none;">
+      <div class="list-header" style="justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <h2 class="list-title">All Events</h2>
+          <span class="list-count" id="list-count"></span>
+        </div>
+        <div class="select-wrap">
+          <select class="filter-select" id="filter-month" onchange="applyFilters()" style="font-weight:600;">
+            <option value="All">All Months</option>
+          </select>
+        </div>
+      </div>
+      <div id="list-body"></div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay hidden" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal-box">
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      <div class="modal-badges" id="modal-badges"></div>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-meta" id="modal-meta"></div>
+      <hr class="modal-divider">
+      <div id="modal-desc-wrap" style="margin-bottom:16px;display:none;">
+        <div class="meta-label" style="margin-bottom:6px;">About this event</div>
+        <p class="modal-desc" id="modal-desc" style="margin:0;"></p>
+      </div>
+      <hr class="modal-divider" id="modal-desc-divider" style="display:none;">
+      <div class="add-cal-box">
+        <div class="add-cal-label">Add to Calendar</div>
+        <div class="cal-btns" id="cal-btns"></div>
+      </div>
+      <div class="modal-footer" id="modal-footer"></div>
+    </div>
+  </div>
 
 <script>
-// Baserow-backed via Cloudflare Worker — same pattern as other Labari tools
-// Replace with your actual worker URL for the events table
-const WORKER_URL='https://labari-events.joseph-kuuire.workers.dev';
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+const WORKER_URL = "https://africa-events.joseph-kuuire.workers.dev/";
 
-let allEvents=[],filtered=[];
-let viewMode='card';
+// ─── MOCK DATA ───────────────────────────────────────────────────────────────
+const MOCK_EVENTS = [
+  { id:1,  title:"Africa Tech Summit",          date:"2026-06-03", endDate:"2026-06-05", country:"Kenya",        city:"Nairobi",       category:"Technology",    format:"In-Person", description:"East Africa's largest technology gathering bringing together founders, investors, and policymakers.",                                         link:"#" },
+  { id:2,  title:"Ghana Investment Forum",       date:"2026-06-08", endDate:"2026-06-08", country:"Ghana",        city:"Accra",         category:"Business",      format:"In-Person", description:"Annual forum connecting Ghanaian businesses with international investors.",                                                                  link:"#" },
+  { id:3,  title:"Lagos Creative Festival",      date:"2026-06-10", endDate:"2026-06-14", country:"Nigeria",      city:"Lagos",         category:"Arts & Culture",format:"In-Person", description:"Celebrating African creative industries across film, music, fashion and visual arts.",                                                       link:"#" },
+  { id:4,  title:"Pan-African Media Conference", date:"2026-06-12", endDate:"2026-06-13", country:"South Africa", city:"Johannesburg",  category:"Media",         format:"Hybrid",    description:"Bringing together African journalists, editors and media executives to discuss the future of the industry.",                                 link:"#" },
+  { id:5,  title:"Kigali Fintech Week",          date:"2026-06-15", endDate:"2026-06-19", country:"Rwanda",       city:"Kigali",        category:"Technology",    format:"In-Person", description:"Showcasing financial technology innovations driving financial inclusion across the continent.",                                              link:"#" },
+  { id:6,  title:"Africa Climate Forum",         date:"2026-06-17", endDate:"2026-06-18", country:"Ethiopia",     city:"Addis Ababa",   category:"Policy",        format:"In-Person", description:"Multi-stakeholder dialogue on climate policy and green transition strategies.",                                                             link:"#" },
+  { id:7,  title:"Dakar Design Week",            date:"2026-06-20", endDate:"2026-06-26", country:"Senegal",      city:"Dakar",         category:"Arts & Culture",format:"In-Person", description:"West Africa's premier design and architecture showcase.",                                                                                  link:"#" },
+  { id:8,  title:"AfricaComms Virtual Summit",   date:"2026-06-22", endDate:"2026-06-22", country:"Virtual",      city:"Online",        category:"Technology",    format:"Virtual",   description:"Telecommunications and connectivity outlook for Sub-Saharan Africa.",                                                                       link:"#" },
+  { id:9,  title:"East Africa Startup Awards",   date:"2026-06-24", endDate:"2026-06-24", country:"Tanzania",     city:"Dar es Salaam", category:"Business",      format:"In-Person", description:"Recognising the most impactful startups building in East Africa.",                                                                         link:"#" },
+  { id:10, title:"Cairo Book Fair",              date:"2026-07-01", endDate:"2026-07-12", country:"Egypt",        city:"Cairo",         category:"Arts & Culture",format:"In-Person", description:"One of the oldest and largest book fairs in the Arab and African world.",                                                                  link:"#" },
+  { id:11, title:"West Africa Health Summit",    date:"2026-07-06", endDate:"2026-07-07", country:"Ghana",        city:"Accra",         category:"Health",        format:"In-Person", description:"Addressing public health challenges and innovations across West Africa.",                                                                   link:"#" },
+  { id:12, title:"Africa Agri-Tech Forum",       date:"2026-07-09", endDate:"2026-07-10", country:"Nigeria",      city:"Abuja",         category:"Agriculture",   format:"Hybrid",    description:"Technology and innovation in African agriculture and food systems.",                                                                        link:"#" },
+  { id:13, title:"Nairobi Fashion Week",         date:"2026-07-14", endDate:"2026-07-18", country:"Kenya",        city:"Nairobi",       category:"Arts & Culture",format:"In-Person", description:"East Africa's biggest fashion platform showcasing local and continental designers.",                                                        link:"#" },
+  { id:14, title:"Lusaka Economic Forum",        date:"2026-07-20", endDate:"2026-07-21", country:"Zambia",       city:"Lusaka",        category:"Business",      format:"In-Person", description:"Southern African economic outlook and trade partnerships dialogue.",                                                                        link:"#" },
+  { id:15, title:"AfroTech Policy Webinar",      date:"2026-07-23", endDate:"2026-07-23", country:"Virtual",      city:"Online",        category:"Policy",        format:"Virtual",   description:"Examining how African governments are regulating emerging technologies.",                                                                    link:"#" },
+];
 
-const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const CAT_COLORS = {
+  "Technology":     { bg:"#e0f2fe", dot:"#0284c7", text:"#0369a1" },
+  "Business":       { bg:"#fef9c3", dot:"#ca8a04", text:"#92400e" },
+  "Arts & Culture": { bg:"#f3e8ff", dot:"#9333ea", text:"#6b21a8" },
+  "Media":          { bg:"#d1fae5", dot:"#059669", text:"#065f46" },
+  "Policy":         { bg:"#fee2e2", dot:"#dc2626", text:"#991b1b" },
+  "Health":         { bg:"#dcfce7", dot:"#16a34a", text:"#14532d" },
+  "Agriculture":    { bg:"#ffedd5", dot:"#ea580c", text:"#7c2d12" },
+};
+const DEFAULT_COL = { bg:"#f1f5f9", dot:"#64748b", text:"#475569" };
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const FORMAT_ICONS = { "In-Person":"📍", "Virtual":"💻", "Hybrid":"🔀" };
 
-function extractVal(v){if(!v)return '';if(typeof v==='object'&&v.value)return v.value;return String(v).trim();}
-function toArr(val){if(!val)return[];if(Array.isArray(val))return val.map(extractVal).filter(Boolean);if(typeof val==='object'&&val.value)return[val.value];return String(val).split(';').map(s=>s.trim()).filter(Boolean);}
-function getField(r,...keys){for(const k of keys){if(r[k])return r[k];}return '';}
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let allEvents = [];
+let filteredEvents = [];
+let currentView = "calendar";
+let currentYear = 2026, currentMonth = 5; // June 2026
+const today = new Date();
 
-function parseDate(str){
-  if(!str)return null;
-  const d=new Date(str);return isNaN(d)?null:d;
+// ─── INIT ────────────────────────────────────────────────────────────────────
+async function init() {
+  let data = null;
+  if (!WORKER_URL.includes("YOUR-SUBDOMAIN")) {
+    try {
+      let all = [], page = 1, hasMore = true;
+      while (hasMore) {
+        const res = await fetch(WORKER_URL + "?page=" + page);
+        if (!res.ok) break;
+        const json = await res.json();
+        all = all.concat(json.results || []);
+        hasMore = !!json.next;
+        page++;
+      }
+      if (all.length) {
+        // Debug: log first record to console so you can verify field names
+        console.log("[Africa Events] First Baserow record:", JSON.stringify(all[0]));
+        // Baserow single-select fields return {value, id, color} objects
+        // Country, City, Category, Format are all single-select
+        const val = f => {
+          if (!f) return "";
+          if (typeof f === "object") return f.value || "";
+          return String(f);
+        };
+        data = all.map(r => ({
+          id: r.id,
+          title: r["Event Name"] || r["Name"] || "",
+          date: r["Start Date"] || "",
+          endDate: r["End Date"] || r["Start Date"] || "",
+          country: val(r["Country"]),
+          city: val(r["City"]),
+          category: val(r["Category"]) || "Other",
+          format: val(r["Format"]) || "In-Person",
+          description: r["Description"] || r["Notes"] || r["About"] || r["Details"] || r["Summary"] || r["Event Description"] || "",
+          link: r["Link"] || r["URL"] || r["Website"] || "#",
+        }));
+      }
+    } catch(e) { console.error(e); }
+  }
+
+  allEvents = data || MOCK_EVENTS;
+  allEvents.forEach(e => allEventsById[e.id] = e);
+  if (!data) document.getElementById("demo-badge").style.display = "block";
+
+  buildFilterOptions();
+  applyFilters();
+  document.getElementById("loading-state").style.display = "none";
+  mobGoToday();
+  setView("calendar");
+
+
 }
-function formatDate(d){
-  if(!d)return{day:'—',mon:'—',full:'—'};
-  return{day:d.getDate(),mon:MONTHS[d.getMonth()].slice(0,3).toUpperCase(),full:`${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`};
-}
 
-async function loadEvents(){
-  try{
-    let records=[],page=1,hasMore=true;
-    while(hasMore){
-      const r=await fetch(`${WORKER_URL}?page=${page}`);
-      if(!r.ok)throw new Error(`HTTP ${r.status}`);
-      const j=await r.json();
-      records=records.concat(j.results||[]);
-      hasMore=!!j.next;page++;
+// ─── FILTERS ─────────────────────────────────────────────────────────────────
+function buildFilterOptions() {
+  const cats = [...new Set(allEvents.map(e => e.category))].sort();
+  const catSel = document.getElementById("filter-category");
+  cats.forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; catSel.appendChild(o); });
+
+  const countries = ["Virtual", ...[...new Set(allEvents.map(e => e.country).filter(c => c !== "Virtual"))].sort()];
+  const ctySel = document.getElementById("filter-country");
+  countries.forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; ctySel.appendChild(o); });
+
+  // Build month options from actual event dates
+  const monthSet = new Set();
+  allEvents.forEach(ev => {
+    if (ev.date && ev.date.length >= 7) {
+      const d = new Date(ev.date + "T00:00:00");
+      if (!isNaN(d)) monthSet.add(d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2,"0"));
     }
-    allEvents=records.filter(r=>getField(r,'Event Name','Title','Name'));
-    // Sort by date ascending
-    allEvents.sort((a,b)=>{
-      const da=parseDate(getField(a,'Date','Start Date','Event Date'));
-      const db=parseDate(getField(b,'Date','Start Date','Event Date'));
-      if(!da&&!db)return 0;if(!da)return 1;if(!db)return -1;
-      return da-db;
-    });
-    populateFilters();applyFilters();
-  }catch(err){
-    document.getElementById('error-banner').style.display='block';
-    document.getElementById('error-banner').textContent=`Could not load events: ${err.message}`;
-    // Show demo cards
-    allEvents=getDemoEvents();
-    populateFilters();applyFilters();
-  }
-}
-
-function getDemoEvents(){
-  return[
-    {_name:'Africa Fintech Summit 2026',_type:'Conference',_country:'Ghana',_date:'2026-09-15',_city:'Accra',_desc:'The premier gathering of African fintech founders, investors, and regulators.'},
-    {_name:'Detty December 2026',_type:'Festival',_country:'Ghana',_date:'2026-12-20',_city:'Accra',_desc:'Annual pan-African cultural festival season across Accra.',},
-    {_name:'Lagos Tech Week',_type:'Conference',_country:'Nigeria',_date:'2026-10-05',_city:'Lagos',_desc:'A week-long celebration of Nigerian and African technology.'},
-    {_name:'Nairobi Innovation Week',_type:'Summit',_country:'Kenya',_date:'2026-11-10',_city:'Nairobi',_desc:'Annual showcase of East African innovation across sectors.'},
-    {_name:'AFCON 2027 Qualifiers',_type:'Sports',_country:'Various',_date:'2026-09-01',_city:'Various',_desc:'Group stage qualifiers for Africa Cup of Nations 2027.'},
-  ].map(e=>({_demo:true,...e}));
-}
-
-function getEventField(r,...keys){
-  if(r._demo){const k=keys[0];return r[k]||'';}
-  return getField(r,...keys);
-}
-
-function populateFilters(){
-  const types=[...new Set(allEvents.map(r=>extractVal(getEventField(r,'Type','Event Type','Category','_type'))).filter(Boolean))].sort();
-  const countries=[...new Set(allEvents.map(r=>extractVal(getEventField(r,'Country','_country'))).filter(Boolean))].sort();
-  document.getElementById('f-type').innerHTML=`<option value="">All types</option>`+types.map(t=>`<option>${t}</option>`).join('');
-  document.getElementById('f-country').innerHTML=`<option value="">All countries</option>`+countries.map(c=>`<option>${c}</option>`).join('');
-}
-
-function applyFilters(){
-  const q=document.getElementById('search').value.toLowerCase();
-  const type=document.getElementById('f-type').value;
-  const country=document.getElementById('f-country').value;
-  const month=document.getElementById('f-month').value;
-  filtered=[...allEvents];
-  if(q)filtered=filtered.filter(r=>JSON.stringify(r).toLowerCase().includes(q));
-  if(type)filtered=filtered.filter(r=>extractVal(getEventField(r,'Type','Event Type','Category','_type'))===type);
-  if(country)filtered=filtered.filter(r=>extractVal(getEventField(r,'Country','_country'))===country);
-  if(month){
-    filtered=filtered.filter(r=>{
-      const d=parseDate(getEventField(r,'Date','Start Date','Event Date','_date'));
-      return d&&MONTHS[d.getMonth()]===month;
+  });
+  const sortedMonths = [...monthSet].sort();
+  const monSel = document.getElementById("filter-month");
+  if (monSel) {
+    sortedMonths.forEach(ym => {
+      const [y, m] = ym.split("-");
+      const o = document.createElement("option");
+      o.value = ym;
+      o.textContent = MONTHS[parseInt(m) - 1] + " " + y;
+      monSel.appendChild(o);
     });
   }
-  document.getElementById('event-count').textContent=`${filtered.length} event${filtered.length!==1?'s':''}`;
-  renderEvents();
 }
 
-function renderEvents(){
-  const cardView=document.getElementById('card-view');
-  const listView=document.getElementById('list-view');
-  const empty=document.getElementById('empty');
-  if(!filtered.length){
-    cardView.innerHTML='';listView.innerHTML='';empty.style.display='block';return;
+function applyFilters() {
+  const search = document.getElementById("search-input").value.toLowerCase();
+  const cat = document.getElementById("filter-category").value;
+  const fmt = document.getElementById("filter-format").value;
+  const cty = document.getElementById("filter-country").value;
+  const monEl = document.getElementById("filter-month");
+  const mon = monEl ? monEl.value : "All";
+
+  filteredEvents = allEvents.filter(ev => {
+    if (cat !== "All" && ev.category !== cat) return false;
+    if (fmt !== "All" && ev.format !== fmt) return false;
+    if (cty !== "All" && ev.country !== cty) return false;
+    if (search && !ev.title.toLowerCase().includes(search) && !ev.city.toLowerCase().includes(search)) return false;
+    if (mon !== "All" && ev.date) {
+      const d = new Date(ev.date + "T00:00:00");
+      const evYM = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2,"0");
+      if (evYM !== mon) return false;
+    }
+    return true;
+  });
+
+  const hasFilters = cat !== "All" || fmt !== "All" || cty !== "All" || search || mon !== "All";
+  document.getElementById("clear-btn").style.display = hasFilters ? "block" : "none";
+
+  if (currentView === "calendar") { renderCalendar(); renderMobCalendar(); }
+  else renderList();
+}
+
+function clearFilters() {
+  document.getElementById("search-input").value = "";
+  document.getElementById("filter-category").value = "All";
+  document.getElementById("filter-format").value = "All";
+  document.getElementById("filter-country").value = "All";
+  const monEl = document.getElementById("filter-month");
+  if (monEl) monEl.value = "All";
+  applyFilters();
+}
+
+// ─── VIEW SWITCHING ──────────────────────────────────────────────────────────
+function setView(v) {
+  currentView = v;
+  document.getElementById("btn-calendar").classList.toggle("active", v === "calendar");
+  document.getElementById("btn-list").classList.toggle("active", v === "list");
+  document.getElementById("view-calendar").style.display = v === "calendar" ? "block" : "none";
+  document.getElementById("view-list").style.display = v === "list" ? "block" : "none";
+  if (v === "calendar") { renderCalendar(); renderMobCalendar(); }
+  else renderList();
+}
+
+// ─── CALENDAR ────────────────────────────────────────────────────────────────
+function changeMonth(delta) {
+  currentMonth += delta;
+  if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+  if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+  renderCalendar();
+}
+
+function goToday() {
+  currentYear = today.getFullYear();
+  currentMonth = today.getMonth();
+  renderCalendar();
+}
+
+function parseDate(str) { return new Date(str + "T00:00:00"); }
+
+function eventSpansDay(ev, day) {
+  const s = parseDate(ev.date), e = parseDate(ev.endDate || ev.date);
+  return day >= s && day <= e;
+}
+
+function renderCalendar() {
+  // Update title
+  const titleEl = document.getElementById("cal-title");
+  titleEl.innerHTML = MONTHS[currentMonth] + ' <span>' + currentYear + '</span>';
+
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const grid = document.getElementById("cal-grid");
+  grid.innerHTML = "";
+
+  // Empty cells
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement("div");
+    empty.className = "cal-cell empty";
+    grid.appendChild(empty);
   }
-  empty.style.display='none';
-  if(viewMode==='card'){
-    cardView.innerHTML=filtered.map(r=>{
-      const name=getEventField(r,'Event Name','Title','Name','_name');
-      const type=extractVal(getEventField(r,'Type','Event Type','Category','_type'))||'Event';
-      const country=extractVal(getEventField(r,'Country','_country'))||'';
-      const city=getEventField(r,'City','Location','Venue','_city')||'';
-      const desc=getEventField(r,'Description','About','Notes','_desc')||'';
-      const url=getEventField(r,'URL','Website','Link','_url')||'';
-      const d=parseDate(getEventField(r,'Date','Start Date','Event Date','_date'));
-      const {day,mon}=formatDate(d);
-      return`<div class="event-card">
-        <div class="event-card-top">
-          <div class="event-date-box"><div class="event-date-day">${day}</div><div class="event-date-mon">${mon}</div></div>
-          <span class="event-type">${type}</span>
-        </div>
-        <div class="event-body">
-          <div class="event-title">${name}</div>
-          <div class="event-location">📍 ${[city,country].filter(Boolean).join(', ')||'Africa'}</div>
-          ${desc?`<div class="event-desc">${desc}</div>`:''}
-        </div>
-        <div class="event-footer">
-          <span class="event-country">${country||'Africa'}</span>
-          ${url?`<a class="event-link" href="${url}" target="_blank" rel="noopener">Register →</a>`:''}
-        </div>
-      </div>`;
-    }).join('');
-    listView.style.display='none';cardView.style.display='grid';
-  }else{
-    listView.innerHTML=filtered.map(r=>{
-      const name=getEventField(r,'Event Name','Title','Name','_name');
-      const type=extractVal(getEventField(r,'Type','Event Type','Category','_type'))||'Event';
-      const country=extractVal(getEventField(r,'Country','_country'))||'';
-      const city=getEventField(r,'City','Location','Venue','_city')||'';
-      const d=parseDate(getEventField(r,'Date','Start Date','Event Date','_date'));
-      const {day,mon,full}=formatDate(d);
-      return`<div class="events-list-item">
-        <div class="list-date">${day} ${mon}</div>
-        <div><div class="list-title">${name}</div><div class="list-meta">📍 ${[city,country].filter(Boolean).join(', ')||'Africa'}</div></div>
-        <span class="list-type">${type}</span>
-      </div>`;
-    }).join('');
-    cardView.style.display='none';listView.style.display='block';
+
+  // Day cells
+  for (let d = 1; d <= daysInMonth; d++) {
+    const day = new Date(currentYear, currentMonth, d);
+    const isToday = day.getFullYear() === today.getFullYear() && day.getMonth() === today.getMonth() && day.getDate() === today.getDate();
+    const dayEvs = filteredEvents.filter(ev => eventSpansDay(ev, day));
+
+    const cell = document.createElement("div");
+    cell.className = "cal-cell" + (isToday ? " today" : "");
+
+    const num = document.createElement("div");
+    num.className = "day-num";
+    num.textContent = d;
+    cell.appendChild(num);
+
+    const shown = dayEvs.slice(0, 3);
+    shown.forEach(ev => {
+      const col = CAT_COLORS[ev.category] || DEFAULT_COL;
+      const pill = document.createElement("div");
+      pill.className = "ev-pill";
+      pill.style.backgroundColor = col.bg;
+      pill.style.color = col.text;
+      pill.style.borderLeftColor = col.dot;
+      pill.textContent = ev.title;
+      pill.title = ev.title;
+      pill.onclick = () => openModal(ev);
+      cell.appendChild(pill);
+    });
+
+    if (dayEvs.length > 3) {
+      const more = document.createElement("div");
+      more.className = "more-label";
+      more.textContent = "+" + (dayEvs.length - 3) + " more";
+      more.style.cursor = "pointer";
+      more.style.color = "#2563eb";
+      more.style.fontWeight = "600";
+      const capDay = new Date(day);
+      more.onclick = (e) => { e.stopPropagation(); openDayPopover(capDay, dayEvs, more); };
+      cell.appendChild(more);
+    }
+
+    grid.appendChild(cell);
   }
 }
 
-function setView(mode){
-  viewMode=mode;
-  document.getElementById('vbtn-card').classList.toggle('active',mode==='card');
-  document.getElementById('vbtn-list').classList.toggle('active',mode==='list');
-  renderEvents();
+// ─── MOBILE CALENDAR ─────────────────────────────────────────────────────────
+let mobYear = today.getFullYear(), mobMonth = today.getMonth();
+let mobSelectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+let mobWeekOffset = 0; // which week within the month are we showing (0 = week containing today/1st)
+
+function mobDaysInMonth(y, m) { return new Date(y, m + 1, 0).getDate(); }
+
+function mobGetWeekStart() {
+  // Week start = Sunday of the week containing the first visible day
+  const firstOfMonth = new Date(mobYear, mobMonth, 1);
+  const baseDay = new Date(mobYear, mobMonth, 1 + mobWeekOffset * 7);
+  // Clamp to month
+  const daysInMon = mobDaysInMonth(mobYear, mobMonth);
+  const clampedDay = Math.min(baseDay.getDate(), daysInMon);
+  const d = new Date(mobYear, mobMonth, clampedDay);
+  // Go to Sunday of that week
+  d.setDate(d.getDate() - d.getDay());
+  return d;
 }
 
-loadEvents();
+function mobChangeMonth(delta) {
+  mobMonth += delta;
+  if (mobMonth < 0) { mobMonth = 11; mobYear--; }
+  if (mobMonth > 11) { mobMonth = 0; mobYear++; }
+  mobWeekOffset = 0;
+  mobSelectedDate = new Date(mobYear, mobMonth, 1);
+  renderMobCalendar();
+}
+
+function mobGoToday() {
+  mobYear = today.getFullYear();
+  mobMonth = today.getMonth();
+  mobWeekOffset = 0;
+  mobSelectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  // Find which week offset today is in
+  const firstOfMonth = new Date(mobYear, mobMonth, 1);
+  const firstSunday = new Date(firstOfMonth);
+  firstSunday.setDate(1 - firstOfMonth.getDay());
+  const diff = Math.floor((today - firstSunday) / (7 * 24 * 60 * 60 * 1000));
+  mobWeekOffset = Math.max(0, diff);
+  renderMobCalendar();
+}
+
+function mobChangeWeek(delta) {
+  mobWeekOffset += delta;
+  // Move to next/prev month if we go out of bounds
+  const firstSunday = new Date(mobYear, mobMonth, 1);
+  firstSunday.setDate(firstSunday.getDate() - firstSunday.getDay());
+  const weekStart = new Date(firstSunday);
+  weekStart.setDate(weekStart.getDate() + mobWeekOffset * 7);
+  if (weekStart.getMonth() !== mobMonth || weekStart.getFullYear() !== mobYear) {
+    // crossed month boundary — just clamp
+    if (mobWeekOffset < 0) {
+      mobMonth -= 1;
+      if (mobMonth < 0) { mobMonth = 11; mobYear--; }
+      mobWeekOffset = 3;
+    } else {
+      mobMonth += 1;
+      if (mobMonth > 11) { mobMonth = 0; mobYear++; }
+      mobWeekOffset = 0;
+    }
+    mobSelectedDate = new Date(mobYear, mobMonth, 1);
+  }
+  renderMobCalendar();
+}
+
+function mobSelectDay(d) {
+  mobSelectedDate = new Date(mobYear, mobMonth, d);
+  renderMobStrip();
+  renderMobAgenda();
+}
+
+function renderMobCalendar() {
+  // Update title
+  const t = document.getElementById("mob-cal-title");
+  if (t) t.innerHTML = MONTHS[mobMonth] + ' <span>' + mobYear + '</span>';
+  renderMobStrip();
+  renderMobAgenda();
+}
+
+function renderMobStrip() {
+  const strip = document.getElementById("mob-week-strip");
+  const weekLabel = document.getElementById("mob-week-label");
+  if (!strip) return;
+  strip.innerHTML = "";
+
+  const DAYS_SHORT = ["S","M","T","W","T","F","S"];
+  const firstSunday = new Date(mobYear, mobMonth, 1);
+  firstSunday.setDate(firstSunday.getDate() - firstSunday.getDay());
+  const weekStart = new Date(firstSunday);
+  weekStart.setDate(weekStart.getDate() + mobWeekOffset * 7);
+
+  // Week label
+  const weekEnd = new Date(weekStart); weekEnd.setDate(weekEnd.getDate() + 6);
+  if (weekLabel) {
+    weekLabel.textContent = MONTHS[weekStart.getMonth()].slice(0,3) + " " + weekStart.getDate() +
+      " – " + MONTHS[weekEnd.getMonth()].slice(0,3) + " " + weekEnd.getDate();
+  }
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(weekStart); d.setDate(weekStart.getDate() + i);
+    const dayNum = d.getDate();
+    const isThisMonth = d.getMonth() === mobMonth && d.getFullYear() === mobYear;
+    const isTodayD = d.getFullYear()===today.getFullYear()&&d.getMonth()===today.getMonth()&&d.getDate()===today.getDate();
+    const isSelected = d.getFullYear()===mobSelectedDate.getFullYear()&&d.getMonth()===mobSelectedDate.getMonth()&&d.getDate()===mobSelectedDate.getDate();
+    const dayEvs = filteredEvents.filter(ev => eventSpansDay(ev, d));
+
+    const cell = document.createElement("div");
+    cell.className = "week-day" + (isSelected?" selected":"") + (isTodayD?" is-today":"") + (dayEvs.length?" has-events":"");
+    if (!isThisMonth) cell.style.opacity = "0.35";
+
+    const lbl = document.createElement("div"); lbl.className = "week-lbl"; lbl.textContent = DAYS_SHORT[i]; cell.appendChild(lbl);
+    const num = document.createElement("div"); num.className = "week-num"; num.textContent = dayNum; cell.appendChild(num);
+    const dot = document.createElement("div"); dot.className = "week-dot"; cell.appendChild(dot);
+
+    const capD = new Date(d);
+    cell.onclick = () => { mobSelectedDate = capD; mobYear = capD.getMonth() === mobMonth ? mobYear : capD.getFullYear(); mobMonth = capD.getMonth(); renderMobStrip(); renderMobAgenda(); };
+    strip.appendChild(cell);
+  }
+}
+
+function renderMobAgenda() {
+  const agenda = document.getElementById("mob-agenda");
+  if (!agenda) return;
+  agenda.innerHTML = "";
+
+  const dayEvs = filteredEvents.filter(ev => eventSpansDay(ev, mobSelectedDate));
+  const dateStr = DAYS_FULL[mobSelectedDate.getDay()] + ", " + MONTHS[mobSelectedDate.getMonth()] + " " + mobSelectedDate.getDate();
+
+  const hdr = document.createElement("div");
+  hdr.style.cssText = "font-size:13px;font-weight:700;color:#475569;margin-bottom:10px;padding:0 2px;";
+  hdr.textContent = dateStr;
+  agenda.appendChild(hdr);
+
+  if (dayEvs.length === 0) {
+    const empty = document.createElement("div"); empty.className = "agenda-empty";
+    empty.innerHTML = '<div class="agenda-empty-icon">📭</div><div style="font-size:14px;font-weight:500;color:#94a3b8;">No events this day</div>';
+    agenda.appendChild(empty);
+    return;
+  }
+
+  dayEvs.forEach(ev => {
+    const col = CAT_COLORS[ev.category] || DEFAULT_COL;
+    const item = document.createElement("div"); item.className = "agenda-item";
+    item.onclick = () => openModal(ev);
+
+    const dot = document.createElement("div"); dot.className = "agenda-dot";
+    dot.style.backgroundColor = col.dot; item.appendChild(dot);
+
+    const body = document.createElement("div"); body.className = "agenda-body";
+    const title = document.createElement("div"); title.className = "agenda-title"; title.textContent = ev.title; body.appendChild(title);
+
+    const loc = ev.city && ev.country ? ev.city + ", " + ev.country : (ev.country || ev.city || "");
+    if (loc) { const locEl = document.createElement("div"); locEl.className = "agenda-loc"; locEl.textContent = "📍 " + loc; body.appendChild(locEl); }
+
+    const bdgs = document.createElement("div"); bdgs.className = "agenda-badges";
+    const cb = document.createElement("span"); cb.className = "agenda-badge"; cb.textContent = ev.category;
+    cb.style.backgroundColor = col.bg; cb.style.color = col.text; bdgs.appendChild(cb);
+    const fb = document.createElement("span"); fb.className = "agenda-badge"; fb.textContent = (FORMAT_ICONS[ev.format]||"") + " " + ev.format;
+    fb.style.backgroundColor = "#f1f5f9"; fb.style.color = "#64748b"; bdgs.appendChild(fb);
+    body.appendChild(bdgs);
+
+    item.appendChild(body);
+    agenda.appendChild(item);
+  });
+}
+
+const DAYS_FULL = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+// ─── DAY POPOVER ─────────────────────────────────────────────────────────────
+let activePopover = null;
+let activeBackdrop = null;
+
+function closeDayPopover() {
+  if (activePopover) { activePopover.remove(); activePopover = null; }
+  if (activeBackdrop) { activeBackdrop.remove(); activeBackdrop = null; }
+}
+
+function openDayPopover(day, dayEvs, anchor) {
+  closeDayPopover();
+
+  const DAYS_FULL = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const dateStr = DAYS_FULL[day.getDay()] + ", " + MONTHS[day.getMonth()] + " " + day.getDate();
+
+  // Backdrop to close on outside click
+  const backdrop = document.createElement("div");
+  backdrop.className = "popover-backdrop";
+  backdrop.onclick = closeDayPopover;
+  document.body.appendChild(backdrop);
+  activeBackdrop = backdrop;
+
+  // Popover
+  const pop = document.createElement("div");
+  pop.className = "day-popover";
+
+  // Header
+  const hdr = document.createElement("div"); hdr.className = "popover-header";
+  const dateEl = document.createElement("div"); dateEl.className = "popover-date"; dateEl.textContent = dateStr; hdr.appendChild(dateEl);
+  const closeBtn = document.createElement("button"); closeBtn.className = "popover-close"; closeBtn.textContent = "✕";
+  closeBtn.onclick = closeDayPopover; hdr.appendChild(closeBtn);
+  pop.appendChild(hdr);
+
+  // Event list
+  const list = document.createElement("div"); list.className = "popover-list";
+  dayEvs.forEach(ev => {
+    const col = CAT_COLORS[ev.category] || DEFAULT_COL;
+    const item = document.createElement("div"); item.className = "popover-item";
+    item.onclick = () => { closeDayPopover(); openModal(ev); };
+
+    const dot = document.createElement("div"); dot.className = "popover-dot";
+    dot.style.backgroundColor = col.dot; item.appendChild(dot);
+
+    const body = document.createElement("div"); body.className = "popover-body";
+    const title = document.createElement("div"); title.className = "popover-title"; title.textContent = ev.title; body.appendChild(title);
+    const meta = document.createElement("div"); meta.className = "popover-meta";
+    meta.textContent = (ev.city && ev.city !== "Online" ? ev.city + ", " : "") + (ev.country || "") + (ev.format ? " · " + ev.format : "");
+    body.appendChild(meta);
+    item.appendChild(body);
+    list.appendChild(item);
+  });
+  pop.appendChild(list);
+  document.body.appendChild(pop);
+  activePopover = pop;
+
+  // Position popover near the anchor element
+  const rect = anchor.getBoundingClientRect();
+  const popW = 280, popH = Math.min(dayEvs.length * 52 + 52, 372);
+  let left = rect.left + window.scrollX;
+  let top = rect.bottom + window.scrollY + 6;
+
+  // Flip left if overflows right edge
+  if (left + popW > window.innerWidth - 12) left = window.innerWidth - popW - 12;
+  // Flip up if overflows bottom
+  if (top + popH > window.scrollY + window.innerHeight - 12) top = rect.top + window.scrollY - popH - 6;
+
+  pop.style.left = left + "px";
+  pop.style.top = top + "px";
+}
+
+// ─── LIST ────────────────────────────────────────────────────────────────────
+function renderList() {
+  // Filter out events with no date before sorting
+  const valid = filteredEvents.filter(ev => ev.date && ev.date.length >= 8);
+  const sorted = valid.sort((a,b) => parseDate(a.date) - parseDate(b.date));
+  document.getElementById("list-count").textContent = "(" + sorted.length + ")";
+  const body = document.getElementById("list-body");
+  body.innerHTML = "";
+
+  if (sorted.length === 0) {
+    body.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><div style="font-weight:500">No events found.</div></div>';
+    return;
+  }
+
+  sorted.forEach(ev => {
+    const col = CAT_COLORS[ev.category] || DEFAULT_COL;
+    const start = parseDate(ev.date), end = parseDate(ev.endDate || ev.date);
+    const isMulti = ev.endDate && ev.date !== ev.endDate;
+
+    const card = document.createElement("div");
+    card.className = "list-card";
+    card.onclick = () => openModal(ev);
+
+    // Date block
+    const db = document.createElement("div"); db.className = "date-block";
+    const dayEl = document.createElement("div"); dayEl.className = "day"; dayEl.textContent = isNaN(start) ? "?" : start.getDate(); db.appendChild(dayEl);
+    const monEl = document.createElement("div"); monEl.className = "mon"; monEl.textContent = isNaN(start) ? "???" : MONTHS[start.getMonth()].slice(0,3); db.appendChild(monEl);
+    if (isMulti && !isNaN(end)) { const rng = document.createElement("div"); rng.className = "range"; rng.textContent = "\u2192 " + end.getDate() + " " + MONTHS[end.getMonth()].slice(0,3); db.appendChild(rng); }
+    card.appendChild(db);
+
+    // Card body
+    const cb = document.createElement("div"); cb.className = "card-body";
+    const ct = document.createElement("div"); ct.className = "card-top";
+    const ttl = document.createElement("div"); ttl.className = "card-title"; ttl.textContent = ev.title; ct.appendChild(ttl);
+    const bdgs = document.createElement("div"); bdgs.className = "badges";
+    const catBadge = document.createElement("span"); catBadge.className = "badge";
+    catBadge.textContent = ev.category;
+    catBadge.style.backgroundColor = col.bg; catBadge.style.color = col.text;
+    bdgs.appendChild(catBadge);
+    const fmtBadge = document.createElement("span"); fmtBadge.className = "badge";
+    fmtBadge.textContent = (FORMAT_ICONS[ev.format]||"") + " " + ev.format;
+    fmtBadge.style.backgroundColor = "#f1f5f9"; fmtBadge.style.color = "#64748b";
+    bdgs.appendChild(fmtBadge);
+    ct.appendChild(bdgs); cb.appendChild(ct);
+    const locEl = document.createElement("div"); locEl.className = "card-loc";
+    const locStr = [ev.city, ev.country].filter(x => x && x !== "Online").join(", ") || (ev.country || ev.city || "");
+    locEl.textContent = "\uD83D\uDCCD " + locStr;
+    cb.appendChild(locEl);
+    const descEl = document.createElement("div"); descEl.className = "card-desc"; descEl.textContent = ev.description || "";
+    cb.appendChild(descEl);
+    card.appendChild(cb);
+    body.appendChild(card);
+  });
+}
+
+// ─── MODAL ───────────────────────────────────────────────────────────────────
+function openModal(ev) {
+  const col = CAT_COLORS[ev.category] || DEFAULT_COL;
+  const start = parseDate(ev.date), end = parseDate(ev.endDate || ev.date);
+  const isMulti = ev.endDate && ev.date !== ev.endDate;
+  const loc = [ev.city, ev.country].filter(x => x && x !== "Online").join(", ") || ev.country || ev.city || "Online";
+
+  const mbEl = document.getElementById("modal-badges"); mbEl.innerHTML = "";
+  const mb1 = document.createElement("span"); mb1.className = "badge"; mb1.textContent = ev.category;
+  mb1.style.backgroundColor = col.bg; mb1.style.color = col.text; mbEl.appendChild(mb1);
+  const mb2 = document.createElement("span"); mb2.className = "badge"; mb2.textContent = (FORMAT_ICONS[ev.format]||"") + " " + ev.format;
+  mb2.style.backgroundColor = "#f1f5f9"; mb2.style.color = "#64748b"; mbEl.appendChild(mb2);
+
+  document.getElementById("modal-title").textContent = ev.title;
+
+  document.getElementById("modal-meta").innerHTML =
+    '<div><div class="meta-label">Date</div><div class="meta-val">' +
+      MONTHS[start.getMonth()] + ' ' + start.getDate() + ', ' + start.getFullYear() +
+      (isMulti ? ' <span>→ ' + MONTHS[end.getMonth()] + ' ' + end.getDate() + ', ' + end.getFullYear() + '</span>' : '') +
+    '</div></div>' +
+    '<div><div class="meta-label">Location</div><div class="meta-val">' + esc(loc) + '</div></div>';
+
+  const descText = ev.description || "";
+  document.getElementById("modal-desc").textContent = descText;
+  document.getElementById("modal-desc-wrap").style.display = descText ? "block" : "none";
+  document.getElementById("modal-desc-divider").style.display = descText ? "block" : "none";
+
+  // Calendar buttons
+  document.getElementById("cal-btns").innerHTML =
+    '<a href="' + googleCalURL(ev) + '" target="_blank" class="cal-btn">📅 Google Calendar</a>' +
+    '<button class="cal-btn" onclick="downloadICS(allEventsById[' + ev.id + '])">🍎 Apple Calendar</button>' +
+    '<a href="' + outlookURL(ev) + '" target="_blank" class="cal-btn">📧 Outlook</a>' +
+    '<button class="cal-btn" onclick="downloadICS(allEventsById[' + ev.id + '])">📥 Download .ics</button>';
+
+  // Footer link
+  const hasLink = ev.link && ev.link !== "#";
+  document.getElementById("modal-footer").innerHTML = hasLink
+    ? '<a href="' + esc(ev.link) + '" target="_blank" rel="noreferrer" class="visit-btn">Visit Event Site →</a>' +
+      '<span class="event-url">' + esc(ev.link) + '</span>'
+    : '<span class="no-link">No event link available</span>';
+
+  document.getElementById("modal-overlay").classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById("modal-overlay")) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById("modal-overlay").classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
+// Lookup by id - populated after data loads
+const allEventsById = {};
+MOCK_EVENTS.forEach(e => allEventsById[e.id] = e);
+
+// ─── CALENDAR EXPORT ─────────────────────────────────────────────────────────
+function fmtICS(d) { return d.replace(/-/g,""); }
+
+function buildICS(ev) {
+  const endObj = new Date(ev.endDate + "T00:00:00");
+  endObj.setDate(endObj.getDate() + 1);
+  const end = endObj.toISOString().slice(0,10).replace(/-/g,"");
+  const loc = [ev.city, ev.country].filter(x => x && x !== "Online").join(", ") || ev.country || ev.city || "Online";
+  return [
+    "BEGIN:VCALENDAR","VERSION:2.0",
+    "PRODID:-//Africa Events//Labari Media//EN",
+    "CALSCALE:GREGORIAN","METHOD:PUBLISH","BEGIN:VEVENT",
+    "UID:africa-events-" + ev.id + "@labarijournal.com",
+    "SUMMARY:" + ev.title,
+    "DTSTART;VALUE=DATE:" + fmtICS(ev.date),
+    "DTEND;VALUE=DATE:" + end,
+    "LOCATION:" + loc,
+    "DESCRIPTION:" + (ev.description||"").replace(/\n/g,"\\n"),
+    "URL:" + (ev.link && ev.link !== "#" ? ev.link : ""),
+    "END:VEVENT","END:VCALENDAR"
+  ].join("\r\n");
+}
+
+function downloadICS(ev) {
+  const blob = new Blob([buildICS(ev)], { type:"text/calendar;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = ev.title.replace(/[^a-z0-9]/gi,"-").toLowerCase() + ".ics";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function googleCalURL(ev) {
+  const endObj = new Date(ev.endDate + "T00:00:00");
+  endObj.setDate(endObj.getDate() + 1);
+  const end = endObj.toISOString().slice(0,10).replace(/-/g,"");
+  const loc = [ev.city, ev.country].filter(x => x && x !== "Online").join(", ") || ev.country || ev.city || "Online";
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    "&text=" + encodeURIComponent(ev.title) +
+    "&dates=" + fmtICS(ev.date) + "/" + end +
+    "&details=" + encodeURIComponent(ev.description||"") +
+    "&location=" + encodeURIComponent(loc);
+}
+
+function outlookURL(ev) {
+  const loc = [ev.city, ev.country].filter(x => x && x !== "Online").join(", ") || ev.country || ev.city || "Online";
+  return "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent" +
+    "&subject=" + encodeURIComponent(ev.title) +
+    "&startdt=" + ev.date +
+    "&enddt=" + (ev.endDate||ev.date) +
+    "&body=" + encodeURIComponent(ev.description||"") +
+    "&location=" + encodeURIComponent(loc);
+}
+
+// ─── ESCAPE HTML ─────────────────────────────────────────────────────────────
+function esc(str) {
+  return String(str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// ─── START ───────────────────────────────────────────────────────────────────
+init();
 </script>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="footer-copy">© 2026 <a href="https://datadesk.labarijournal.com" target="_blank" rel="noreferrer">Labari Media</a>. All rights reserved.</div>
+      <div class="footer-copy"><a href="https://baserow.io/form/SZj6HavQ53MkG9wd63E-lRuqy-D6kj7fEbiHk_Vr3qM" target="_blank" rel="noreferrer">Submit an Event →</a></div>
+    </div>
+  </footer>
+
 </body>
 </html>
