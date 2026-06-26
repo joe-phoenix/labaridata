@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labari Data — African Data Intelligence</title>
+  <meta name="description" content="Labari Data is Africa's open data intelligence hub — tracking markets, governance, people, and mobility across the continent." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0F0F1A;
+      --surface: #1A1A2E;
+      --card: #1E1E32;
+      --border: #2E2E4A;
+      --amber: #E8A838;
+      --amber-dim: rgba(232, 168, 56, 0.12);
+      --text: #F0EDE8;
+      --text-muted: #8A8AA8;
+      --text-dim: #5A5A78;
+      --green: #3DD68C;
+      --blue: #5B9CF6;
+      --rose: #F06C6C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      background: var(--amber);
+      overflow: hidden;
+      white-space: nowrap;
+      height: 32px;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      animation: ticker 40s linear infinite;
+    }
+
+    .ticker-track:hover { animation-play-state: paused; }
+
+    .ticker-item {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: #0F0F1A;
+      letter-spacing: 0.04em;
+      padding: 0 2rem;
+      text-transform: uppercase;
+    }
+
+    .ticker-item::before {
+      content: '▸ ';
+      opacity: 0.5;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(15, 15, 26, 0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .nav-logo {
+      width: 28px;
+      height: 28px;
+      background: var(--amber);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo svg { width: 16px; height: 16px; }
+
+    .nav-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-wordmark span { color: var(--amber); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--amber); }
+
+    .nav-cta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--amber-dim);
+      color: var(--amber) !important;
+      border: 1px solid rgba(232, 168, 56, 0.3);
+      padding: 0.45rem 1rem;
+      border-radius: 4px;
+      transition: background 0.2s, border-color 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: rgba(232, 168, 56, 0.2) !important;
+      border-color: var(--amber) !important;
+      color: var(--amber) !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 2.5rem 4rem;
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 2.5rem;
+      background: var(--amber);
+      opacity: 0.4;
+    }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--amber);
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-top: 0.25rem;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 2rem;
+      background: var(--border);
+    }
+
+    /* ── GRID ── */
+    .hub {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .category-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .category-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+    }
+
+    .category-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .category-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-left: auto;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+
+    .card:hover { background: #222238; }
+    .card:hover::after { opacity: 1; }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+
+    .card-arrow {
+      color: var(--text-dim);
+      transition: color 0.2s, transform 0.2s;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .card:hover .card-arrow {
+      color: var(--amber);
+      transform: translate(2px, -2px);
+    }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.25rem;
+    }
+
+    .card-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+    }
+
+    .card-status {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .card-status::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .card-status.beta::before { background: var(--amber); animation: none; }
+    .card-status.soon::before { background: var(--text-dim); animation: none; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── PREMIUM CARD ── */
+    .card.premium {
+      background: linear-gradient(135deg, #1E1E32 0%, #201a10 100%);
+      border-left: 2px solid var(--amber);
+    }
+
+    .card.premium:hover { background: linear-gradient(135deg, #222238 0%, #251e13 100%); }
+
+    /* ── COLORS PER CATEGORY ── */
+    .dot-markets { background: #3DD68C; }
+    .dot-governance { background: #5B9CF6; }
+    .dot-networks { background: #B57BFF; }
+    .dot-travel { background: #F06C6C; }
+    .dot-events { background: #F09D6C; }
+    .dot-intelligence { background: var(--amber); }
+    .dot-visuals { background: #6CF0E8; }
+
+    .tag-markets { background: rgba(61,214,140,0.1); color: #3DD68C; }
+    .tag-governance { background: rgba(91,156,246,0.1); color: #5B9CF6; }
+    .tag-networks { background: rgba(181,123,255,0.1); color: #B57BFF; }
+    .tag-travel { background: rgba(240,108,108,0.1); color: #F06C6C; }
+    .tag-events { background: rgba(240,157,108,0.1); color: #F09D6C; }
+    .tag-intelligence { background: var(--amber-dim); color: var(--amber); }
+    .tag-visuals { background: rgba(108,240,232,0.1); color: #6CF0E8; }
+
+    .icon-markets { background: rgba(61,214,140,0.1); }
+    .icon-governance { background: rgba(91,156,246,0.1); }
+    .icon-networks { background: rgba(181,123,255,0.1); }
+    .icon-travel { background: rgba(240,108,108,0.1); }
+    .icon-events { background: rgba(240,157,108,0.1); }
+    .icon-intelligence { background: var(--amber-dim); }
+    .icon-visuals { background: rgba(108,240,232,0.1); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .footer-brand span { color: var(--amber); }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--amber); }
+
+    .footer-copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      .hub { padding: 0 1.25rem 4rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .stat-divider { display: none; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none; }
+      .card-status::before { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Ghana FX Tracker</span>
+      <span class="ticker-item">Labari Markets</span>
+      <span class="ticker-item">Know Your MP</span>
+      <span class="ticker-item">Labari Network</span>
+      <span class="ticker-item">Women in Tech Africa</span>
+      <span class="ticker-item">African Visa Requirements</span>
+      <span class="ticker-item">Africa Events Calendar</span>
+      <span class="ticker-item">Labari Charts</span>
+      <span class="ticker-item">Labari Insights</span>
+      <span class="ticker-item">Ghana FX Tracker</span>
+      <span class="ticker-item">Labari Markets</span>
+      <span class="ticker-item">Know Your MP</span>
+      <span class="ticker-item">Labari Network</span>
+      <span class="ticker-item">Women in Tech Africa</span>
+      <span class="ticker-item">African Visa Requirements</span>
+      <span class="ticker-item">Africa Events Calendar</span>
+      <span class="ticker-item">Labari Charts</span>
+      <span class="ticker-item">Labari Insights</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-brand">
+      <div class="nav-logo">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="5" height="5" fill="#0F0F1A"/>
+          <rect x="9" y="2" width="5" height="5" fill="#0F0F1A"/>
+          <rect x="2" y="9" width="5" height="5" fill="#0F0F1A"/>
+          <rect x="9" y="9" width="2.5" height="2.5" fill="#0F0F1A"/>
+          <rect x="11.5" y="11.5" width="2.5" height="2.5" fill="#0F0F1A"/>
+        </svg>
+      </div>
+      <span class="nav-wordmark">Labari <span>Data</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#markets">Markets</a></li>
+      <li><a href="#governance">Governance</a></li>
+      <li><a href="#networks">Networks</a></li>
+      <li><a href="#intelligence">Intelligence</a></li>
+      <li><a href="https://labarijournal.com" target="_blank" rel="noopener" class="nav-cta">Labari Journal ↗</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <p class="hero-eyebrow">African Data Intelligence</p>
+    <h1>Data that tracks the<br><em>pulse of Africa</em></h1>
+    <p>Open datasets, trackers, and tools covering markets, governance, people, and mobility across the continent — built by Labari.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-value">9</div>
+        <div class="stat-label">Live Tools</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-value">54</div>
+        <div class="stat-label">Countries Covered</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-value">Free</div>
+        <div class="stat-label">Open Access</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HUB GRID -->
+  <main class="hub">
+
+    <!-- MARKETS & ECONOMY -->
+    <section class="category-section" id="markets">
+      <div class="category-header">
+        <div class="category-dot dot-markets"></div>
+        <span class="category-label">Markets & Economy</span>
+        <span class="category-count">2 tools</span>
+      </div>
+      <div class="card-grid">
+
+        <a class="card" href="https://labaridata.com/fx" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon icon-markets">📈</div>
+            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-title">Ghana FX Tracker</div>
+          <div class="card-desc">Real-time and historical foreign exchange rates for Ghana — tracking the cedi against major currencies with daily updates from bank and forex bureau sources.</div>
+          <div class="card-footer">
+            <span class="card-tag tag-markets">Economy</span>
+            <span class="card-status">Live</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://labaridata.com/markets" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon icon-markets">🏦</div>
+            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-title">Labari Markets</div>
+          <div class="card-desc">Pan-African stock market tracker covering the Ghana Stock Exchange, Nigerian Exchange Group, Nairobi Securities Exchange, and more — in one unified dashboard.</div>
+          <div class="card-footer">
+            <span class="card-tag tag-markets">Stocks</span>
+            <span class="card-status beta">Beta</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- GOVERNANCE -->
+    <section class="category-section" id="governance">
+      <div class="category-header">
+        <div class="category-dot dot-governance"></div>
+        <span class="category-label">Governance</span>
+        <span class="category-count">1 tool</span>
+      </div>
+      <div class="card-grid">
+
+        <a class="card" href="https://labaridata.com/parliament" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon icon-governance">🏛️</div>
+            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-title">Know Your MP</div>
+          <div class="card-desc">Ghana's parliamentary directory — search any constituency to find your Member of Parliament, their contact information, party affiliation, and committee assignments.</div>
+          <div class="card-footer">
+            <span class="card-tag tag-governance">Parliament</span>
+            <span class="card-status">Live</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- PEOPLE & NETWORKS -->
+    <section class="category-section" id="networks">
+      <div class="category-header">
+        <div class="category-dot dot-networks"></div>
+        <span class="category-label">People & Networks</span>
+        <span class="category-count">2 tools</span>
+      </div>
+      <div class="card-grid">
+
+        <a class="card" href="https://labaridata.com/network" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon icon-networks">📰</div>
+            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-title">The Labari Network</div>
+          <div class="card-desc">A searchable directory of African journalists and media organisations — built for editors, PR teams, and researchers who need to find the right voice on the continent.</div>
+          <div class="card-footer">
+            <span class="card-tag tag-networks">Media</span>
+            <span class="card-status">Live</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://labaridata.com/women-in-tech" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon icon-networks">💻</div>
+            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-title">African Women in Tech</div>
+          <div class="card-desc">A curated directory of women building and leading in African technology — founders, engineers, investors, and executives driving the continent's digital economy.</div>
+          <div class="card-footer">
+            <span class="card-tag tag-networks">Tech</span>
+            <span class="card-status">Live</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- TRAVEL & MOBILITY -->
+    <section class="category-section" id="travel">
+      <div class="category-header">
+        <div class="category-dot dot-travel"></div>
+        <span class="category-label">Travel & Mobility</span>
+        <span class="category-count">1 tool</span>
+      </div>
+      <div class="card-grid">
+
+        <a class="card" href="https://labaridata.com/visa" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon icon-travel">✈️</div>
+            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-title">African Visa Requirements</div>
+          <div class="card-desc">Check visa requirements for travel between African countries — a comprehensive, regularly updated reference for intra-continental mobility across all 54 nations.</div>
+          <div class="card-footer">
+            <span class="card-tag tag-travel">Mobility</span>
+            <span class="card-status">Live</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="category-section" id="events">
+      <div class="category-header">
+        <div class="category-dot dot-events"></div>
+        <span class="category-label">Events</span>
+        <span class="category-count">1 tool</span>
+      </div>
+      <div class="card-grid">
+
+        <a class="card" href="https://labaridata.com/events" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon icon-events">📅</div>
+            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-title">Africa Events Calendar</div>
+          <div class="card-desc">A pan-African events database tracking conferences, summits, festivals, and cultural moments across the continent — from tech gatherings to Detty December.</div>
+          <div class="card-footer">
+            <span class="card-tag tag-events">Culture</span>
+            <span class="card-status">Live</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- VISUALISATIONS -->
+    <section class="category-section" id="charts">
+      <div class="category-header">
+        <div class="category-dot dot-visuals"></div>
+        <span class="category-label">Visualisations</span>
+        <span class="category-count">1 tool</span>
+      </div>
+      <div class="card-grid">
+
+        <a class="card" href="https://labaridata.com/charts" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon icon-visuals">📊</div>
+            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-title">Labari Charts</div>
+          <div class="card-desc">Interactive data visualisations from the Labari Data Desk — charts and graphics that illustrate economic, political, and social trends across Africa.</div>
+          <div class="card-footer">
+            <span class="card-tag tag-visuals">Dataviz</span>
+            <span class="card-status">Live</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- INTELLIGENCE / PREMIUM -->
+    <section class="category-section" id="intelligence">
+      <div class="category-header">
+        <div class="category-dot dot-intelligence"></div>
+        <span class="category-label">Intelligence</span>
+        <span class="category-count">1 tool</span>
+      </div>
+      <div class="card-grid">
+
+        <a class="card premium" href="https://insights.techlabari.com" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon icon-intelligence">🔍</div>
+            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="card-title">Labari Insights</div>
+          <div class="card-desc">Premium intelligence on African tech and business — curated datasets, company profiles, market analysis, and deep research for founders, investors, and analysts.</div>
+          <div class="card-footer">
+            <span class="card-tag tag-intelligence">Premium</span>
+            <span class="card-status beta">Members</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">Labari <span>Data</span> — by Labari Media</div>
+    <ul class="footer-links">
+      <li><a href="https://labarijournal.com" target="_blank" rel="noopener">Journal</a></li>
+      <li><a href="https://techlabari.com" target="_blank" rel="noopener">TechLabari</a></li>
+      <li><a href="https://insights.techlabari.com" target="_blank" rel="noopener">Insights</a></li>
+      <li><a href="mailto:data@labarijournal.com">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 Labari Media. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
