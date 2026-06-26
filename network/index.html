@@ -3,192 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Labari Network — African Journalism Directory | Labari Data</title>
-<meta name="description" content="The Labari Network is a living directory of African journalists and media organisations across the continent, curated by Labari Media.">
-<meta name="keywords" content="African journalists, African media, journalism directory, Africa news, media organisations Africa, Labari Network">
-<meta name="author" content="Labari Data">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://labaridata.com/network">
-<meta property="og:title" content="The Labari Network — African Journalism Directory | Labari Data">
-<meta property="og:description" content="A living directory of journalists and media organisations across Africa, curated by Labari Media.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://labaridata.com/network">
-<meta property="og:site_name" content="Labari Data">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@labarijournal">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230096FF'/><text y='.9em' font-size='72' x='50%' dominant-baseline='auto' text-anchor='middle' dy='0.1em'>📋</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>The Labari Network — African Journalism Directory</title>
+
+  <!-- SEO -->
+  <meta name="description" content="The Labari Network is a living directory of African journalists and media organisations across the continent, curated by Labari Media.">
+  <meta name="keywords" content="African journalists, African media, journalism directory, Africa news, media organisations Africa, Labari Network">
+  <meta name="author" content="Labari Media">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://datadesk.labarijournal.com/network">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="The Labari Network — African Journalism Directory">
+  <meta property="og:description" content="A living directory of journalists and media organisations across Africa, curated by Labari Media.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://datadesk.labarijournal.com/network">
+  <meta property="og:image" content="./logo.png">
+  <meta property="og:site_name" content="The Labari Network">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Labari Network — African Journalism Directory">
+  <meta name="twitter:description" content="A living directory of journalists and media organisations across Africa, curated by Labari Media.">
+  <meta name="twitter:image" content="./logo.png">
+  <meta name="twitter:site" content="@labarijournal">
+
+  <!-- Favicon — newspaper emoji as SVG favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230096FF'/><text y='.9em' font-size='72' x='50%' dominant-baseline='auto' text-anchor='middle' dy='0.1em'>📋</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --ink: #111111; --ink-mid: #444444; --ink-soft: #888888;
-  --rule: #e2e2e2; --bg: #fafaf8; --surface: #ffffff;
-  --accent: #0096FF; --accent-dim: #e6f4ff;
-  --green: #1e6b4a; --green-dim: #e4f0eb;
-  --gold: #d4a017; --radius: 6px;
-  --shadow: 0 1px 4px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
-}
-html { font-size: 16px; scroll-behavior: smooth; }
-body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #111111; --ink-mid: #444444; --ink-soft: #888888;
+    --rule: #e2e2e2; --bg: #fafaf8; --surface: #ffffff;
+    --accent: #0096FF; --accent-dim: #e6f4ff;
+    --green: #1e6b4a; --green-dim: #e4f0eb;
+    --gold: #d4a017; --radius: 6px;
+    --shadow: 0 1px 4px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+  }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-/* ── LABARI DATA NAV ── */
-.ld-nav { background: #0F0F1A; border-bottom: 1px solid #2E2E4A; padding: 0 24px; height: 48px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 300; }
-.ld-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.ld-logo { width: 24px; height: 24px; background: #E8A838; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 9px; font-weight: 700; color: #0F0F1A; }
-.ld-wordmark { font-family: 'Space Grotesk', sans-serif; font-size: 0.82rem; font-weight: 700; color: #F0EDE8; letter-spacing: -0.01em; }
-.ld-wordmark span { color: #E8A838; }
-.ld-back { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #5A5A78; text-decoration: none; transition: color 0.2s; }
-.ld-back:hover { color: #E8A838; }
+  header { background: var(--ink); color: #fff; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; }
+  .wordmark { display: flex; align-items: baseline; gap: 10px; }
+  .wordmark-title { font-family: 'Fraunces', Georgia, serif; font-weight: 300; font-size: 1.15rem; letter-spacing: .5px; color: #fff; }
+  .wordmark-badge { font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: .85; }
+  .header-right { display: flex; align-items: center; gap: 20px; }
+  .header-count { font-size: .75rem; font-weight: 500; color: rgba(255,255,255,.45); letter-spacing: .5px; }
+  .btn-submit { font-size: .75rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--gold); background: transparent; border: 1px solid rgba(212,160,23,.4); border-radius: 4px; padding: 6px 14px; cursor: pointer; text-decoration: none; transition: background .15s, border-color .15s; }
+  .btn-submit:hover { background: rgba(212,160,23,.1); border-color: var(--gold); }
 
-/* ── TOOL NAV ── */
-header { background: var(--ink); color: #fff; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 48px; z-index: 100; }
-.wordmark { display: flex; align-items: baseline; gap: 10px; }
-.wordmark-title { font-family: 'Fraunces', Georgia, serif; font-weight: 300; font-size: 1.1rem; letter-spacing: .5px; color: #fff; }
-.wordmark-badge { font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: .85; }
-.btn-submit { font-size: .75rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--gold); background: transparent; border: 1px solid rgba(212,160,23,.4); border-radius: 4px; padding: 6px 14px; cursor: pointer; text-decoration: none; transition: background .15s; }
-.btn-submit:hover { background: rgba(212,160,23,.1); border-color: var(--gold); }
+  .hero { background: var(--ink); color: #fff; padding: 40px 32px 36px; border-bottom: 3px solid var(--accent); display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+  .hero-left { flex: 1; }
+  .hero-right { flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; }
+  .hero-logo { height: 130px; width: auto; display: block; }
+  .hero-sub { font-size: 1.2rem; color: rgba(255,255,255,.6); font-weight: 300; max-width: 560px; line-height: 1.65; margin-bottom: 24px; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+  .hero-cta { font-size: .8rem; font-weight: 600; letter-spacing: .3px; padding: 10px 20px; border-radius: 5px; text-decoration: none; cursor: pointer; border: none; font-family: inherit; transition: opacity .15s; }
+  .hero-cta-j { background: var(--accent); color: #fff; }
+  .hero-cta-o { background: var(--green); color: #fff; }
+  .hero-cta:hover { opacity: .85; }
 
-.hero { background: var(--ink); color: #fff; padding: 36px 32px 32px; border-bottom: 3px solid var(--accent); display: flex; align-items: center; justify-content: space-between; gap: 40px; }
-.hero-left { flex: 1; }
-.hero-sub { font-size: 1.1rem; color: rgba(255,255,255,.6); font-weight: 300; max-width: 560px; line-height: 1.65; margin-bottom: 20px; }
-.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-.hero-cta { font-size: .8rem; font-weight: 600; letter-spacing: .3px; padding: 10px 20px; border-radius: 5px; text-decoration: none; cursor: pointer; border: none; font-family: inherit; transition: opacity .15s; }
-.hero-cta-j { background: var(--accent); color: #fff; }
-.hero-cta-o { background: var(--green); color: #fff; }
-.hero-cta:hover { opacity: .85; }
+  .toolbar { background: var(--surface); border-bottom: 1px solid var(--rule); padding: 14px 32px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; position: sticky; top: 60px; z-index: 90; }
+  .tabs { display: flex; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; flex-shrink: 0; }
+  .tab { font-size: .78rem; font-weight: 600; letter-spacing: .3px; padding: 7px 18px; border: none; background: transparent; color: var(--ink-soft); cursor: pointer; transition: background .15s, color .15s; white-space: nowrap; }
+  .tab.active-j { background: var(--accent); color: #fff; }
+  .tab.active-o { background: var(--green); color: #fff; }
+  .tab:not(.active-j):not(.active-o):hover { background: var(--rule); color: var(--ink); }
 
-.toolbar { background: var(--surface); border-bottom: 1px solid var(--rule); padding: 14px 32px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; position: sticky; top: 104px; z-index: 90; }
-.tabs { display: flex; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; flex-shrink: 0; }
-.tab { font-size: .78rem; font-weight: 600; letter-spacing: .3px; padding: 7px 18px; border: none; background: transparent; color: var(--ink-soft); cursor: pointer; transition: background .15s, color .15s; white-space: nowrap; }
-.tab.active-j { background: var(--accent); color: #fff; }
-.tab.active-o { background: var(--green); color: #fff; }
-.tab:not(.active-j):not(.active-o):hover { background: var(--rule); color: var(--ink); }
-.search-wrap { position: relative; flex: 1; min-width: 180px; max-width: 320px; }
-.search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--ink-soft); pointer-events: none; }
-.search-input { width: 100%; padding: 8px 12px 8px 34px; border: 1px solid var(--rule); border-radius: var(--radius); font-size: .82rem; font-family: inherit; background: var(--bg); color: var(--ink); outline: none; transition: border-color .15s; }
-.search-input:focus { border-color: var(--accent); }
-.filter-select { padding: 7px 28px 7px 10px; border: 1px solid var(--rule); border-radius: var(--radius); font-size: .8rem; font-family: inherit; background: var(--bg); color: var(--ink); outline: none; appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 9px center; }
-.filter-select:focus { border-color: var(--accent); }
-.toolbar-right { margin-left: auto; }
-.result-count { font-size: .75rem; color: var(--ink-soft); white-space: nowrap; }
+  .search-wrap { position: relative; flex: 1; min-width: 180px; max-width: 320px; }
+  .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--ink-soft); pointer-events: none; }
+  .search-input { width: 100%; padding: 8px 12px 8px 34px; border: 1px solid var(--rule); border-radius: var(--radius); font-size: .82rem; font-family: inherit; background: var(--bg); color: var(--ink); outline: none; transition: border-color .15s; }
+  .search-input:focus { border-color: var(--accent); }
+  .filter-select { padding: 7px 28px 7px 10px; border: 1px solid var(--rule); border-radius: var(--radius); font-size: .8rem; font-family: inherit; background: var(--bg); color: var(--ink); outline: none; appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 9px center; transition: border-color .15s; }
+  .filter-select:focus { border-color: var(--accent); }
+  .toolbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .result-count { font-size: .75rem; color: var(--ink-soft); white-space: nowrap; }
 
-.main { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
-.table-wrap { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
-table { width: 100%; border-collapse: collapse; }
-thead { background: var(--bg); border-bottom: 2px solid var(--rule); }
-th { font-size: .68rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-soft); padding: 12px 16px; text-align: left; white-space: nowrap; }
-th.sortable { cursor: pointer; user-select: none; }
-th.sortable:hover { color: var(--ink); }
-tbody tr { border-bottom: 1px solid var(--rule); cursor: pointer; transition: background .1s; }
-tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: var(--bg); }
-td { padding: 13px 16px; font-size: .85rem; vertical-align: middle; }
-.avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; background: var(--rule); flex-shrink: 0; border: 2px solid var(--rule); }
-.avatar-ph { width: 38px; height: 38px; border-radius: 50%; background: var(--accent-dim); color: var(--accent); font-size: .75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.avatar-ph.org { background: var(--green-dim); color: var(--green); border-radius: 6px; }
-.org-logo { width: 38px; height: 38px; border-radius: 6px; object-fit: contain; background: var(--bg); border: 1px solid var(--rule); padding: 3px; flex-shrink: 0; }
-.name-cell { display: flex; align-items: center; gap: 12px; }
-.name-text { font-weight: 600; font-size: .88rem; font-family: 'DM Sans', sans-serif; }
-.pill { display: inline-block; font-size: .67rem; font-weight: 600; letter-spacing: .3px; padding: 3px 8px; border-radius: 20px; background: var(--accent); color: #fff; white-space: nowrap; margin: 2px 2px 2px 0; }
-.pill-o { background: var(--green); color: #fff; }
-.pill-c { background: #444; color: #fff; }
-.beat-pills { display: flex; flex-wrap: wrap; gap: 0; }
-.link-icon { display: inline-flex; align-items: center; color: var(--ink-soft); text-decoration: none; font-size: .75rem; gap: 4px; transition: color .15s; }
-.link-icon:hover { color: var(--accent); }
-.skel { background: linear-gradient(90deg,#ebebeb 25%,#f5f5f5 50%,#ebebeb 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 4px; height: 14px; }
-.skel-circle { width: 38px; height: 38px; border-radius: 50%; }
-@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-.empty { text-align: center; padding: 60px 24px; color: var(--ink-soft); }
-.empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
-.empty h3 { font-size: 1rem; font-weight: 600; color: var(--ink-mid); margin-bottom: 6px; }
+  .main { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
+  .table-wrap { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+  table { width: 100%; border-collapse: collapse; }
+  thead { background: var(--bg); border-bottom: 2px solid var(--rule); }
+  th { font-size: .68rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-soft); padding: 12px 16px; text-align: left; white-space: nowrap; }
+  th.sortable { cursor: pointer; user-select: none; }
+  th.sortable:hover { color: var(--ink); }
+  tbody tr { border-bottom: 1px solid var(--rule); cursor: pointer; transition: background .1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--bg); }
+  td { padding: 13px 16px; font-size: .85rem; vertical-align: middle; }
 
-.panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 200; opacity: 0; pointer-events: none; transition: opacity .2s; }
-.panel-overlay.open { opacity: 1; pointer-events: all; }
-.panel { position: fixed; top: 0; right: 0; bottom: 0; width: min(480px,100vw); background: var(--surface); z-index: 201; overflow-y: auto; transform: translateX(100%); transition: transform .25s cubic-bezier(.4,0,.2,1); box-shadow: -4px 0 32px rgba(0,0,0,.12); }
-.panel.open { transform: translateX(0); }
-.panel-header { position: sticky; top: 0; background: var(--surface); border-bottom: 1px solid var(--rule); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; z-index: 1; }
-.panel-close { width: 32px; height: 32px; border: none; background: var(--bg); border-radius: 50%; cursor: pointer; font-size: 1.1rem; color: var(--ink-mid); display: flex; align-items: center; justify-content: center; transition: background .15s; }
-.panel-close:hover { background: var(--rule); }
-.panel-body { padding: 24px; }
-.panel-avatar-row { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 20px; }
-.panel-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--rule); flex-shrink: 0; }
-.panel-avatar-ph { width: 100px; height: 100px; border-radius: 50%; background: var(--accent-dim); color: var(--accent); font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.panel-avatar-ph.org { background: var(--green-dim); color: var(--green); border-radius: 14px; }
-.panel-name { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1.3rem; line-height: 1.2; margin-bottom: 5px; }
-.panel-role { font-size: .82rem; color: var(--ink-soft); margin-bottom: 8px; }
-.panel-section { margin-bottom: 20px; }
-.panel-label { font-size: .65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
-.panel-value { font-size: .88rem; line-height: 1.6; color: var(--ink-mid); }
-.panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.panel-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.panel-link-btn { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 600; padding: 7px 14px; border-radius: 4px; text-decoration: none; border: 1px solid var(--rule); color: var(--ink-mid); background: var(--bg); transition: border-color .15s, color .15s; }
-.panel-link-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
-.panel-link-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-.panel-link-btn.primary-g { background: var(--green); color: #fff; border-color: var(--green); }
-.error-banner { background: #fff3f3; border: 1px solid #f5c6c6; border-radius: 6px; padding: 16px 20px; margin-bottom: 20px; font-size: .85rem; color: #c0392b; display: none; }
+  .avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; background: var(--rule); flex-shrink: 0; border: 2px solid var(--rule); }
+  .avatar-ph { width: 38px; height: 38px; border-radius: 50%; background: var(--accent-dim); color: var(--accent); font-size: .75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .avatar-ph.org { background: var(--green-dim); color: var(--green); border-radius: 6px; }
+  .org-logo { width: 38px; height: 38px; border-radius: 6px; object-fit: contain; background: var(--bg); border: 1px solid var(--rule); padding: 3px; flex-shrink: 0; }
+  .name-cell { display: flex; align-items: center; gap: 12px; }
+  .name-text { font-weight: 600; font-size: .88rem; font-family: 'DM Sans', sans-serif; }
 
-.pagination { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-top: 1px solid var(--rule); background: var(--surface); border-radius: 0 0 8px 8px; }
-.pagination-info { font-size: .78rem; color: var(--ink-soft); }
-.pagination-controls { display: flex; align-items: center; gap: 4px; }
-.page-btn { min-width: 32px; height: 32px; padding: 0 8px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink-mid); font-size: .8rem; font-family: inherit; font-weight: 500; border-radius: 4px; cursor: pointer; transition: background .15s; display: flex; align-items: center; justify-content: center; }
-.page-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-.page-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-.page-btn:disabled { opacity: .35; cursor: not-allowed; }
+  .pill { display: inline-block; font-size: .67rem; font-weight: 600; letter-spacing: .3px; padding: 3px 8px; border-radius: 20px; background: var(--accent); color: #fff; white-space: nowrap; margin: 2px 2px 2px 0; }
+  .pill-o { background: var(--green); color: #fff; }
+  .pill-c { background: #444; color: #fff; }
+  .beat-pills { display: flex; flex-wrap: wrap; gap: 0; }
 
-.view-toggle { display: flex; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; flex-shrink: 0; }
-.view-btn { width: 34px; height: 34px; border: none; background: transparent; color: var(--ink-soft); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s, color .15s; }
-.view-btn.active { background: var(--accent); color: #fff; }
-.view-btn:hover:not(.active) { background: var(--rule); color: var(--ink); }
+  .link-icon { display: inline-flex; align-items: center; color: var(--ink-soft); text-decoration: none; font-size: .75rem; gap: 4px; transition: color .15s; }
+  .link-icon:hover { color: var(--accent); }
 
-.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; padding: 20px; background: var(--bg); }
-.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 20px 16px 16px; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: var(--shadow); transition: box-shadow .15s, transform .15s; cursor: pointer; }
-.card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); transform: translateY(-2px); }
-.card-avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 3px solid var(--rule); margin-bottom: 12px; }
-.card-avatar-ph { width: 88px; height: 88px; border-radius: 50%; background: var(--accent-dim); color: var(--accent); font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
-.card-avatar-ph.org { background: var(--green-dim); color: var(--green); border-radius: 10px; }
-.card-logo { width: 88px; height: 88px; border-radius: 10px; object-fit: contain; background: var(--bg); border: 1px solid var(--rule); padding: 6px; margin-bottom: 12px; }
-.card-name { font-weight: 700; font-size: .9rem; margin-bottom: 4px; color: var(--ink); font-family: 'DM Sans', sans-serif; }
-.card-country { font-size: .75rem; color: var(--ink-soft); margin-bottom: 10px; }
-.card-btn { margin-top: auto; width: 100%; padding: 8px 0; border-radius: 6px; border: none; background: var(--accent); color: #fff; font-size: .78rem; font-weight: 600; cursor: pointer; font-family: inherit; }
-.card-btn:hover { opacity: .85; }
-.card-btn.org { background: var(--green); }
+  .skel { background: linear-gradient(90deg,#ebebeb 25%,#f5f5f5 50%,#ebebeb 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 4px; height: 14px; }
+  .skel-circle { width: 38px; height: 38px; border-radius: 50%; }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-/* ── LABARI DATA FOOTER ── */
-.ld-footer { background: #0F0F1A; border-top: 1px solid #2E2E4A; padding: 1.5rem 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 48px; }
-.ld-footer-brand { font-family: 'Space Grotesk', sans-serif; font-size: 0.82rem; font-weight: 600; color: #5A5A78; }
-.ld-footer-brand span { color: #E8A838; }
-.ld-footer-links { display: flex; gap: 1.5rem; list-style: none; }
-.ld-footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #3D3D5C; text-decoration: none; transition: color 0.2s; }
-.ld-footer-links a:hover { color: #E8A838; }
-.ld-footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #3D3D5C; }
+  .empty { text-align: center; padding: 60px 24px; color: var(--ink-soft); }
+  .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
+  .empty h3 { font-size: 1rem; font-weight: 600; color: var(--ink-mid); margin-bottom: 6px; }
+  .empty p { font-size: .85rem; }
 
-@media (max-width: 768px) {
-  header { padding: 0 16px; } .hero { padding: 24px 16px 20px; }
-  .toolbar { padding: 10px 16px; gap: 8px; } .main { padding: 16px; }
-  .col-hide { display: none; } .panel { width: 100vw; }
-  .ld-footer { flex-direction: column; align-items: flex-start; }
-}
+  .panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 200; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .panel-overlay.open { opacity: 1; pointer-events: all; }
+  .panel { position: fixed; top: 0; right: 0; bottom: 0; width: min(480px,100vw); background: var(--surface); z-index: 201; overflow-y: auto; transform: translateX(100%); transition: transform .25s cubic-bezier(.4,0,.2,1); box-shadow: -4px 0 32px rgba(0,0,0,.12); }
+  .panel.open { transform: translateX(0); }
+  .panel-header { position: sticky; top: 0; background: var(--surface); border-bottom: 1px solid var(--rule); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; z-index: 1; }
+  .panel-close { width: 32px; height: 32px; border: none; background: var(--bg); border-radius: 50%; cursor: pointer; font-size: 1.1rem; color: var(--ink-mid); display: flex; align-items: center; justify-content: center; transition: background .15s; }
+  .panel-close:hover { background: var(--rule); }
+  .panel-body { padding: 24px; }
+  .panel-avatar-row { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 20px; }
+  .panel-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--rule); flex-shrink: 0; }
+  .panel-avatar-ph { width: 100px; height: 100px; border-radius: 50%; background: var(--accent-dim); color: var(--accent); font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .panel-avatar-ph.org { background: var(--green-dim); color: var(--green); border-radius: 14px; }
+  .panel-name { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1.3rem; line-height: 1.2; margin-bottom: 5px; }
+  .panel-role { font-size: .82rem; color: var(--ink-soft); margin-bottom: 8px; }
+  .panel-section { margin-bottom: 20px; }
+  .panel-label { font-size: .65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
+  .panel-value { font-size: .88rem; line-height: 1.6; color: var(--ink-mid); }
+  .panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .panel-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .panel-link-btn { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 600; padding: 7px 14px; border-radius: 4px; text-decoration: none; border: 1px solid var(--rule); color: var(--ink-mid); background: var(--bg); transition: border-color .15s, color .15s, background .15s; }
+  .panel-link-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+  .panel-link-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .panel-link-btn.primary:hover { background: #0077cc; }
+  .panel-link-btn.primary-g { background: var(--green); color: #fff; border-color: var(--green); }
+  .panel-link-btn.primary-g:hover { background: #155235; }
+
+  .error-banner { background: #fff3f3; border: 1px solid #f5c6c6; border-radius: 6px; padding: 16px 20px; margin-bottom: 20px; font-size: .85rem; color: #c0392b; display: none; }
+
+
+  @media (max-width: 768px) {
+    .hero { flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
+    .hero-logo { height: 90px; }
+    .hero-sub { font-size: 1rem; }
+  }
+  @media (max-width: 768px) {
+    header { padding: 0 16px; } .hero { padding: 24px 16px 20px; }
+    .toolbar { padding: 10px 16px; gap: 8px; } .main { padding: 16px; }
+    .col-hide { display: none; } .panel { width: 100vw; }
+  }
+
+  /* ── PAGINATION ──────────────────────────────────────────────────────── */
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-top: 1px solid var(--rule);
+    background: var(--surface);
+    border-radius: 0 0 8px 8px;
+  }
+  .pagination-info { font-size: .78rem; color: var(--ink-soft); }
+  .pagination-controls { display: flex; align-items: center; gap: 4px; }
+  .page-btn {
+    min-width: 32px; height: 32px;
+    padding: 0 8px;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    color: var(--ink-mid);
+    font-size: .8rem;
+    font-family: inherit;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .page-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+  .page-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .page-btn:disabled { opacity: .35; cursor: not-allowed; }
+  .page-btn-nav { font-size: 1rem; }
+
+  /* ── VIEW TOGGLE ─────────────────────────────────────────────────────── */
+  .view-toggle { display: flex; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; flex-shrink: 0; }
+  .view-btn { width: 34px; height: 34px; border: none; background: transparent; color: var(--ink-soft); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s, color .15s; }
+  .view-btn.active { background: var(--accent); color: #fff; }
+  .view-btn-o.active { background: var(--green); }
+  .view-btn:hover:not(.active) { background: var(--rule); color: var(--ink); }
+
+  /* ── CARD GRID ───────────────────────────────────────────────────────── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; padding: 20px; background: var(--bg); }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 20px 16px 16px;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: box-shadow .15s, transform .15s;
+    cursor: pointer;
+  }
+  .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); transform: translateY(-2px); }
+  .card-avatar {
+    width: 88px; height: 88px; border-radius: 50%;
+    object-fit: cover; border: 3px solid var(--rule);
+    margin-bottom: 12px; flex-shrink: 0;
+  }
+  .card-avatar-ph {
+    width: 88px; height: 88px; border-radius: 50%;
+    background: var(--accent-dim); color: var(--accent);
+    font-size: 1.5rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 12px; flex-shrink: 0;
+  }
+  .card-avatar-ph.org { background: var(--green-dim); color: var(--green); border-radius: 10px; }
+  .card-logo { width: 88px; height: 88px; border-radius: 10px; object-fit: contain; background: var(--bg); border: 1px solid var(--rule); padding: 6px; margin-bottom: 12px; }
+  .card-name { font-weight: 700; font-size: .9rem; margin-bottom: 4px; color: var(--ink); line-height: 1.3; font-family: 'DM Sans', sans-serif; }
+  .card-country { font-size: .75rem; color: var(--ink-soft); margin-bottom: 10px; }
+  .card-beats { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-bottom: 14px; min-height: 24px; }
+  .card-btn {
+    margin-top: auto; width: 100%;
+    padding: 8px 0; border-radius: 6px; border: none;
+    background: var(--accent); color: #fff;
+    font-size: .78rem; font-weight: 600; cursor: pointer;
+    transition: background .15s, opacity .15s;
+    font-family: inherit;
+  }
+  .card-btn:hover { opacity: .85; }
+  .card-btn.org { background: var(--green); }
+  .card-btn.org:hover { opacity: .85; }
 </style>
 </head>
 <body>
-
-<!-- LABARI DATA NAV -->
-<nav class="ld-nav">
-  <a href="https://labaridata.com" class="ld-brand">
-    <div class="ld-logo">LD</div>
-    <span class="ld-wordmark">Labari <span>Data</span></span>
-  </a>
-  <a href="https://labaridata.com" class="ld-back">← All Tools</a>
-</nav>
 
 <header>
   <div class="wordmark">
     <span class="wordmark-title">The Labari Network</span>
     <span class="wordmark-badge">Directory</span>
   </div>
-  <a href="https://labaridata.com" class="btn-submit">← Back to Labari Data</a>
+  <div class="header-right">
+    <a href="https://labaridata.com" class="btn-submit" target="_blank">← Back to Labari Data</a>
+  </div>
 </header>
 
 <div class="hero">
@@ -198,6 +259,9 @@ td { padding: 13px 16px; font-size: .85rem; vertical-align: middle; }
       <a href="#" class="hero-cta hero-cta-j">+ Add Journalist</a>
       <a href="#" class="hero-cta hero-cta-o">+ Add Media Organisation</a>
     </div>
+  </div>
+  <div class="hero-right">
+    <img src="./logo.png" alt="The Labari Network" class="hero-logo">
   </div>
 </div>
 
@@ -218,7 +282,7 @@ td { padding: 13px 16px; font-size: .85rem; vertical-align: middle; }
     <button class="view-btn active" id="vbtn-table-o" onclick="setView('o','table')" title="Table view">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
     </button>
-    <button class="view-btn" id="vbtn-card-o" onclick="setView('o','card')" title="Card view">
+    <button class="view-btn view-btn-o" id="vbtn-card-o" onclick="setView('o','card')" title="Card view">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
     </button>
   </div>
@@ -234,6 +298,7 @@ td { padding: 13px 16px; font-size: .85rem; vertical-align: middle; }
 
 <div class="main">
   <div class="error-banner" id="error-banner"></div>
+
   <div id="sec-j">
     <div class="table-wrap">
       <table>
@@ -246,10 +311,11 @@ td { padding: 13px 16px; font-size: .85rem; vertical-align: middle; }
         </tr></thead>
         <tbody id="body-j"></tbody>
       </table>
-      <div class="pagination" id="pag-j"></div>
+    <div class="pagination" id="pag-j"></div>
     </div>
     <div class="card-grid" id="cards-j" style="display:none"></div>
   </div>
+
   <div id="sec-o" style="display:none">
     <div class="table-wrap">
       <table>
@@ -263,7 +329,7 @@ td { padding: 13px 16px; font-size: .85rem; vertical-align: middle; }
         </tr></thead>
         <tbody id="body-o"></tbody>
       </table>
-      <div class="pagination" id="pag-o"></div>
+    <div class="pagination" id="pag-o"></div>
     </div>
     <div class="card-grid" id="cards-o" style="display:none"></div>
   </div>
@@ -278,22 +344,13 @@ td { padding: 13px 16px; font-size: .85rem; vertical-align: middle; }
   <div class="panel-body" id="panel-body"></div>
 </div>
 
-<footer class="ld-footer">
-  <div class="ld-footer-brand">Labari <span>Data</span> — The Labari Network</div>
-  <ul class="ld-footer-links">
-    <li><a href="https://labaridata.com">All Tools</a></li>
-    <li><a href="https://labarijournal.com">Journal</a></li>
-    <li><a href="https://techlabari.com">TechLabari</a></li>
-    <li><a href="mailto:data@labarijournal.com">Contact</a></li>
-  </ul>
-  <div class="ld-footer-copy">© 2026 Labari Media. All rights reserved.</div>
-</footer>
-
 <script>
-// All API calls go through your Cloudflare Worker proxy
+// ── CONFIG ────────────────────────────────────────────────────────────────
+// All API calls go through your Cloudflare Worker proxy (token stored there).
 const WORKER_URL = 'https://labari-network.joseph-kuuire.workers.dev';
-const TABLES = { j: 'journalists', o: 'orgs' };
+const TABLES  = { j: 'journalists', o: 'orgs' };
 
+// ── STATE ─────────────────────────────────────────────────────────────────
 let data = { j: [], o: [] };
 let filtered = { j: [], o: [] };
 let activeTab = 'j';
@@ -301,40 +358,63 @@ let sortState = { j: { col: '', dir: 1 }, o: { col: '', dir: 1 } };
 let page = { j: 1, o: 1 };
 const PAGE_SIZE = 20;
 
+// ── FETCH VIA CLOUDFLARE WORKER PROXY (BASEROW) ──────────────────────────
 async function fetchTable(tableKey) {
   const tableParam = TABLES[tableKey];
-  let records = [], p = 1, hasMore = true;
+  let records = [], page = 1, hasMore = true;
   while (hasMore) {
-    const url = `${WORKER_URL}?table=${tableParam}&page=${p}`;
+    const url = `${WORKER_URL}?table=${tableParam}&page=${page}`;
     const resp = await fetch(url);
-    if (!resp.ok) { const err = await resp.json().catch(() => ({})); throw new Error(err.error || `HTTP ${resp.status}`); }
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.error || `HTTP ${resp.status}`);
+    }
     const json = await resp.json();
+    // Baserow returns { count, next, previous, results }
     records = records.concat(json.results || []);
     hasMore = !!json.next;
-    p++;
+    page++;
   }
   return records;
 }
 
+// ── HELPERS ───────────────────────────────────────────────────────────────
 const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const initials = n => (n||'?').split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
 function ensureHttps(u) { if(!u) return ''; u=u.trim(); return /^https?:\/\//i.test(u)?u:'https://'+u; }
 function hostOnly(u) { try{return new URL(ensureHttps(u)).hostname.replace('www.','')}catch{return u} }
-function extractVal(v) { if(!v) return ''; if(typeof v==='object'&&v.value) return v.value; return String(v).trim(); }
+// Baserow select fields return {id, value, color} objects or arrays of them
+// Plain text fields return strings; handle all cases
+function extractVal(v) {
+  if (!v) return '';
+  if (typeof v === 'object' && v.value) return v.value;
+  return String(v).trim();
+}
 function toArr(val) {
-  if(!val) return [];
-  if(Array.isArray(val)) return val.map(extractVal).filter(Boolean);
-  if(typeof val==='object'&&val.value) return [val.value];
+  if (!val) return [];
+  // Baserow multiple select: array of {id, value, color}
+  if (Array.isArray(val)) return val.map(extractVal).filter(Boolean);
+  // Baserow single select: {id, value, color}
+  if (typeof val === 'object' && val.value) return [val.value];
+  // Plain string fallback
   return String(val).split(';').map(s=>s.trim()).filter(Boolean);
 }
-function pills(val, cls='') { return toArr(val).map(s=>`<span class="pill ${cls}">${esc(s)}</span>`).join(''); }
+function pills(val, cls='') {
+  return toArr(val).map(s=>`<span class="pill ${cls}">${esc(s)}</span>`).join('');
+}
+
+// Airtable attachment fields return an array of objects with a url property
 function getImageUrl(field) {
-  if(!field) return '';
-  if(typeof field==='string'&&field.trim().startsWith('http')) return field.trim();
-  if(Array.isArray(field)&&field.length&&field[0]?.url) return field[0].url;
-  if(typeof field==='object'&&field.url) return field.url;
+  if (!field) return '';
+  // Plain text URL
+  if (typeof field === 'string' && field.trim().startsWith('http')) return field.trim();
+  // Baserow file field: array of {url, name, ...}
+  if (Array.isArray(field) && field.length && field[0]?.url) return field[0].url;
+  // Single object with url
+  if (typeof field === 'object' && field.url) return field.url;
   return '';
 }
+
 function skeletonRows(cols) {
   return Array(6).fill(0).map(()=>`<tr>${Array(cols).fill(0).map((_,i)=>
     `<td>${i===0?`<div class="name-cell"><div class="skel skel-circle"></div><div class="skel" style="width:110px"></div></div>`
@@ -342,18 +422,20 @@ function skeletonRows(cols) {
   ).join('')}</tr>`).join('');
 }
 
+// ── RENDER JOURNALISTS ────────────────────────────────────────────────────
 function renderJ(rows, resetPage=true) {
   filtered.j = rows;
-  if(resetPage) page.j=1;
-  const tb=document.getElementById('body-j');
-  if(!rows.length){tb.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">🔍</div><h3>No results</h3><p>Try adjusting your filters.</p></div></td></tr>`;renderPagination('j');return;}
-  const start=(page.j-1)*PAGE_SIZE;
-  const pageRows=rows.slice(start,start+PAGE_SIZE);
-  tb.innerHTML=pageRows.map((j,i)=>{
-    const img=getImageUrl(j['Profile Picture']);
-    const av=img?`<img class="avatar" src="${esc(img)}" alt="${esc(j['Journalist Name'])}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="avatar-ph" style="display:none">${esc(initials(j['Journalist Name']))}</div>`
-    :`<div class="avatar-ph">${esc(initials(j['Journalist Name']))}</div>`;
-    return`<tr onclick="openJ(${start+i})">
+  if (resetPage) page.j = 1;
+  const tb = document.getElementById('body-j');
+  if (!rows.length) { tb.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">🔍</div><h3>No results</h3><p>Try adjusting your search or filters.</p></div></td></tr>`; renderPagination('j'); return; }
+  const start = (page.j - 1) * PAGE_SIZE;
+  const pageRows = rows.slice(start, start + PAGE_SIZE);
+  tb.innerHTML = pageRows.map((j,i) => {
+    const img = getImageUrl(j['Profile Picture']);
+    const av = img
+      ? `<img class="avatar" src="${esc(img)}" alt="${esc(j['Journalist Name'])}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="avatar-ph" style="display:none">${esc(initials(j['Journalist Name']))}</div>`
+      : `<div class="avatar-ph">${esc(initials(j['Journalist Name']))}</div>`;
+    return `<tr onclick="openJ(${start + i})">
       <td><div class="name-cell">${av}<span class="name-text">${esc(j['Journalist Name']||'')}</span></div></td>
       <td><span class="pill pill-c">${esc(extractVal(j['Country'])||'—')}</span></td>
       <td><div class="beat-pills">${pills(j['Beat/Sector'])}</div></td>
@@ -361,162 +443,215 @@ function renderJ(rows, resetPage=true) {
       <td class="col-hide" style="font-size:.78rem;color:var(--ink-soft)">${esc(toArr(j['Language']).join(', '))}</td>
     </tr>`;
   }).join('');
-  document.getElementById('result-count').textContent=`${rows.length} journalist${rows.length!==1?'s':''}`;
+  document.getElementById('result-count').textContent = `${rows.length} journalist${rows.length!==1?'s':''}`;
   renderPagination('j');
 }
 
+// ── RENDER ORGS ───────────────────────────────────────────────────────────
 function renderO(rows, resetPage=true) {
-  filtered.o=rows;
-  if(resetPage) page.o=1;
-  const tb=document.getElementById('body-o');
-  if(!rows.length){tb.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">🔍</div><h3>No results</h3><p>Try adjusting your filters.</p></div></td></tr>`;renderPagination('o');return;}
-  const start=(page.o-1)*PAGE_SIZE;
-  const pageRows=rows.slice(start,start+PAGE_SIZE);
-  tb.innerHTML=pageRows.map((o,i)=>{
-    const name=o['Organisation Name']||o['Name']||'';
-    const img=getImageUrl(o['Logo']);
-    const av=img?`<img class="org-logo" src="${esc(img)}" alt="${esc(name)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="avatar-ph org" style="display:none">${esc(initials(name))}</div>`
-    :`<div class="avatar-ph org">${esc(initials(name))}</div>`;
-    const site=ensureHttps(o['Website']||'');
-    const siteLink=site?`<a class="link-icon" href="${esc(site)}" target="_blank" onclick="event.stopPropagation()">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> ${esc(hostOnly(o['Website']))}</a>`:'—';
-    return`<tr onclick="openO(${start+i})">
+  filtered.o = rows;
+  if (resetPage) page.o = 1;
+  const tb = document.getElementById('body-o');
+  if (!rows.length) { tb.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">🔍</div><h3>No results</h3><p>Try adjusting your search or filters.</p></div></td></tr>`; renderPagination('o'); return; }
+  const start = (page.o - 1) * PAGE_SIZE;
+  const pageRows = rows.slice(start, start + PAGE_SIZE);
+  tb.innerHTML = pageRows.map((o,i) => {
+    const name = o['Organisation Name'] || o['Name'] || '';
+    const img  = getImageUrl(o['Logo']);
+    const av = img
+      ? `<img class="org-logo" src="${esc(img)}" alt="${esc(name)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="avatar-ph org" style="display:none">${esc(initials(name))}</div>`
+      : `<div class="avatar-ph org">${esc(initials(name))}</div>`;
+    const site = ensureHttps(o['Website']||'');
+    const siteLink = site ? `<a class="link-icon" href="${esc(site)}" target="_blank" onclick="event.stopPropagation()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> ${esc(hostOnly(o['Website']))}</a>` : '—';
+    const email = o['Email Contact'] ? `<a class="link-icon" href="mailto:${esc(o['Email Contact'])}" onclick="event.stopPropagation()">${esc(o['Email Contact'])}</a>` : '';
+    return `<tr onclick="openO(${start + i})">
       <td><div class="name-cell">${av}<span class="name-text">${esc(name)}</span></div></td>
       <td><span class="pill pill-c">${esc(extractVal(o['Country'])||'—')}</span></td>
       <td><div class="beat-pills">${pills(toArr(o['Beat/Sector']||o['Beat/Sector ']||''),'pill-o')}</div></td>
       <td>${siteLink}</td>
       <td class="col-hide" style="font-size:.78rem;color:var(--ink-soft)">${esc(toArr(o['Language']).join(', '))}</td>
-      <td class="col-hide">${o['Email Contact']?`<a class="link-icon" href="mailto:${esc(o['Email Contact'])}" onclick="event.stopPropagation()">${esc(o['Email Contact'])}</a>`:''}</td>
+      <td class="col-hide">${email}</td>
     </tr>`;
   }).join('');
-  document.getElementById('result-count').textContent=`${rows.length} organisation${rows.length!==1?'s':''}`;
+  document.getElementById('result-count').textContent = `${rows.length} organisation${rows.length!==1?'s':''}`;
   renderPagination('o');
 }
 
+// ── FILTERS ───────────────────────────────────────────────────────────────
 function populateFilters() {
-  const d=activeTab==='j'?data.j:data.o;
-  const countries=[...new Set(d.map(r=>extractVal(r['Country'])).filter(Boolean))].sort();
-  const beats=[...new Set(d.flatMap(r=>toArr(r['Beat/Sector']||r['Beat/Sector '])))].sort();
-  const langs=[...new Set(d.flatMap(r=>toArr(r['Language'])))].sort();
-  document.getElementById('f-country').innerHTML=`<option value="">All countries</option>`+countries.map(c=>`<option>${esc(c)}</option>`).join('');
-  document.getElementById('f-beat').innerHTML=`<option value="">All beats</option>`+beats.map(b=>`<option>${esc(b)}</option>`).join('');
-  document.getElementById('f-lang').innerHTML=`<option value="">All languages</option>`+langs.map(l=>`<option>${esc(l)}</option>`).join('');
+  const d = activeTab==='j' ? data.j : data.o;
+  const countries = [...new Set(d.map(r=>extractVal(r['Country'])).filter(Boolean))].sort();
+  const beats = [...new Set(d.flatMap(r=>toArr(r['Beat/Sector']||r['Beat/Sector '])))].sort();
+  const langs  = [...new Set(d.flatMap(r=>toArr(r['Language'])))].sort();
+  document.getElementById('f-country').innerHTML = `<option value="">All countries</option>` + countries.map(c=>`<option>${esc(c)}</option>`).join('');
+  document.getElementById('f-beat').innerHTML    = `<option value="">All beats</option>`    + beats.map(b=>`<option>${esc(b)}</option>`).join('');
+  document.getElementById('f-lang').innerHTML    = `<option value="">All languages</option>` + langs.map(l=>`<option>${esc(l)}</option>`).join('');
 }
 
 function applyFilters() {
-  const q=document.getElementById('search').value.toLowerCase();
-  const country=document.getElementById('f-country').value;
-  const beat=document.getElementById('f-beat').value;
-  const lang=document.getElementById('f-lang').value;
-  let d=activeTab==='j'?[...data.j]:[...data.o];
-  if(q) d=d.filter(r=>JSON.stringify(r).toLowerCase().includes(q));
-  if(country) d=d.filter(r=>extractVal(r['Country'])===country);
-  if(beat) d=d.filter(r=>toArr(r['Beat/Sector']||r['Beat/Sector ']).includes(beat));
-  if(lang) d=d.filter(r=>toArr(r['Language']).includes(lang));
-  activeTab==='j'?renderJ(d):renderO(d);
-  if(activeTab==='j'&&viewMode.j==='card') renderCardsJ(d);
-  if(activeTab==='o'&&viewMode.o==='card') renderCardsO(d);
+  const q = document.getElementById('search').value.toLowerCase();
+  const country = document.getElementById('f-country').value;
+  const beat    = document.getElementById('f-beat').value;
+  let d = activeTab==='j' ? [...data.j] : [...data.o];
+  if (q)       d = d.filter(r => JSON.stringify(r).toLowerCase().includes(q));
+  if (country) d = d.filter(r => extractVal(r['Country']) === country);
+  if (beat)    d = d.filter(r => toArr(r['Beat/Sector']||r['Beat/Sector ']).includes(beat));
+  const lang = document.getElementById('f-lang').value;
+  if (lang)    d = d.filter(r => toArr(r['Language']).includes(lang));
+  activeTab==='j' ? renderJ(d) : renderO(d);
+  // Also update cards if card view is active
+  if (activeTab==='j' && viewMode.j==='card') renderCardsJ(d);
+  if (activeTab==='o' && viewMode.o==='card') renderCardsO(d);
 }
 
+// ── PAGINATION ────────────────────────────────────────────────────────────
 function renderPagination(tab) {
-  const rows=filtered[tab],total=rows.length,totalPages=Math.ceil(total/PAGE_SIZE),cur=page[tab];
-  const start=(cur-1)*PAGE_SIZE+1,end=Math.min(cur*PAGE_SIZE,total);
-  const el=document.getElementById(`pag-${tab}`);
-  if(!el) return;
-  if(totalPages<=1){el.style.display='none';return;}
-  el.style.display='flex';
-  let pages=[],pageButtons='',prev=null;
-  for(let p=1;p<=totalPages;p++){if(p===1||p===totalPages||(p>=cur-2&&p<=cur+2))pages.push(p);}
-  for(const p of pages){
-    if(prev&&p-prev>1)pageButtons+=`<span style="padding:0 4px;color:var(--ink-soft)">…</span>`;
-    pageButtons+=`<button class="page-btn${p===cur?' active':''}" onclick="goToPage('${tab}',${p})">${p}</button>`;
-    prev=p;
+  const rows = filtered[tab];
+  const total = rows.length;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const cur = page[tab];
+  const start = (cur - 1) * PAGE_SIZE + 1;
+  const end = Math.min(cur * PAGE_SIZE, total);
+  const el = document.getElementById(`pag-${tab}`);
+  if (!el) return;
+
+  if (totalPages <= 1) { el.style.display = 'none'; return; }
+  el.style.display = 'flex';
+
+  // Build page number buttons (show max 5 around current)
+  let pages = [];
+  for (let p = 1; p <= totalPages; p++) {
+    if (p === 1 || p === totalPages || (p >= cur - 2 && p <= cur + 2)) {
+      pages.push(p);
+    }
   }
-  el.innerHTML=`<span class="pagination-info">Showing ${start}–${end} of ${total}</span>
+  // Insert ellipsis markers
+  let pageButtons = '';
+  let prev = null;
+  for (const p of pages) {
+    if (prev && p - prev > 1) pageButtons += `<span style="padding:0 4px;color:var(--ink-soft)">…</span>`;
+    pageButtons += `<button class="page-btn${p===cur?' active':''}" onclick="goToPage('${tab}',${p})">${p}</button>`;
+    prev = p;
+  }
+
+  el.innerHTML = `
+    <span class="pagination-info">Showing ${start}–${end} of ${total}</span>
     <div class="pagination-controls">
-      <button class="page-btn" onclick="goToPage('${tab}',${cur-1})" ${cur===1?'disabled':''}>‹</button>
+      <button class="page-btn page-btn-nav" onclick="goToPage('${tab}',${cur-1})" ${cur===1?'disabled':''}>‹</button>
       ${pageButtons}
-      <button class="page-btn" onclick="goToPage('${tab}',${cur+1})" ${cur===totalPages?'disabled':''}>›</button>
+      <button class="page-btn page-btn-nav" onclick="goToPage('${tab}',${cur+1})" ${cur===totalPages?'disabled':''}>›</button>
     </div>`;
 }
 
-function goToPage(tab,p){
-  const totalPages=Math.ceil(filtered[tab].length/PAGE_SIZE);
-  if(p<1||p>totalPages) return;
-  page[tab]=p;
-  if(tab==='j')renderJ(filtered.j,false);else renderO(filtered.o,false);
-  document.getElementById(`sec-${tab}`).scrollIntoView({behavior:'smooth',block:'start'});
+function goToPage(tab, p) {
+  const totalPages = Math.ceil(filtered[tab].length / PAGE_SIZE);
+  if (p < 1 || p > totalPages) return;
+  page[tab] = p;
+  if (tab === 'j') renderJ(filtered.j, false);
+  else renderO(filtered.o, false);
+  // Scroll to top of table
+  document.getElementById(`sec-${tab}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-let viewMode={j:'table',o:'table'};
-function setView(tab,mode){
-  viewMode[tab]=mode;
-  const isTable=mode==='table';
-  document.getElementById(`vbtn-table-${tab}`).classList.toggle('active',isTable);
-  document.getElementById(`vbtn-card-${tab}`).classList.toggle('active',!isTable);
-  document.querySelector(`[id="sec-${tab}"] .table-wrap`).style.display=isTable?'':'none';
-  document.getElementById(`pag-${tab}`).style.display=isTable?'':'none';
-  document.getElementById(`cards-${tab}`).style.display=isTable?'none':'grid';
-  if(!isTable){tab==='j'?renderCardsJ(filtered.j):renderCardsO(filtered.o);}
+// ── VIEW STATE ────────────────────────────────────────────────────────────
+let viewMode = { j: 'table', o: 'table' };
+
+function setView(tab, mode) {
+  viewMode[tab] = mode;
+  const isTable = mode === 'table';
+  document.getElementById(`vbtn-table-${tab}`).classList.toggle('active', isTable);
+  document.getElementById(`vbtn-card-${tab}`).classList.toggle('active', !isTable);
+  document.querySelector(`[id="sec-${tab}"] .table-wrap`).style.display = isTable ? '' : 'none';
+  document.getElementById(`pag-${tab}`).style.display = isTable ? '' : 'none';
+  document.getElementById(`cards-${tab}`).style.display = isTable ? 'none' : 'grid';
+  if (!isTable) {
+    tab === 'j' ? renderCardsJ(filtered.j) : renderCardsO(filtered.o);
+  }
 }
 
-function renderCardsJ(rows){
-  const el=document.getElementById('cards-j');
-  if(!rows.length){el.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><h3>No results</h3></div>';return;}
-  el.innerHTML=rows.map((j,i)=>{
-    const img=getImageUrl(j['Profile Picture']);
-    const av=img?`<img class="card-avatar" src="${esc(img)}" alt="${esc(j['Journalist Name']||'')}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="card-avatar-ph" style="display:none">${esc(initials(j['Journalist Name']))}</div>`
-    :`<div class="card-avatar-ph">${esc(initials(j['Journalist Name']))}</div>`;
-    return`<div class="card" onclick="openJ(${i})">${av}<div class="card-name">${esc(j['Journalist Name']||'')}</div><div class="card-country">${esc(extractVal(j['Country'])||'')}</div><button class="card-btn" onclick="event.stopPropagation();openJ(${i})">View Profile</button></div>`;
+// ── CARD RENDER: JOURNALISTS ──────────────────────────────────────────────
+function renderCardsJ(rows) {
+  const el = document.getElementById('cards-j');
+  if (!rows.length) { el.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><h3>No results</h3><p>Try adjusting your search or filters.</p></div>'; return; }
+  el.innerHTML = rows.map((j, i) => {
+    const img = getImageUrl(j['Profile Picture']);
+    const av = img
+      ? `<img class="card-avatar" src="${esc(img)}" alt="${esc(j['Journalist Name']||'')}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="card-avatar-ph" style="display:none">${esc(initials(j['Journalist Name']))}</div>`
+      : `<div class="card-avatar-ph">${esc(initials(j['Journalist Name']))}</div>`;
+    return `<div class="card" onclick="openJ(${i})">
+      ${av}
+      <div class="card-name">${esc(j['Journalist Name']||'')}</div>
+      <div class="card-country">${esc(extractVal(j['Country'])||'')}</div>
+      <button class="card-btn" onclick="event.stopPropagation();openJ(${i})">View Profile</button>
+    </div>`;
   }).join('');
 }
 
-function renderCardsO(rows){
-  const el=document.getElementById('cards-o');
-  if(!rows.length){el.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><h3>No results</h3></div>';return;}
-  el.innerHTML=rows.map((o,i)=>{
-    const name=o['Organisation Name']||o['Name']||'';
-    const img=getImageUrl(o['Logo']);
-    const av=img?`<img class="card-logo" src="${esc(img)}" alt="${esc(name)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="card-avatar-ph org" style="display:none">${esc(initials(name))}</div>`
-    :`<div class="card-avatar-ph org">${esc(initials(name))}</div>`;
-    return`<div class="card" onclick="openO(${i})">${av}<div class="card-name">${esc(name)}</div><div class="card-country">${esc(extractVal(o['Country'])||'')}</div><button class="card-btn org" onclick="event.stopPropagation();openO(${i})">View Profile</button></div>`;
+// ── CARD RENDER: ORGS ────────────────────────────────────────────────────
+function renderCardsO(rows) {
+  const el = document.getElementById('cards-o');
+  if (!rows.length) { el.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><h3>No results</h3><p>Try adjusting your search or filters.</p></div>'; return; }
+  el.innerHTML = rows.map((o, i) => {
+    const name = o['Organisation Name'] || o['Name'] || '';
+    const img = getImageUrl(o['Logo']);
+    const av = img
+      ? `<img class="card-logo" src="${esc(img)}" alt="${esc(name)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="card-avatar-ph org" style="display:none">${esc(initials(name))}</div>`
+      : `<div class="card-avatar-ph org">${esc(initials(name))}</div>`;
+    return `<div class="card" onclick="openO(${i})">
+      ${av}
+      <div class="card-name">${esc(name)}</div>
+      <div class="card-country">${esc(extractVal(o['Country'])||'')}</div>
+      <button class="card-btn org" onclick="event.stopPropagation();openO(${i})">View Profile</button>
+    </div>`;
   }).join('');
 }
 
-function sortBy(tab,col){
-  const s=sortState[tab];s.dir=s.col===col?s.dir*-1:1;s.col=col;
-  document.getElementById(`si-${tab}`).textContent=s.dir===1?'↑':'↓';
-  const arr=tab==='j'?filtered.j:filtered.o;
+// ── SORT ──────────────────────────────────────────────────────────────────
+function sortBy(tab, col) {
+  const s = sortState[tab];
+  s.dir = s.col===col ? s.dir*-1 : 1; s.col = col;
+  document.getElementById(`si-${tab}`).textContent = s.dir===1?'↑':'↓';
+  const arr = tab==='j' ? filtered.j : filtered.o;
   arr.sort((a,b)=>(a[col]||'').localeCompare(b[col]||'')*s.dir);
-  tab==='j'?renderJ(arr):renderO(arr);
+  tab==='j' ? renderJ(arr) : renderO(arr);
 }
 
-function switchTab(t){
-  activeTab=t;
-  document.getElementById('sec-j').style.display=t==='j'?'':'none';
-  document.getElementById('sec-o').style.display=t==='o'?'':'none';
-  document.getElementById('tab-j').className='tab'+(t==='j'?' active-j':'');
-  document.getElementById('tab-o').className='tab'+(t==='o'?' active-o':'');
-  document.getElementById('view-toggle-j').style.display=t==='j'?'':'none';
-  document.getElementById('view-toggle-o').style.display=t==='o'?'':'none';
-  document.getElementById('search').value='';
-  document.getElementById('f-country').value='';
-  document.getElementById('f-beat').value='';
-  populateFilters();applyFilters();closePanel();
+// ── TAB SWITCH ────────────────────────────────────────────────────────────
+function switchTab(t) {
+  activeTab = t;
+  document.getElementById('sec-j').style.display = t==='j' ? '' : 'none';
+  document.getElementById('sec-o').style.display = t==='o' ? '' : 'none';
+  document.getElementById('tab-j').className = 'tab' + (t==='j' ? ' active-j' : '');
+  document.getElementById('tab-o').className = 'tab' + (t==='o' ? ' active-o' : '');
+  document.getElementById('view-toggle-j').style.display = t==='j' ? '' : 'none';
+  document.getElementById('view-toggle-o').style.display = t==='o' ? '' : 'none';
+  document.getElementById('search').value = '';
+  document.getElementById('f-country').value = '';
+  document.getElementById('f-beat').value = '';
+  populateFilters();
+  applyFilters();
+  closePanel();
 }
 
-function openJ(i){
-  const j=filtered.j[i];if(!j)return;
-  document.getElementById('panel-type').textContent='Journalist Profile';
-  const img=getImageUrl(j['Profile Picture']);
-  const av=img?`<img class="panel-avatar" src="${esc(img)}" alt="${esc(j['Journalist Name'])}" onerror="this.outerHTML='<div class=panel-avatar-ph>${esc(initials(j['Journalist Name']))}</div>'">`
-  :`<div class="panel-avatar-ph">${esc(initials(j['Journalist Name']))}</div>`;
-  const links=[];
-  if(j['LinkedIn'])links.push(`<a class="panel-link-btn" href="${esc(j['LinkedIn'])}" target="_blank">LinkedIn</a>`);
-  if(j['Media Site/Personal Website (If Any)'])links.push(`<a class="panel-link-btn" href="${esc(ensureHttps(j['Media Site/Personal Website (If Any)']))}" target="_blank">Website</a>`);
-  if(j['Email'])links.push(`<a class="panel-link-btn" href="mailto:${esc(j['Email'])}">Email</a>`);
-  document.getElementById('panel-body').innerHTML=`
-    <div class="panel-avatar-row">${av}<div><div class="panel-name">${esc(j['Journalist Name']||'')}</div><div class="panel-role">${esc(toArr(j['Role']).join(', '))}</div><div class="beat-pills">${pills(j['Beat/Sector'])}</div></div></div>
+// ── PANEL: JOURNALIST ─────────────────────────────────────────────────────
+function openJ(i) {
+  const j = filtered.j[i]; if(!j) return;
+  document.getElementById('panel-type').textContent = 'Journalist Profile';
+  const img = getImageUrl(j['Profile Picture']);
+  const av = img
+    ? `<img class="panel-avatar" src="${esc(img)}" alt="${esc(j['Journalist Name'])}" onerror="this.outerHTML='<div class=panel-avatar-ph>${esc(initials(j['Journalist Name']))}</div>'">`
+    : `<div class="panel-avatar-ph">${esc(initials(j['Journalist Name']))}</div>`;
+  const links = [];
+  if (j['LinkedIn'])    links.push(`<a class="panel-link-btn" href="${esc(j['LinkedIn'])}" target="_blank">LinkedIn</a>`);
+  if (j['Media Site/Personal Website (If Any)']) links.push(`<a class="panel-link-btn" href="${esc(ensureHttps(j['Media Site/Personal Website (If Any)']))}" target="_blank">Website</a>`);
+  if (j['Email'])       links.push(`<a class="panel-link-btn" href="mailto:${esc(j['Email'])}">Email</a>`);
+  document.getElementById('panel-body').innerHTML = `
+    <div class="panel-avatar-row">${av}
+      <div><div class="panel-name">${esc(j['Journalist Name']||'')}</div>
+        <div class="panel-role">${esc(toArr(j['Role']).join(', '))}</div>
+        <div class="beat-pills">${pills(j['Beat/Sector'])}</div></div>
+    </div>
     ${j['Bio']?`<div class="panel-section"><div class="panel-label">Bio</div><div class="panel-value">${esc(j['Bio'])}</div></div>`:''}
     <div class="panel-section panel-grid">
       ${j['Country']?`<div><div class="panel-label">Country</div><div class="panel-value">${esc(extractVal(j['Country']))}</div></div>`:''}
@@ -527,20 +662,26 @@ function openJ(i){
   openPanel();
 }
 
-function openO(i){
-  const o=filtered.o[i];if(!o)return;
-  const name=o['Organisation Name']||o['Name']||'';
-  document.getElementById('panel-type').textContent='Media Organisation';
-  const img=getImageUrl(o['Logo']);
-  const av=img?`<img class="panel-avatar" src="${esc(img)}" alt="${esc(name)}" style="border-radius:10px;object-fit:contain;background:var(--bg);padding:6px">`
-  :`<div class="panel-avatar-ph org">${esc(initials(name))}</div>`;
-  const site=ensureHttps(o['Website']||'');
-  const links=[];
-  if(site)links.push(`<a class="panel-link-btn primary-g" href="${esc(site)}" target="_blank">Visit Website</a>`);
-  if(o['Email Contact'])links.push(`<a class="panel-link-btn" href="mailto:${esc(o['Email Contact'])}">Email</a>`);
-  if(o['LinkedIn'])links.push(`<a class="panel-link-btn" href="${esc(o['LinkedIn'])}" target="_blank">LinkedIn</a>`);
-  document.getElementById('panel-body').innerHTML=`
-    <div class="panel-avatar-row">${av}<div><div class="panel-name">${esc(name)}</div><div class="panel-role">${esc(extractVal(o['Country'])||'')}</div><div class="beat-pills">${pills(toArr(o['Beat/Sector']||o['Beat/Sector ']||''),'pill-o')}</div></div></div>
+// ── PANEL: ORG ────────────────────────────────────────────────────────────
+function openO(i) {
+  const o = filtered.o[i]; if(!o) return;
+  const name = o['Organisation Name'] || o['Name'] || '';
+  document.getElementById('panel-type').textContent = 'Media Organisation';
+  const img = getImageUrl(o['Logo']);
+  const av = img
+    ? `<img class="panel-avatar" src="${esc(img)}" alt="${esc(name)}" style="border-radius:10px;object-fit:contain;background:var(--bg);padding:6px" onerror="this.outerHTML='<div class=panel-avatar-ph org>${esc(initials(name))}</div>'">`
+    : `<div class="panel-avatar-ph org">${esc(initials(name))}</div>`;
+  const site = ensureHttps(o['Website']||'');
+  const links = [];
+  if (site)              links.push(`<a class="panel-link-btn primary-g" href="${esc(site)}" target="_blank">Visit Website</a>`);
+  if (o['Email Contact']) links.push(`<a class="panel-link-btn" href="mailto:${esc(o['Email Contact'])}">Email</a>`);
+  if (o['LinkedIn'])     links.push(`<a class="panel-link-btn" href="${esc(o['LinkedIn'])}" target="_blank">LinkedIn</a>`);
+  document.getElementById('panel-body').innerHTML = `
+    <div class="panel-avatar-row">${av}
+      <div><div class="panel-name">${esc(name)}</div>
+        <div class="panel-role">${esc(extractVal(o['Country'])||'')}</div>
+        <div class="beat-pills">${pills(toArr(o['Beat/Sector']||o['Beat/Sector ']||''),'pill-o')}</div></div>
+    </div>
     ${o['Description']?`<div class="panel-section"><div class="panel-label">About</div><div class="panel-value">${esc(o['Description'])}</div></div>`:''}
     <div class="panel-section panel-grid">
       ${toArr(o['Language']).length?`<div><div class="panel-label">Language</div><div class="panel-value">${esc(toArr(o['Language']).join(', '))}</div></div>`:''}
@@ -550,25 +691,37 @@ function openO(i){
   openPanel();
 }
 
-function openPanel(){document.getElementById('panel').classList.add('open');document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';}
-function closePanel(){document.getElementById('panel').classList.remove('open');document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closePanel();});
+function openPanel() { document.getElementById('panel').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closePanel() { document.getElementById('panel').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); document.body.style.overflow=''; }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closePanel(); });
 
-document.getElementById('body-j').innerHTML=skeletonRows(5);
-document.getElementById('body-o').innerHTML=skeletonRows(6);
+// ── INIT ──────────────────────────────────────────────────────────────────
+document.getElementById('body-j').innerHTML = skeletonRows(7);
+document.getElementById('body-o').innerHTML = skeletonRows(6);
 
-Promise.all([fetchTable('j'),fetchTable('o')])
-  .then(([rj,ro])=>{
-    data.j=rj.filter(r=>r['Journalist Name']);
-    data.o=ro.filter(r=>r['Organisation Name']||r['Name']);
-    filtered.j=data.j;filtered.o=data.o;
-    populateFilters();renderJ(data.j);
+Promise.all([fetchTable('j'), fetchTable('o')])
+  .then(([rj, ro]) => {
+    data.j = rj.filter(r => r['Journalist Name']);
+    data.o = ro.filter(r => r['Organisation Name'] || r['Name']);
+    filtered.j = data.j; filtered.o = data.o;
+    populateFilters();
+    renderJ(data.j);
   })
-  .catch(err=>{
-    document.getElementById('error-banner').style.display='block';
-    document.getElementById('error-banner').textContent=`Could not load directory: ${err.message}`;
-    document.getElementById('body-j').innerHTML=`<tr><td colspan="5"><div class="empty"><div class="empty-icon">⚠️</div><h3>Could not load directory</h3><p>${err.message}</p></div></td></tr>`;
+  .catch(err => {
+    document.getElementById('error-banner').style.display = 'block';
+    document.getElementById('error-banner').textContent = `Could not load data from Airtable: ${err.message}`;
+    document.getElementById('body-j').innerHTML = `<tr><td colspan="7"><div class="empty"><div class="empty-icon">⚠️</div><h3>Could not load directory</h3><p>${err.message}</p></div></td></tr>`;
   });
 </script>
+
+<footer style="background:#1a1a1a;color:rgba(255,255,255,.75);text-align:center;padding:20px 32px;font-size:.82rem;border-top:1px solid #333;margin-top:40px;">
+  <span>© 2026 Labari Media. All rights reserved.</span>
+  <span style="margin:0 12px;color:rgba(255,255,255,.25)">|</span>
+  <a href="https://labarijournal.com" style="color:rgba(255,255,255,.75);text-decoration:none;" target="_blank">Labari Journal</a>
+  <span style="margin:0 12px;color:rgba(255,255,255,.25)">|</span>
+  <a href="https://labaridata.com" style="color:rgba(255,255,255,.75);text-decoration:none;" target="_blank">Labari Data</a>
+  <span style="margin:0 12px;color:rgba(255,255,255,.25)">|</span>
+  <a href="mailto:hi@labaridata.com" style="color:rgba(255,255,255,.75);text-decoration:none;">hi@labaridata.com</a>
+</footer>
 </body>
 </html>
