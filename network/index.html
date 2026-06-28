@@ -437,7 +437,14 @@ async function fetchTable(tableKey) {
 // ── HELPERS ───────────────────────────────────────────────────────────────
 const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const initials = n => (n||'?').split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
-function ensureHttps(u) { if(!u) return ''; u=u.trim(); return /^https?:\/\//i.test(u)?u:'https://'+u; }
+function ensureHttps(u) {
+  if (!u) return '';
+  u = u.trim();
+  // Strip accidental domain prefix (e.g. if base URL got prepended)
+  u = u.replace(/^https?:\/\/[^/]+\/(?=linkedin\.com|twitter\.com|facebook\.com)/, '');
+  if (/^https?:\/\//i.test(u)) return u;
+  return 'https://' + u;
+}
 function hostOnly(u) { try{return new URL(ensureHttps(u)).hostname.replace('www.','')}catch{return u} }
 // Baserow select fields return {id, value, color} objects or arrays of them
 // Plain text fields return strings; handle all cases
