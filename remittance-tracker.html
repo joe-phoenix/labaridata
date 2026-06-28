@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remittance Tracker — Labari Data</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #f5f6f8;
+      --surface:    #ffffff;
+      --surface-2:  #f0f2f5;
+      --border:     #e2e5ea;
+      --border-focus: #0f1f38;
+      --navy:       #0f1f38;
+      --navy-light: #1e3a5f;
+      --amber:      #e8a020;
+      --amber-bg:   #fff8ec;
+      --amber-border: #f5d48a;
+      --text-primary:   #0f1f38;
+      --text-secondary: #5a6880;
+      --text-muted:     #98a3b4;
+      --green:      #16a34a;
+      --green-bg:   #f0fdf4;
+      --green-border: #bbf7d0;
+      --tag-bg:     #eef1f5;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 26px;
+      height: 26px;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-mark span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: var(--amber);
+      letter-spacing: 0.01em;
+    }
+
+    .logo-text {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.01em;
+    }
+
+    .logo-text em {
+      color: var(--amber);
+      font-style: normal;
+    }
+
+    .header-pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.65rem;
+      border-radius: 2px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: var(--navy);
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.55rem, 3.5vw, 2.1rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #ffffff;
+      max-width: 540px;
+      margin: 0 auto 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* ── Calculator Card ── */
+    .calc-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      transform: translateY(-28px);
+    }
+
+    .calc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(15,31,56,0.08);
+      padding: 1.75rem 2rem;
+    }
+
+    .calc-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 1.25rem;
+      align-items: end;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .field-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .input-wrap {
+      display: flex;
+      align-items: center;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      background: var(--surface);
+      transition: border-color 0.15s;
+      overflow: hidden;
+    }
+
+    .input-wrap:focus-within { border-color: var(--navy); }
+
+    .input-prefix {
+      padding: 0 0.85rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--surface-2);
+      height: 46px;
+      display: flex;
+      align-items: center;
+      border-right: 1.5px solid var(--border);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    input[type="number"] {
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-family: 'DM Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 500;
+      padding: 0 1rem;
+      height: 46px;
+      width: 100%;
+      background: transparent;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    select {
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0 2.5rem 0 1rem;
+      height: 46px;
+      width: 100%;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-color: var(--surface);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6880' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.9rem center;
+      transition: border-color 0.15s;
+    }
+
+    select:focus { border-color: var(--navy); }
+
+    /* Quick amounts */
+    .quick-row {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+
+    .quick-btn {
+      background: var(--tag-bg);
+      border: 1.5px solid var(--border);
+      color: var(--text-secondary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.13s;
+    }
+
+    .quick-btn:hover { border-color: var(--navy); color: var(--navy); }
+    .quick-btn.active { border-color: var(--navy); color: var(--navy); background: var(--surface-2); font-weight: 600; }
+
+
+
+    /* ── Divider ── */
+    .section-divider {
+      max-width: 820px;
+      margin: 0 auto 1.25rem;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+
+    .divider-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── Results ── */
+    .results-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .results-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .results-sending-to {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .results-sending-to strong { color: var(--text-primary); }
+
+    .last-updated {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Provider Cards ── */
+    .provider-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .provider-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      padding: 1.2rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: 1.5rem;
+      align-items: center;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      position: relative;
+    }
+
+    .provider-card:hover {
+      border-color: #c8cdd6;
+      box-shadow: 0 2px 12px rgba(15,31,56,0.06);
+    }
+
+    .provider-card.best {
+      border-color: var(--amber);
+      box-shadow: 0 2px 16px rgba(232,160,32,0.12);
+    }
+
+    .best-label {
+      position: absolute;
+      top: -1px;
+      left: 16px;
+      background: var(--amber);
+      color: var(--navy);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.55rem;
+      border-radius: 0 0 3px 3px;
+    }
+
+    .provider-info { display: flex; flex-direction: column; gap: 0.3rem; }
+
+    .provider-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .provider-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+    .tag {
+      font-size: 0.68rem;
+      font-weight: 500;
+      padding: 0.18rem 0.55rem;
+      border-radius: 2px;
+      background: var(--tag-bg);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .tag.instant {
+      background: var(--green-bg);
+      color: var(--green);
+      border-color: var(--green-border);
+    }
+
+    .data-col { display: flex; flex-direction: column; gap: 0.2rem; text-align: right; }
+
+    .data-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .data-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .receive-amount {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .receive-amount.best { color: var(--amber); }
+
+    .send-btn {
+      display: inline-block;
+      padding: 0.55rem 1.1rem;
+      background: var(--navy);
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 3px;
+      white-space: nowrap;
+      transition: background 0.15s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .send-btn:hover { background: var(--navy-light); }
+
+    .provider-card.best .send-btn {
+      background: var(--amber);
+      color: var(--navy);
+    }
+
+    .provider-card.best .send-btn:hover { background: #d4911a; }
+
+    /* ── No results ── */
+    .no-results {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ── Disclaimer ── */
+    .disclaimer {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .disclaimer p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      header { padding: 0 1rem; }
+      .calc-wrap, .country-section, .section-divider, .results-wrap, .disclaimer { padding-left: 1rem; padding-right: 1rem; }
+      .calc-row { grid-template-columns: 1fr; }
+      .provider-card { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 1rem; }
+      .provider-card .send-btn { grid-column: 1 / -1; text-align: center; }
+      .data-col { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <a class="logo-wrap" href="https://data.labarijournal.com">
+    <div class="logo-mark"><span>LD</span></div>
+    <span class="logo-text">Labari <em>Data</em></span>
+  </a>
+  <div class="header-pill">Remittance Tracker</div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <p class="hero-eyebrow">Remittance Tracker</p>
+  <h1>Calculate How Much It Costs To Send Money Home</h1>
+  <p class="hero-sub">Compare rates across the top providers sending money to Africa.</p>
+</div>
+
+<!-- Calculator Card -->
+<div class="calc-wrap">
+  <div class="calc-card">
+    <div class="calc-row">
+      <div class="field">
+        <div class="field-label">You Send</div>
+        <div class="input-wrap">
+          <div class="input-prefix" id="currency-prefix">USD $</div>
+          <input type="number" id="send-amount" value="200" min="1" max="50000" />
+        </div>
+        <div class="quick-row">
+          <button class="quick-btn" data-amount="100">100</button>
+          <button class="quick-btn active" data-amount="200">200</button>
+          <button class="quick-btn" data-amount="500">500</button>
+          <button class="quick-btn" data-amount="1000">1,000</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">From Currency</div>
+        <select id="currency-select">
+          <option value="USD">🇺🇸 USD — US Dollar</option>
+          <option value="GBP">🇬🇧 GBP — British Pound</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Send To</div>
+        <select id="country-select">
+          <option value="GH">🇬🇭 Ghana</option>
+          <option value="NG">🇳🇬 Nigeria</option>
+          <option value="KE">🇰🇪 Kenya</option>
+          <option value="SN">🇸🇳 Senegal</option>
+          <option value="CM">🇨🇲 Cameroon</option>
+          <option value="TZ">🇹🇿 Tanzania</option>
+          <option value="UG">🇺🇬 Uganda</option>
+          <option value="ZA">🇿🇦 South Africa</option>
+          <option value="ET">🇪🇹 Ethiopia</option>
+          <option value="CI">🇨🇮 Côte d'Ivoire</option>
+          <option value="ZW">🇿🇼 Zimbabwe</option>
+          <option value="RW">🇷🇼 Rwanda</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Divider -->
+<div class="section-divider">
+  <div class="divider-line"></div>
+  <div class="divider-label">Provider comparison</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- Results -->
+<div class="results-wrap">
+  <div class="results-meta">
+    <div class="results-sending-to" id="results-label">Showing rates to <strong>Ghana</strong></div>
+    <div class="last-updated" id="update-time">—</div>
+  </div>
+  <div class="provider-list" id="provider-list"></div>
+</div>
+
+<!-- Disclaimer -->
+<div class="disclaimer">
+  <p><strong>Note:</strong> Rates shown are indicative and updated manually. Actual rates at time of transfer may vary. Fees shown are for standard transfers. Labari Data may earn referral commissions from some providers — this does not affect ranking order, which is always by most received.</p>
+</div>
+
+<script>
+  // ── Country data ──
+  const COUNTRIES = [
+    { code: 'GH', name: 'Ghana',         flag: '🇬🇭', currency: 'GHS' },
+    { code: 'NG', name: 'Nigeria',        flag: '🇳🇬', currency: 'NGN' },
+    { code: 'KE', name: 'Kenya',          flag: '🇰🇪', currency: 'KES' },
+    { code: 'SN', name: 'Senegal',        flag: '🇸🇳', currency: 'XOF' },
+    { code: 'CM', name: 'Cameroon',       flag: '🇨🇲', currency: 'XAF' },
+    { code: 'TZ', name: 'Tanzania',       flag: '🇹🇿', currency: 'TZS' },
+    { code: 'UG', name: 'Uganda',         flag: '🇺🇬', currency: 'UGX' },
+    { code: 'ZA', name: 'South Africa',   flag: '🇿🇦', currency: 'ZAR' },
+    { code: 'ET', name: 'Ethiopia',       flag: '🇪🇹', currency: 'ETB' },
+    { code: 'CI', name: "Côte d'Ivoire", flag: '🇨🇮', currency: 'XOF' },
+    { code: 'ZW', name: 'Zimbabwe',       flag: '🇿🇼', currency: 'USD' },
+    { code: 'RW', name: 'Rwanda',         flag: '🇷🇼', currency: 'RWF' },
+  ];
+
+  // ── Provider rate data ──
+  // rates[country][currency] = { rate, flatFee, percentFee, speed, url }
+  const PROVIDERS = [
+    {
+      name: 'Wise',
+      url: 'https://wise.com',
+      rates: {
+        GH: {
+          USD: { rate: 15.38, flatFee: 1.50, percentFee: 0.43, speed: 'Instant' },
+          GBP: { rate: 19.62, flatFee: 1.20, percentFee: 0.43, speed: 'Instant' },
+        },
+        NG: {
+          USD: { rate: 1590,  flatFee: 1.50, percentFee: 0.43, speed: 'Instant' },
+          GBP: { rate: 2020,  flatFee: 1.20, percentFee: 0.43, speed: 'Instant' },
+        },
+        KE: {
+          USD: { rate: 129.5, flatFee: 1.50, percentFee: 0.43, speed: 'Instant' },
+          GBP: { rate: 164.8, flatFee: 1.20, percentFee: 0.43, speed: 'Instant' },
+        },
+        SN: {
+          USD: { rate: 615,   flatFee: 2.00, percentFee: 0.43, speed: '1–2 days' },
+          GBP: { rate: 782,   flatFee: 1.80, percentFee: 0.43, speed: '1–2 days' },
+        },
+        CM: {
+          USD: { rate: 618,   flatFee: 2.00, percentFee: 0.43, speed: '1–2 days' },
+          GBP: { rate: 786,   flatFee: 1.80, percentFee: 0.43, speed: '1–2 days' },
+        },
+        TZ: {
+          USD: { rate: 2590,  flatFee: 1.50, percentFee: 0.43, speed: 'Instant' },
+          GBP: { rate: 3295,  flatFee: 1.20, percentFee: 0.43, speed: 'Instant' },
+        },
+        UG: {
+          USD: { rate: 3720,  flatFee: 1.50, percentFee: 0.43, speed: 'Instant' },
+          GBP: { rate: 4730,  flatFee: 1.20, percentFee: 0.43, speed: 'Instant' },
+        },
+        ZA: {
+          USD: { rate: 18.42, flatFee: 1.50, percentFee: 0.43, speed: 'Instant' },
+          GBP: { rate: 23.42, flatFee: 1.20, percentFee: 0.43, speed: 'Instant' },
+        },
+        ET: {
+          USD: { rate: 57.8,  flatFee: 2.00, percentFee: 0.43, speed: '1–2 days' },
+          GBP: { rate: 73.5,  flatFee: 1.80, percentFee: 0.43, speed: '1–2 days' },
+        },
+        CI: {
+          USD: { rate: 615,   flatFee: 2.00, percentFee: 0.43, speed: '1–2 days' },
+          GBP: { rate: 782,   flatFee: 1.80, percentFee: 0.43, speed: '1–2 days' },
+        },
+        ZW: {
+          USD: { rate: 0.98,  flatFee: 1.50, percentFee: 0.43, speed: 'Instant' },
+          GBP: { rate: 1.26,  flatFee: 1.20, percentFee: 0.43, speed: 'Instant' },
+        },
+        RW: {
+          USD: { rate: 1340,  flatFee: 1.50, percentFee: 0.43, speed: 'Instant' },
+          GBP: { rate: 1703,  flatFee: 1.20, percentFee: 0.43, speed: 'Instant' },
+        },
+      }
+    },
+    {
+      name: 'Sendwave',
+      url: 'https://sendwave.com',
+      rates: {
+        GH: {
+          USD: { rate: 15.21, flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 19.30, flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        NG: {
+          USD: { rate: 1572,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1998,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        KE: {
+          USD: { rate: 128.2, flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 162.9, flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        SN: {
+          USD: { rate: 608,   flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 773,   flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        CM: {
+          USD: { rate: 610,   flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 775,   flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        TZ: {
+          USD: { rate: 2560,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 3253,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        UG: {
+          USD: { rate: 3680,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 4678,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        ZA: {
+          USD: { rate: 18.10, flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 23.01, flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        ET: {
+          USD: { rate: 57.0,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 72.5,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        CI: {
+          USD: { rate: 608,   flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 773,   flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        ZW: {
+          USD: { rate: 0.97,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1.23,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+        RW: {
+          USD: { rate: 1320,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1677,  flatFee: 0, percentFee: 0, speed: 'Instant' },
+        },
+      }
+    },
+    {
+      name: 'Remitly',
+      url: 'https://remitly.com',
+      rates: {
+        GH: {
+          USD: { rate: 15.10, flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 19.05, flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+        },
+        NG: {
+          USD: { rate: 1565,  flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1988,  flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+        },
+        KE: {
+          USD: { rate: 127.5, flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 162.0, flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+        },
+        SN: {
+          USD: { rate: 605,   flatFee: 3.99, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 769,   flatFee: 2.99, percentFee: 0, speed: '1–2 days' },
+        },
+        CM: {
+          USD: { rate: 607,   flatFee: 3.99, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 771,   flatFee: 2.99, percentFee: 0, speed: '1–2 days' },
+        },
+        TZ: {
+          USD: { rate: 2545,  flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 3234,  flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+        },
+        UG: {
+          USD: { rate: 3660,  flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 4652,  flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+        },
+        ZA: {
+          USD: { rate: 17.98, flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 22.85, flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+        },
+        ET: {
+          USD: { rate: 56.5,  flatFee: 3.99, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 71.8,  flatFee: 2.99, percentFee: 0, speed: '1–2 days' },
+        },
+        CI: {
+          USD: { rate: 605,   flatFee: 3.99, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 769,   flatFee: 2.99, percentFee: 0, speed: '1–2 days' },
+        },
+        ZW: {
+          USD: { rate: 0.96,  flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1.22,  flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+        },
+        RW: {
+          USD: { rate: 1310,  flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1664,  flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+        },
+      }
+    },
+    {
+      name: 'WorldRemit',
+      url: 'https://worldremit.com',
+      rates: {
+        GH: {
+          USD: { rate: 14.98, flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 18.90, flatFee: 1.99, percentFee: 0, speed: '1–2 days' },
+        },
+        NG: {
+          USD: { rate: 1555,  flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1975,  flatFee: 1.99, percentFee: 0, speed: '1–2 days' },
+        },
+        KE: {
+          USD: { rate: 126.8, flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 161.2, flatFee: 1.99, percentFee: 0, speed: 'Instant' },
+        },
+        SN: {
+          USD: { rate: 600,   flatFee: 2.99, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 762,   flatFee: 1.99, percentFee: 0, speed: '1–2 days' },
+        },
+        CM: {
+          USD: { rate: 602,   flatFee: 2.99, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 765,   flatFee: 1.99, percentFee: 0, speed: '1–2 days' },
+        },
+        TZ: {
+          USD: { rate: 2530,  flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 3216,  flatFee: 1.99, percentFee: 0, speed: 'Instant' },
+        },
+        UG: {
+          USD: { rate: 3640,  flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 4626,  flatFee: 1.99, percentFee: 0, speed: 'Instant' },
+        },
+        ZA: {
+          USD: { rate: 17.85, flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 22.68, flatFee: 1.99, percentFee: 0, speed: 'Instant' },
+        },
+        ET: {
+          USD: { rate: 56.0,  flatFee: 2.99, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 71.2,  flatFee: 1.99, percentFee: 0, speed: '1–2 days' },
+        },
+        CI: {
+          USD: { rate: 600,   flatFee: 2.99, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 762,   flatFee: 1.99, percentFee: 0, speed: '1–2 days' },
+        },
+        ZW: {
+          USD: { rate: 0.95,  flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1.21,  flatFee: 1.99, percentFee: 0, speed: 'Instant' },
+        },
+        RW: {
+          USD: { rate: 1300,  flatFee: 2.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1651,  flatFee: 1.99, percentFee: 0, speed: 'Instant' },
+        },
+      }
+    },
+    {
+      name: 'Western Union',
+      url: 'https://westernunion.com',
+      rates: {
+        GH: {
+          USD: { rate: 14.75, flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 18.60, flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+        NG: {
+          USD: { rate: 1540,  flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1956,  flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+        KE: {
+          USD: { rate: 125.9, flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 160.0, flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+        SN: {
+          USD: { rate: 595,   flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 756,   flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+        CM: {
+          USD: { rate: 597,   flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 758,   flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+        TZ: {
+          USD: { rate: 2510,  flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 3190,  flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+        UG: {
+          USD: { rate: 3610,  flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 4588,  flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+        ZA: {
+          USD: { rate: 17.70, flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 22.49, flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+        ET: {
+          USD: { rate: 55.5,  flatFee: 4.99, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 70.5,  flatFee: 3.99, percentFee: 0, speed: '1–2 days' },
+        },
+        CI: {
+          USD: { rate: 595,   flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 756,   flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+        ZW: {
+          USD: { rate: 0.94,  flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1.20,  flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+        RW: {
+          USD: { rate: 1285,  flatFee: 4.99, percentFee: 0, speed: 'Instant' },
+          GBP: { rate: 1633,  flatFee: 3.99, percentFee: 0, speed: 'Instant' },
+        },
+      }
+    },
+    {
+      name: 'MoneyGram',
+      url: 'https://moneygram.com',
+      rates: {
+        GH: {
+          USD: { rate: 14.60, flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 18.40, flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+        NG: {
+          USD: { rate: 1525,  flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 1937,  flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+        KE: {
+          USD: { rate: 124.8, flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 158.6, flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+        SN: {
+          USD: { rate: 590,   flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 749,   flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+        CM: {
+          USD: { rate: 592,   flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 752,   flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+        TZ: {
+          USD: { rate: 2490,  flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 3163,  flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+        UG: {
+          USD: { rate: 3580,  flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 4550,  flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+        ZA: {
+          USD: { rate: 17.55, flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 22.30, flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+        ET: {
+          USD: { rate: 55.0,  flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 69.9,  flatFee: 4.50, speed: '1–2 days' },
+        },
+        CI: {
+          USD: { rate: 590,   flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 749,   flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+        ZW: {
+          USD: { rate: 0.93,  flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 1.18,  flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+        RW: {
+          USD: { rate: 1270,  flatFee: 5.00, percentFee: 0, speed: '1–2 days' },
+          GBP: { rate: 1613,  flatFee: 4.50, percentFee: 0, speed: '1–2 days' },
+        },
+      }
+    }
+  ];
+
+  // ── API config ──
+  const API_KEY = 'e950edbf77b3001d6fa6faf7';
+  const API_BASE = 'https://v6.exchangerate-api.com/v6/' + API_KEY + '/latest/';
+
+  // ── State ──
+  let selectedCountry = 'GH';
+  let liveRates = {}; // { USD: { GHS: 15.42, NGN: 1590, ... }, GBP: { ... } }
+  let ratesLoadedAt = null;
+
+  // ── Currency → country currency map ──
+  const DEST_CURRENCY = {
+    GH: 'GHS', NG: 'NGN', KE: 'KES', SN: 'XOF', CM: 'XAF',
+    TZ: 'TZS', UG: 'UGX', ZA: 'ZAR', ET: 'ETB', CI: 'XOF',
+    ZW: 'USD', RW: 'RWF'
+  };
+
+  // ── Provider fee + margin config ──
+  // marginPercent = the markup each provider applies on top of mid-market rate
+  // flatFee = fixed fee in send currency
+  // percentFee = additional % taken from send amount before conversion
+  const PROVIDER_CONFIG = {
+    'Wise':         { marginPercent: 0.5,  flatFee: { USD: 1.50, GBP: 1.20 }, percentFee: 0.43, speed: 'Instant',   affiliateUrl: 'https://wise.com/invite/drhc/7f4655' },
+    'Sendwave':     { marginPercent: 1.2,  flatFee: { USD: 0,    GBP: 0    }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://sendwave.com' },
+    'Remitly':      { marginPercent: 1.8,  flatFee: { USD: 3.99, GBP: 2.99 }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://remitly.com' },
+    'WorldRemit':   { marginPercent: 2.2,  flatFee: { USD: 2.99, GBP: 1.99 }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://worldremit.com' },
+    'Western Union':{ marginPercent: 3.0,  flatFee: { USD: 4.99, GBP: 3.99 }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://westernunion.com' },
+    'MoneyGram':    { marginPercent: 3.5,  flatFee: { USD: 5.00, GBP: 4.50 }, percentFee: 0,    speed: '1–2 days',  affiliateUrl: 'https://moneygram.com' },
+  };
+
+  // ── Fetch live rates for a base currency ──
+  async function fetchRates(baseCurrency) {
+    const res = await fetch(API_BASE + baseCurrency);
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    if (data.result !== 'success') throw new Error(data['error-type'] || 'API error');
+    return data.conversion_rates; // e.g. { GHS: 15.42, NGN: 1590, ... }
+  }
+
+  // ── Load rates for both currencies on init ──
+  async function loadAllRates() {
+    showLoading(true);
+    try {
+      const [usdRates, gbpRates] = await Promise.all([
+        fetchRates('USD'),
+        fetchRates('GBP')
+      ]);
+      liveRates = { USD: usdRates, GBP: gbpRates };
+      ratesLoadedAt = new Date();
+      updateTimestamp();
+      render();
+    } catch (err) {
+      showError('Could not load live rates. Showing estimated rates instead.');
+      // Fall back to hardcoded rates from PROVIDERS data
+      useFallbackRates();
+      render();
+    } finally {
+      showLoading(false);
+    }
+  }
+
+  function useFallbackRates() {
+    // Build liveRates from the hardcoded PROVIDERS data (use Wise as mid-market proxy)
+    const wise = PROVIDERS.find(p => p.name === 'Wise');
+    liveRates = { USD: {}, GBP: {} };
+    Object.keys(DEST_CURRENCY).forEach(countryCode => {
+      const destCur = DEST_CURRENCY[countryCode];
+      if (wise.rates[countryCode]) {
+        liveRates.USD[destCur] = wise.rates[countryCode].USD?.rate || 1;
+        liveRates.GBP[destCur] = wise.rates[countryCode].GBP?.rate || 1;
+      }
+    });
+  }
+
+  // ── Get live rate for a provider + route ──
+  function getLiveRate(providerName, sendCurrency, destCurrencyCode) {
+    const config = PROVIDER_CONFIG[providerName];
+    if (!config) return null;
+    const midMarket = liveRates[sendCurrency]?.[destCurrencyCode];
+    if (!midMarket) return null;
+    // Apply provider margin: they give a worse rate than mid-market
+    const providerRate = midMarket * (1 - config.marginPercent / 100);
+    return {
+      rate: providerRate,
+      flatFee: config.flatFee[sendCurrency] || 0,
+      percentFee: config.percentFee || 0,
+      speed: config.speed
+    };
+  }
+
+  // ── Calc ──
+  function calcReceive(amount, rateData) {
+    const fee = rateData.flatFee + (amount * (rateData.percentFee || 0) / 100);
+    const net = Math.max(0, amount - fee);
+    return { receive: net * rateData.rate, fee, rate: rateData.rate };
+  }
+
+  function fmtReceive(val, currencyCode) {
+    if (val >= 1000) return currencyCode + ' ' + val.toLocaleString('en', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return currencyCode + ' ' + val.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function fmtFee(fee, sym) {
+    return fee === 0 ? 'No fee' : `${sym}${fee.toFixed(2)} fee`;
+  }
+
+  function showLoading(on) {
+    const list = document.getElementById('provider-list');
+    if (on) {
+      list.innerHTML = `
+        <div class="no-results" style="color:var(--text-muted);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite;vertical-align:middle;margin-right:0.5rem"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          Fetching live rates…
+        </div>`;
+    }
+  }
+
+  function showError(msg) {
+    const list = document.getElementById('provider-list');
+    list.innerHTML = `<div class="no-results" style="color:#c0392b;">${msg}</div>`;
+  }
+
+  function updateTimestamp() {
+    if (!ratesLoadedAt) return;
+    document.getElementById('update-time').textContent =
+      'Live rates as of ' + ratesLoadedAt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) +
+      ' · ' + ratesLoadedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  }
+
+  function render() {
+    if (!Object.keys(liveRates).length) return; // wait for rates to load
+
+    const amount = parseFloat(document.getElementById('send-amount').value) || 0;
+    const currency = document.getElementById('currency-select').value;
+    const sym = currency === 'GBP' ? '£' : '$';
+    const country = COUNTRIES.find(c => c.code === selectedCountry);
+    const destCur = DEST_CURRENCY[selectedCountry];
+
+    document.getElementById('currency-prefix').textContent = `${currency} ${sym}`;
+    document.getElementById('results-label').innerHTML = `Showing rates to <strong>${country.name}</strong>`;
+
+    const computed = Object.keys(PROVIDER_CONFIG)
+      .map(name => {
+        const rateData = getLiveRate(name, currency, destCur);
+        if (!rateData) return null;
+        const config = PROVIDER_CONFIG[name];
+        const provider = PROVIDERS.find(p => p.name === name) || {};
+        const sendUrl = config.affiliateUrl || provider.url || '#';
+        return { name, url: sendUrl, rateData, calc: calcReceive(amount, rateData) };
+      })
+      .filter(Boolean)
+      .sort((a, b) => b.calc.receive - a.calc.receive);
+
+    const list = document.getElementById('provider-list');
+    list.innerHTML = '';
+
+    if (!computed.length) {
+      list.innerHTML = `<div class="no-results">No rates available for this combination.</div>`;
+      return;
+    }
+
+    computed.forEach((p, i) => {
+      const isBest = i === 0;
+      const card = document.createElement('div');
+      card.className = 'provider-card' + (isBest ? ' best' : '');
+      const speedClass = p.rateData.speed === 'Instant' ? 'instant' : '';
+
+      card.innerHTML = `
+        ${isBest ? '<div class="best-label">Best deal</div>' : ''}
+        <div class="provider-info">
+          <div class="provider-name">${p.name}</div>
+          <div class="provider-tags">
+            <span class="tag ${speedClass}">${p.rateData.speed}</span>
+            <span class="tag">${fmtFee(p.calc.fee, sym)}</span>
+          </div>
+        </div>
+        <div class="data-col">
+          <div class="data-label">Rate</div>
+          <div class="data-value">1 ${currency} = ${p.rateData.rate.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${destCur}</div>
+        </div>
+        <div class="data-col">
+          <div class="data-label">They Receive</div>
+          <div class="receive-amount${isBest ? ' best' : ''}">${fmtReceive(p.calc.receive, destCur)}</div>
+        </div>
+        <a href="${p.url}" target="_blank" rel="noopener" class="send-btn">Send →</a>
+      `;
+      list.appendChild(card);
+    });
+  }
+
+  // ── Events ──
+  document.getElementById('country-select').addEventListener('change', function () {
+    selectedCountry = this.value;
+    render();
+  });
+
+  document.getElementById('send-amount').addEventListener('input', () => {
+    document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+    render();
+  });
+
+  document.getElementById('currency-select').addEventListener('change', render);
+
+  document.querySelectorAll('.quick-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('send-amount').value = btn.dataset.amount;
+      render();
+    });
+  });
+
+  // ── Spinner CSS ──
+  const style = document.createElement('style');
+  style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+  document.head.appendChild(style);
+
+  // ── Init ──
+  loadAllRates();
+</script>
+</body>
+</html>
