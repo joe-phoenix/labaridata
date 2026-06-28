@@ -990,13 +990,14 @@
     }
   ];
 
-  // ── API config ──
   const API_KEY = 'e950edbf77b3001d6fa6faf7';
   const API_BASE = 'https://v6.exchangerate-api.com/v6/' + API_KEY + '/latest/';
+  const RATES_JSON = 'https://raw.githubusercontent.com/joe-phoenix/labaridata/main/rates.json';
 
   // ── State ──
   let selectedCountry = 'GH';
-  let liveRates = {}; // { USD: { GHS: 15.42, NGN: 1590, ... }, GBP: { ... } }
+  let liveRates = {};
+  let manualRates = null; // from rates.json
   let ratesLoadedAt = null;
 
   // ── Currency → country currency map ──
@@ -1036,17 +1037,23 @@
   async function loadAllRates() {
     showLoading(true);
     try {
-      const [usdRates, gbpRates] = await Promise.all([
+      // Fetch rates.json (manual admin rates) and FX rates in parallel
+      const [usdRates, gbpRates, manualRes] = await Promise.all([
         fetchRates('USD'),
-        fetchRates('GBP')
+        fetchRates('GBP'),
+        fetch(RATES_JSON + '?t=' + Date.now()).then(r => r.ok ? r.json() : null).catch(() => null)
       ]);
       liveRates = { USD: usdRates, GBP: gbpRates };
-      ratesLoadedAt = new Date();
+      if (manualRes?.providers) {
+        manualRates = manualRes.providers;
+        ratesLoadedAt = manualRes.updated ? new Date(manualRes.updated) : new Date();
+      } else {
+        ratesLoadedAt = new Date();
+      }
       updateTimestamp();
       render();
     } catch (err) {
       showError('Could not load live rates. Showing estimated rates instead.');
-      // Fall back to hardcoded rates from PROVIDERS data
       useFallbackRates();
       render();
     } finally {
@@ -1067,19 +1074,32 @@
     });
   }
 
-  // ── Get live rate for a provider + route ──
   function getLiveRate(providerName, sendCurrency, destCurrencyCode) {
     const config = PROVIDER_CONFIG[providerName];
     if (!config) return null;
+
+    // Prefer manually entered rates from admin
+    const manual = manualRates?.[providerName]?.[selectedCountry]?.[sendCurrency];
+    if (manual?.rate) {
+      return {
+        rate: manual.rate,
+        flatFee: manual.fee ?? config.flatFee[sendCurrency] ?? 0,
+        percentFee: 0,
+        speed: manual.speed || config.speed,
+        isManual: true
+      };
+    }
+
+    // Fall back to margin-based calculation from mid-market rate
     const midMarket = liveRates[sendCurrency]?.[destCurrencyCode];
     if (!midMarket) return null;
-    // Apply provider margin: they give a worse rate than mid-market
     const providerRate = midMarket * (1 - config.marginPercent / 100);
     return {
       rate: providerRate,
       flatFee: config.flatFee[sendCurrency] || 0,
       percentFee: config.percentFee || 0,
-      speed: config.speed
+      speed: config.speed,
+      isManual: false
     };
   }
 
@@ -1117,9 +1137,10 @@
 
   function updateTimestamp() {
     if (!ratesLoadedAt) return;
-    document.getElementById('update-time').textContent =
-      'Live rates as of ' + ratesLoadedAt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) +
-      ' · ' + ratesLoadedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    const isManual = manualRates !== null;
+    document.getElementById('update-time').textContent = isManual
+      ? 'Rates verified ' + ratesLoadedAt.toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+      : 'Estimated rates · mid-market as of ' + ratesLoadedAt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
   }
 
   function render() {
