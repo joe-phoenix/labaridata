@@ -452,6 +452,35 @@
       line-height: 1.7;
     }
 
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .footer-back {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-back:hover { color: var(--navy); }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 700px) {
       header { padding: 0 1rem; }
@@ -549,6 +578,12 @@
 <div class="disclaimer">
   <p><strong>Note:</strong> Rates shown are indicative and updated manually. Actual rates at time of transfer may vary. Fees shown are for standard transfers. Labari Data may earn referral commissions from some providers — this does not affect ranking order, which is always by most received.</p>
 </div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <a href="https://labaridata.com" class="footer-back">← Labari Data</a>
+  <div class="footer-copy">© 2026 Labari Media. All rights reserved.</div>
+</footer>
 
 <script>
   // ── Country data ──
