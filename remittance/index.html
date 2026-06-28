@@ -1012,11 +1012,15 @@
   // percentFee = additional % taken from send amount before conversion
   const PROVIDER_CONFIG = {
     'Wise':         { marginPercent: 0.5,  flatFee: { USD: 1.50, GBP: 1.20 }, percentFee: 0.43, speed: 'Instant',   affiliateUrl: 'https://wise.com/invite/drhc/7f4655' },
+    'Nala':         { marginPercent: 0.9,  flatFee: { USD: 0,    GBP: 0    }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://nala.com' },
     'Sendwave':     { marginPercent: 1.2,  flatFee: { USD: 0,    GBP: 0    }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://sendwave.com' },
+    'LemFi':        { marginPercent: 1.3,  flatFee: { USD: 0,    GBP: 0    }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://lemfi.com' },
+    'TapTap Send':  { marginPercent: 1.5,  flatFee: { USD: 0,    GBP: 0    }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://taptapsend.com' },
     'Remitly':      { marginPercent: 1.8,  flatFee: { USD: 3.99, GBP: 2.99 }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://remitly.com' },
     'WorldRemit':   { marginPercent: 2.2,  flatFee: { USD: 2.99, GBP: 1.99 }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://worldremit.com' },
     'Western Union':{ marginPercent: 3.0,  flatFee: { USD: 4.99, GBP: 3.99 }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://westernunion.com' },
     'MoneyGram':    { marginPercent: 3.5,  flatFee: { USD: 5.00, GBP: 4.50 }, percentFee: 0,    speed: '1–2 days',  affiliateUrl: 'https://moneygram.com' },
+    'Afriex':       { marginPercent: 6.0,  flatFee: { USD: 0,    GBP: 0    }, percentFee: 0,    speed: 'Instant',   affiliateUrl: 'https://afriex.co' },
   };
 
   // ── Fetch live rates for a base currency ──
