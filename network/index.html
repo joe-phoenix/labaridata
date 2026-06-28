@@ -471,6 +471,14 @@ function getImageUrl(field) {
   return '';
 }
 
+// Extract URL from Baserow URL field (returns {url, label} object or plain string)
+function getUrl(field) {
+  if (!field) return '';
+  if (typeof field === 'string') return field.trim();
+  if (typeof field === 'object' && field.url) return field.url.trim();
+  return '';
+}
+
 function skeletonRows(cols) {
   return Array(6).fill(0).map(()=>`<tr>${Array(cols).fill(0).map((_,i)=>
     `<td>${i===0?`<div class="name-cell"><div class="skel skel-circle"></div><div class="skel" style="width:110px"></div></div>`
@@ -517,7 +525,7 @@ function renderO(rows, resetPage=true) {
     const av = img
       ? `<img class="org-logo" src="${esc(img)}" alt="${esc(name)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="avatar-ph org" style="display:none">${esc(initials(name))}</div>`
       : `<div class="avatar-ph org">${esc(initials(name))}</div>`;
-    const site = ensureHttps(o['Website']||'');
+    const site = ensureHttps(getUrl(o['Website'])||o['Website']||'');
     const siteLink = site ? `<a class="link-icon" href="${esc(site)}" target="_blank" onclick="event.stopPropagation()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> ${esc(hostOnly(o['Website']))}</a>` : '—';
     const email = o['Email Contact'] ? `<a class="link-icon" href="mailto:${esc(o['Email Contact'])}" onclick="event.stopPropagation()">${esc(o['Email Contact'])}</a>` : '';
@@ -699,8 +707,8 @@ function openJ(i) {
     ? `<img class="panel-avatar" src="${esc(img)}" alt="${esc(j['Journalist Name'])}" onerror="this.outerHTML='<div class=panel-avatar-ph>${esc(initials(j['Journalist Name']))}</div>'">`
     : `<div class="panel-avatar-ph">${esc(initials(j['Journalist Name']))}</div>`;
   const links = [];
-  if (j['LinkedIn'])    links.push(`<a class="panel-link-btn" href="${esc(j['LinkedIn'])}" target="_blank">LinkedIn</a>`);
-  if (j['Media Site/Personal Website (If Any)']) links.push(`<a class="panel-link-btn" href="${esc(ensureHttps(j['Media Site/Personal Website (If Any)']))}" target="_blank">Website</a>`);
+  if (getUrl(j['LinkedIn']))    links.push(`<a class="panel-link-btn" href="${esc(getUrl(j['LinkedIn']))}" target="_blank">LinkedIn</a>`);
+  if (getUrl(j['Media Site/Personal Website (If Any)'])||j['Media Site/Personal Website (If Any)']) links.push(`<a class="panel-link-btn" href="${esc(ensureHttps(getUrl(j['Media Site/Personal Website (If Any)'])||j['Media Site/Personal Website (If Any)']))}" target="_blank">Website</a>`);
   if (j['Email'])       links.push(`<a class="panel-link-btn" href="mailto:${esc(j['Email'])}">Email</a>`);
   document.getElementById('panel-body').innerHTML = `
     <div class="panel-avatar-row">${av}
@@ -727,11 +735,11 @@ function openO(i) {
   const av = img
     ? `<img class="panel-avatar" src="${esc(img)}" alt="${esc(name)}" style="border-radius:10px;object-fit:contain;background:var(--bg);padding:6px" onerror="this.outerHTML='<div class=panel-avatar-ph org>${esc(initials(name))}</div>'">`
     : `<div class="panel-avatar-ph org">${esc(initials(name))}</div>`;
-  const site = ensureHttps(o['Website']||'');
+  const site = ensureHttps(getUrl(o['Website'])||o['Website']||'');
   const links = [];
   if (site)              links.push(`<a class="panel-link-btn primary-g" href="${esc(site)}" target="_blank">Visit Website</a>`);
   if (o['Email Contact']) links.push(`<a class="panel-link-btn" href="mailto:${esc(o['Email Contact'])}">Email</a>`);
-  if (o['LinkedIn'])     links.push(`<a class="panel-link-btn" href="${esc(o['LinkedIn'])}" target="_blank">LinkedIn</a>`);
+  if (getUrl(o['LinkedIn']))     links.push(`<a class="panel-link-btn" href="${esc(getUrl(o['LinkedIn']))}" target="_blank">LinkedIn</a>`);
   document.getElementById('panel-body').innerHTML = `
     <div class="panel-avatar-row">${av}
       <div><div class="panel-name">${esc(name)}</div>
