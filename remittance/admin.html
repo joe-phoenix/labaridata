@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rates Admin — Labari Data</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #f5f6f8;
+      --surface:  #ffffff;
+      --surface-2:#f0f2f5;
+      --border:   #e2e5ea;
+      --navy:     #0f1f38;
+      --amber:    #e8a020;
+      --text:     #0f1f38;
+      --muted:    #5a6880;
+      --faint:    #98a3b4;
+      --green:    #16a34a;
+      --green-bg: #f0fdf4;
+      --red:      #dc2626;
+      --red-bg:   #fef2f2;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--navy);
+      padding: 0 2rem;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 24px;
+      height: 24px;
+      background: var(--amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      font-weight: 500;
+      color: var(--navy);
+    }
+
+    .logo-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .logo-name em { color: var(--amber); font-style: normal; }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .admin-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      border: 1px solid rgba(232,160,32,0.4);
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .page-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+
+    .page-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ── Controls bar ── */
+    .controls-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+
+    select.filter {
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0.4rem 2rem 0.4rem 0.75rem;
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a6880' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.6rem center;
+      transition: border-color 0.15s;
+    }
+
+    select.filter:focus { border-color: var(--navy); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: #162844; }
+    .btn-primary:disabled { background: var(--faint); cursor: not-allowed; }
+
+    .btn-amber {
+      background: var(--amber);
+      color: var(--navy);
+    }
+
+    .btn-amber:hover { background: #d4911a; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-ghost:hover { border-color: var(--navy); color: var(--navy); }
+
+    /* ── Status banner ── */
+    .status-banner {
+      padding: 0.75rem 1rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-banner.success { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; display: flex; }
+    .status-banner.error   { background: var(--red-bg);   color: var(--red);   border: 1px solid #fecaca; display: flex; }
+    .status-banner.loading { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; display: flex; }
+
+    /* ── Timestamp ── */
+    .rates-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+    }
+
+    .rates-meta-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+
+    #last-updated-display {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text);
+    }
+
+    /* ── Table ── */
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: var(--surface-2);
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    th {
+      padding: 0.65rem 0.85rem;
+      text-align: left;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    th:first-child { padding-left: 1.25rem; }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fafbfc; }
+
+    td {
+      padding: 0.6rem 0.85rem;
+      vertical-align: middle;
+    }
+
+    td:first-child { padding-left: 1.25rem; }
+
+    .provider-cell {
+      font-weight: 600;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .country-cell {
+      font-size: 0.82rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* Rate inputs */
+    .rate-input-wrap {
+      display: flex;
+      align-items: center;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      max-width: 140px;
+      transition: border-color 0.15s;
+    }
+
+    .rate-input-wrap:focus-within { border-color: var(--navy); }
+
+    .rate-input-wrap .cur-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--surface-2);
+      padding: 0 0.5rem;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      border-right: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .rate-input-wrap input {
+      border: none;
+      outline: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+      padding: 0 0.5rem;
+      height: 32px;
+      width: 100%;
+      background: transparent;
+    }
+
+    .fee-input {
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+      padding: 0 0.5rem;
+      height: 32px;
+      width: 72px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .fee-input:focus { border-color: var(--navy); }
+
+    select.speed-select {
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      padding: 0 1.5rem 0 0.5rem;
+      height: 32px;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6' viewBox='0 0 8 6'%3E%3Cpath d='M1 1l3 3 3-3' stroke='%235a6880' stroke-width='1.3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.4rem center;
+      transition: border-color 0.15s;
+      min-width: 100px;
+    }
+
+    select.speed-select:focus { border-color: var(--navy); }
+
+    .changed-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--amber);
+      display: none;
+      flex-shrink: 0;
+    }
+
+    td.changed .changed-dot { display: inline-block; }
+
+    /* ── Save bar ── */
+    .save-bar {
+      position: sticky;
+      bottom: 0;
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: 0 -1.5rem -4rem;
+    }
+
+    .save-bar-left {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .save-bar-left strong { color: #fff; }
+
+    .save-bar-right { display: flex; gap: 0.75rem; align-items: center; }
+
+    /* spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="https://labaridata.com">
+    <div class="logo-mark">LD</div>
+    <span class="logo-name">Labari <em>Data</em></span>
+  </a>
+  <div class="header-right">
+    <span class="admin-badge">Admin</span>
+  </div>
+</header>
+
+<div class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Remittance Rates</div>
+      <div class="page-sub">Enter the rate you see on each provider's app for the selected country and currency. Save to publish to the live tracker.</div>
+    </div>
+    <a href="https://joe-phoenix.github.io/labaridata/remittance/" target="_blank" class="btn btn-ghost">View Live Tracker ↗</a>
+  </div>
+
+  <div id="status-banner" class="status-banner"></div>
+
+  <div class="rates-meta">
+    <span class="rates-meta-label">Last published</span>
+    <span id="last-updated-display">—</span>
+    <span class="rates-meta-label" style="margin-left:auto">GitHub</span>
+    <span style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted)">joe-phoenix/labaridata / rates.json</span>
+  </div>
+
+  <div class="controls-bar">
+    <span class="filter-label">Country</span>
+    <select class="filter" id="country-filter">
+      <option value="GH">🇬🇭 Ghana (GHS)</option>
+      <option value="NG">🇳🇬 Nigeria (NGN)</option>
+      <option value="KE">🇰🇪 Kenya (KES)</option>
+      <option value="SN">🇸🇳 Senegal (XOF)</option>
+      <option value="CM">🇨🇲 Cameroon (XAF)</option>
+      <option value="TZ">🇹🇿 Tanzania (TZS)</option>
+      <option value="UG">🇺🇬 Uganda (UGX)</option>
+      <option value="ZA">🇿🇦 South Africa (ZAR)</option>
+      <option value="ET">🇪🇹 Ethiopia (ETB)</option>
+      <option value="CI">🇨🇮 Côte d'Ivoire (XOF)</option>
+      <option value="ZW">🇿🇼 Zimbabwe (USD)</option>
+      <option value="RW">🇷🇼 Rwanda (RWF)</option>
+    </select>
+
+    <span class="filter-label" style="margin-left:0.5rem">Currency</span>
+    <select class="filter" id="currency-filter">
+      <option value="USD">USD — US Dollar</option>
+      <option value="GBP">GBP — British Pound</option>
+    </select>
+
+    <button class="btn btn-ghost" id="load-current-btn">↓ Load Current Rates</button>
+  </div>
+
+  <div class="table-wrap">
+    <table id="rates-table">
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Rate (1 USD/GBP = ? local)</th>
+          <th>Flat Fee</th>
+          <th>Transfer Speed</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="rates-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="save-bar">
+    <div class="save-bar-left">
+      <strong id="changed-count">0 changes</strong> pending · Saving commits directly to GitHub
+    </div>
+    <div class="save-bar-right">
+      <div class="spinner" id="spinner"></div>
+      <button class="btn btn-ghost" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2)" id="discard-btn">Discard</button>
+      <button class="btn btn-amber" id="save-btn">Publish Rates</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Config ──
+  const REPO = 'joe-phoenix/labaridata';
+  const FILE_PATH = 'rates.json';
+  const RAW_URL = `https://raw.githubusercontent.com/${REPO}/main/${FILE_PATH}`;
+  const API_URL = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
+
+  // Token stored in sessionStorage only — never in source
+  function getToken() {
+    let token = sessionStorage.getItem('gh_token');
+    if (!token) {
+      token = prompt('Enter your GitHub personal access token to continue:');
+      if (token) sessionStorage.setItem('gh_token', token.trim());
+    }
+    return token;
+  }
+
+  const PROVIDERS = [
+    { name: 'Wise',          url: 'https://wise.com/invite/drhc/7f4655' },
+    { name: 'Nala',          url: 'https://nala.com' },
+    { name: 'Sendwave',      url: 'https://sendwave.com' },
+    { name: 'LemFi',         url: 'https://lemfi.com' },
+    { name: 'TapTap Send',   url: 'https://taptapsend.com' },
+    { name: 'Remitly',       url: 'https://remitly.com' },
+    { name: 'WorldRemit',    url: 'https://worldremit.com' },
+    { name: 'Western Union', url: 'https://westernunion.com' },
+    { name: 'MoneyGram',     url: 'https://moneygram.com' },
+    { name: 'Afriex',        url: 'https://afriex.co' },
+  ];
+
+  const COUNTRIES = {
+    GH: { name: 'Ghana',        flag: '🇬🇭', currency: 'GHS' },
+    NG: { name: 'Nigeria',      flag: '🇳🇬', currency: 'NGN' },
+    KE: { name: 'Kenya',        flag: '🇰🇪', currency: 'KES' },
+    SN: { name: 'Senegal',      flag: '🇸🇳', currency: 'XOF' },
+    CM: { name: 'Cameroon',     flag: '🇨🇲', currency: 'XAF' },
+    TZ: { name: 'Tanzania',     flag: '🇹🇿', currency: 'TZS' },
+    UG: { name: 'Uganda',       flag: '🇺🇬', currency: 'UGX' },
+    ZA: { name: 'South Africa', flag: '🇿🇦', currency: 'ZAR' },
+    ET: { name: 'Ethiopia',     flag: '🇪🇹', currency: 'ETB' },
+    CI: { name: "Côte d'Ivoire",flag: '🇨🇮', currency: 'XOF' },
+    ZW: { name: 'Zimbabwe',     flag: '🇿🇼', currency: 'USD' },
+    RW: { name: 'Rwanda',       flag: '🇷🇼', currency: 'RWF' },
+  };
+
+  // ── State ──
+  let ratesData = {};   // full rates.json data
+  let currentSha = '';  // SHA of rates.json for update
+  let changedKeys = new Set();
+
+  // ── UI helpers ──
+  function showStatus(type, msg) {
+    const el = document.getElementById('status-banner');
+    el.className = `status-banner ${type}`;
+    el.innerHTML = msg;
+  }
+
+  function hideStatus() {
+    document.getElementById('status-banner').className = 'status-banner';
+  }
+
+  function updateChangedCount() {
+    const count = changedKeys.size;
+    document.getElementById('changed-count').textContent =
+      count === 0 ? '0 changes' : `${count} change${count > 1 ? 's' : ''}`;
+    document.getElementById('save-btn').disabled = count === 0;
+  }
+
+  // ── Load current rates.json from GitHub ──
+  async function loadCurrentRates() {
+    showStatus('loading', '⏳ Loading current rates from GitHub…');
+    try {
+      const res = await fetch(RAW_URL + '?t=' + Date.now());
+      if (res.ok) {
+        ratesData = await res.json();
+        if (ratesData.updated) {
+          document.getElementById('last-updated-display').textContent =
+            new Date(ratesData.updated).toLocaleString('en-GB', {
+              day: 'numeric', month: 'short', year: 'numeric',
+              hour: '2-digit', minute: '2-digit'
+            });
+        }
+      } else {
+        ratesData = { updated: null, providers: {} };
+      }
+      // Get SHA
+      const meta = await fetch(API_URL, {
+        headers: { Authorization: `token ${getToken()}` }
+      });
+      if (meta.ok) {
+        const d = await meta.json();
+        currentSha = d.sha;
+      }
+      hideStatus();
+      renderTable();
+    } catch (e) {
+      showStatus('error', '⚠️ Could not load rates. Starting fresh.');
+      ratesData = { updated: null, providers: {} };
+      renderTable();
+    }
+  }
+
+  // ── Render table ──
+  function renderTable() {
+    const country = document.getElementById('country-filter').value;
+    const currency = document.getElementById('currency-filter').value;
+    const destCur = COUNTRIES[country].currency;
+    const sym = currency === 'GBP' ? '£' : '$';
+
+    // Update table header
+    document.querySelector('thead tr th:nth-child(2)').textContent =
+      `Rate (1 ${currency} = ? ${destCur})`;
+    document.querySelector('thead tr th:nth-child(3)').textContent =
+      `Flat Fee (${sym})`;
+
+    const tbody = document.getElementById('rates-tbody');
+    tbody.innerHTML = '';
+    changedKeys = new Set();
+    updateChangedCount();
+
+    PROVIDERS.forEach(p => {
+      const key = `${p.name}__${country}__${currency}`;
+      const existing = ratesData?.providers?.[p.name]?.[country]?.[currency] || {};
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="provider-cell">${p.name}</td>
+        <td>
+          <div class="rate-input-wrap">
+            <span class="cur-label">${currency}</span>
+            <input
+              type="number"
+              class="rate-field"
+              data-key="${key}"
+              data-provider="${p.name}"
+              data-country="${country}"
+              data-currency="${currency}"
+              data-field="rate"
+              placeholder="e.g. ${destCur === 'GHS' ? '15.42' : destCur === 'NGN' ? '1590' : '—'}"
+              value="${existing.rate || ''}"
+              step="any"
+              min="0"
+            />
+          </div>
+        </td>
+        <td>
+          <input
+            type="number"
+            class="fee-input rate-field"
+            data-key="${key}"
+            data-provider="${p.name}"
+            data-country="${country}"
+            data-currency="${currency}"
+            data-field="fee"
+            placeholder="0.00"
+            value="${existing.fee ?? ''}"
+            step="0.01"
+            min="0"
+          />
+        </td>
+        <td>
+          <select class="speed-select rate-field"
+            data-key="${key}"
+            data-provider="${p.name}"
+            data-country="${country}"
+            data-currency="${currency}"
+            data-field="speed">
+            <option value="Instant" ${(existing.speed || 'Instant') === 'Instant' ? 'selected' : ''}>Instant</option>
+            <option value="1–2 days" ${existing.speed === '1–2 days' ? 'selected' : ''}>1–2 days</option>
+            <option value="2–3 days" ${existing.speed === '2–3 days' ? 'selected' : ''}>2–3 days</option>
+          </select>
+        </td>
+        <td><span class="changed-dot" id="dot-${key.replace(/\s+/g,'_')}"></span></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Attach change listeners
+    document.querySelectorAll('.rate-field').forEach(input => {
+      input.addEventListener('input', handleFieldChange);
+      input.addEventListener('change', handleFieldChange);
+    });
+  }
+
+  function handleFieldChange(e) {
+    const { key, provider, country, currency, field } = e.target.dataset;
+    const safeKey = key.replace(/\s+/g, '_');
+
+    // Ensure structure exists
+    if (!ratesData.providers) ratesData.providers = {};
+    if (!ratesData.providers[provider]) ratesData.providers[provider] = {};
+    if (!ratesData.providers[provider][country]) ratesData.providers[provider][country] = {};
+    if (!ratesData.providers[provider][country][currency]) ratesData.providers[provider][country][currency] = {};
+
+    const val = field === 'speed' ? e.target.value : parseFloat(e.target.value) || 0;
+    ratesData.providers[provider][country][currency][field] = val;
+
+    changedKeys.add(key);
+    document.getElementById(`dot-${safeKey}`)?.style && (document.getElementById(`dot-${safeKey}`).style.display = 'inline-block');
+    updateChangedCount();
+  }
+
+  // ── Save to GitHub ──
+  async function saveRates() {
+    const btn = document.getElementById('save-btn');
+    const spinner = document.getElementById('spinner');
+    btn.disabled = true;
+    spinner.style.display = 'block';
+    showStatus('loading', '⏳ Publishing rates to GitHub…');
+
+    ratesData.updated = new Date().toISOString();
+
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(ratesData, null, 2))));
+
+    try {
+      const body = {
+        message: `Update remittance rates — ${new Date().toLocaleString('en-GB')}`,
+        content,
+      };
+      if (currentSha) body.sha = currentSha;
+
+      const res = await fetch(API_URL, {
+        method: 'PUT',
+        headers: {
+          Authorization: `token ${getToken()}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/vnd.github.v3+json',
+        },
+        body: JSON.stringify(body),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        currentSha = data.content.sha;
+        changedKeys = new Set();
+        updateChangedCount();
+        document.getElementById('last-updated-display').textContent =
+          new Date(ratesData.updated).toLocaleString('en-GB', {
+            day: 'numeric', month: 'short', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+          });
+        // Clear dots
+        document.querySelectorAll('.changed-dot').forEach(d => d.style.display = 'none');
+        showStatus('success', '✓ Rates published successfully. Live tracker will update within 60 seconds.');
+      } else {
+        throw new Error(data.message || 'GitHub API error');
+      }
+    } catch (err) {
+      showStatus('error', `⚠️ Failed to publish: ${err.message}`);
+    } finally {
+      spinner.style.display = 'none';
+      btn.disabled = false;
+    }
+  }
+
+  // ── Discard ──
+  function discardChanges() {
+    if (changedKeys.size === 0) return;
+    if (!confirm('Discard all unsaved changes?')) return;
+    loadCurrentRates();
+  }
+
+  // ── Events ──
+  document.getElementById('country-filter').addEventListener('change', renderTable);
+  document.getElementById('currency-filter').addEventListener('change', renderTable);
+  document.getElementById('load-current-btn').addEventListener('click', loadCurrentRates);
+  document.getElementById('save-btn').addEventListener('click', saveRates);
+  document.getElementById('discard-btn').addEventListener('click', discardChanges);
+
+  // ── Init ──
+  loadCurrentRates();
+</script>
+</body>
+</html>
