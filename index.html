@@ -475,6 +475,14 @@
       .hub { padding: 0 1.25rem 4rem; }
       footer { flex-direction: column; align-items: flex-start; }
     }
+    /* Hide mobile toggle on desktop (it's inside nav-links there) */
+    @media (min-width: 641px) {
+      #theme-toggle { display: none; }
+    }
+    /* Hide desktop toggle on mobile (it's inside nav-links which is hidden) */
+    @media (max-width: 640px) {
+      #theme-toggle-desktop { display: none; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .card-status::before { animation: none; }
     }
@@ -501,7 +509,10 @@
       <li><a href="#networks">Networks</a></li>
       <li><a href="#intelligence">Intelligence</a></li>
       <li><a href="https://labarijournal.com" target="_blank" rel="noopener" class="nav-cta">Labari Journal ↗</a></li>
-      <li><button class="theme-toggle" id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button></li>
+      <li><button class="theme-toggle" id="theme-toggle-desktop" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button></li>
+    </ul>
+    <!-- Always-visible toggle for mobile -->
+    <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
     </ul>
   </nav>
 
@@ -679,29 +690,33 @@
   </footer>
 
   <script>
-    const toggle = document.getElementById('theme-toggle');
+    const toggles = [
+      document.getElementById('theme-toggle'),
+      document.getElementById('theme-toggle-desktop')
+    ].filter(Boolean);
     const html = document.documentElement;
+
+    function setTheme(dark) {
+      if (dark) {
+        html.setAttribute('data-theme', 'dark');
+        toggles.forEach(t => t.textContent = '☀️');
+        localStorage.setItem('ld-theme', 'dark');
+      } else {
+        html.removeAttribute('data-theme');
+        toggles.forEach(t => t.textContent = '🌙');
+        localStorage.setItem('ld-theme', 'light');
+      }
+    }
 
     // On load: check localStorage, then system preference
     const saved = localStorage.getItem('ld-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = saved ? saved === 'dark' : prefersDark;
-    if (isDark) {
-      html.setAttribute('data-theme', 'dark');
-      toggle.textContent = '☀️';
-    }
+    setTheme(saved ? saved === 'dark' : prefersDark);
 
-    toggle.addEventListener('click', () => {
-      const current = html.getAttribute('data-theme');
-      if (current === 'dark') {
-        html.removeAttribute('data-theme');
-        toggle.textContent = '🌙';
-        localStorage.setItem('ld-theme', 'light');
-      } else {
-        html.setAttribute('data-theme', 'dark');
-        toggle.textContent = '☀️';
-        localStorage.setItem('ld-theme', 'dark');
-      }
+    toggles.forEach(t => {
+      t.addEventListener('click', () => {
+        setTheme(html.getAttribute('data-theme') !== 'dark');
+      });
     });
   </script>
 </body>
