@@ -1,0 +1,12 @@
+{
+  "updated": "2026-06-29T21:24:22.698Z",
+  "providers": {
+    "TapTap Send": {
+      "GH": {
+        "USD": {
+          "rate": 11.3
+        }
+      }
+    }
+  }
+}
