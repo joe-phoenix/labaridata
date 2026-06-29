@@ -84,6 +84,22 @@
       --text-dim: #999999;
       --green: #1a9e5c;
       --rose: #dc2626;
+      --nav-bg: rgba(255,255,255,0.96);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0F1117;
+      --surface: #161B22;
+      --card: #1C2128;
+      --border: #2D3748;
+      --accent: #4F8EF7;
+      --accent-dim: rgba(79, 142, 247, 0.12);
+      --text: #F0F4F8;
+      --text-muted: #9AA5B4;
+      --text-dim: #4A5568;
+      --green: #38C77E;
+      --rose: #FC6B6B;
+      --nav-bg: rgba(15,17,23,0.96);
     }
 
     html { scroll-behavior: smooth; }
@@ -107,7 +123,7 @@
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.96);
+      background: var(--nav-bg);
       backdrop-filter: blur(12px);
       z-index: 100;
     }
@@ -417,6 +433,40 @@
       color: var(--text-dim);
     }
 
+    /* ── DARK MODE TOGGLE ── */
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── DARK MODE OVERRIDES ── */
+    [data-theme="dark"] .card:hover {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    [data-theme="dark"] .card.premium {
+      background: #1a2035;
+      border-left-color: var(--accent);
+    }
+    [data-theme="dark"] .card.premium:hover {
+      background: #1e2640;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
       nav { padding: 1rem 1.25rem; }
@@ -451,6 +501,7 @@
       <li><a href="#networks">Networks</a></li>
       <li><a href="#intelligence">Intelligence</a></li>
       <li><a href="https://labarijournal.com" target="_blank" rel="noopener" class="nav-cta">Labari Journal ↗</a></li>
+      <li><button class="theme-toggle" id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button></li>
     </ul>
   </nav>
 
@@ -469,7 +520,7 @@
       <div class="category-header">
         <div class="category-dot dot-markets"></div>
         <span class="category-label">Markets & Economy</span>
-        <span class="category-count">2 tools</span>
+        <span class="category-count">1 tool</span>
       </div>
       <div class="card-grid">
         <a class="card" href="https://labaridata.com/fx" target="_blank" rel="noopener">
@@ -481,19 +532,6 @@
           <div class="card-desc">Real-time and historical foreign exchange rates for Ghana — tracking the cedi against major currencies with daily updates from bank and forex bureau sources.</div>
           <div class="card-footer">
             <span class="card-tag tag-markets">Economy</span>
-            <span class="card-status">Live</span>
-          </div>
-        </a>
-      
-        <a class="card" href="https://labaridata.com/remittance" target="_blank" rel="noopener">
-          <div class="card-top">
-            <div class="card-icon icon-markets">💸</div>
-            <svg class="card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="card-title">Remittance Tracker</div>
-          <div class="card-desc">Calculate how much it costs to send money home. Compare live rates across Wise, Remitly, Sendwave, WorldRemit, and more — sending to Ghana, Nigeria, Kenya, and 9 other African countries.</div>
-          <div class="card-footer">
-            <span class="card-tag tag-markets">Diaspora</span>
             <span class="card-status">Live</span>
           </div>
         </a>
@@ -640,6 +678,31 @@
     <div class="footer-copy">© 2026 Labari Media. All rights reserved.</div>
   </footer>
 
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    // On load: check localStorage, then system preference
+    const saved = localStorage.getItem('ld-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = saved ? saved === 'dark' : prefersDark;
+    if (isDark) {
+      html.setAttribute('data-theme', 'dark');
+      toggle.textContent = '☀️';
+    }
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      if (current === 'dark') {
+        html.removeAttribute('data-theme');
+        toggle.textContent = '🌙';
+        localStorage.setItem('ld-theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        toggle.textContent = '☀️';
+        localStorage.setItem('ld-theme', 'dark');
+      }
+    });
+  </script>
 </body>
 </html>
-
