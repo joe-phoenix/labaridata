@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Labari Predict</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --page: #F0F2F7; --nav: #0B0E1A; --card: #FFFFFF; --card-hover: #FAFBFF;
+    --border: #E4E6EF; --green: #0D7A4E; --green-bg: #E6F5EE; --green-pill: #D1F0E2;
+    --red: #C0392B; --red-bg: #FDECEA; --red-pill: #FAD5D2;
+    --amber: #D4820A; --amber-bg: #FEF3E2;
+    --slate: #6B7280; --slate-light: #9CA3AF; --text: #111827; --text-mid: #374151;
+    --error: #B91C1C; --error-bg: #FEF2F2;
+  }
+  body { font-family: 'DM Sans', 'Inter', system-ui, sans-serif; background: var(--page); color: var(--text); min-height: 100vh; }
+  button { font-family: inherit; cursor: pointer; }
+  input, select, textarea { font-family: inherit; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--amber) !important; box-shadow: 0 0 0 3px var(--amber-bg); }
+  ::placeholder { color: var(--slate-light); }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-thumb { background: #C8CEDE; border-radius: 3px; }
+  input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+  select option { background: white; color: var(--text); }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes slideUp { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .spinner {
+    display: inline-block; border-radius: 50%;
+    border: 2.5px solid rgba(0,0,0,0.1);
+    border-top-color: var(--amber);
+    animation: spin 0.7s linear infinite;
+  }
+
+  /* NAV */
+  #nav {
+    background: var(--nav); height: 56px; padding: 0 24px;
+    display: flex; align-items: center; gap: 16px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .brand { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .brand-text { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+  .brand-text span { color: var(--amber); }
+  #nav-search-wrap { flex: 1; max-width: 460px; position: relative; }
+  #nav-search { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #fff; font-size: 13px; padding: 8px 12px 8px 34px; }
+  #nav-search::placeholder { color: #6B7280; }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; color: #6B7280; pointer-events: none; }
+  #nav-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+  .pts-label { font-size: 10px; color: #9CA3AF; letter-spacing: 0.07em; text-transform: uppercase; }
+  .pts-val { font-size: 16px; font-weight: 800; color: var(--amber); line-height: 1; }
+  .btn-amber { background: var(--amber); border: none; border-radius: 8px; color: #fff; font-weight: 700; font-size: 13px; padding: 8px 16px; white-space: nowrap; transition: opacity 0.15s; }
+  .btn-amber:hover { opacity: 0.9; }
+  .btn-ghost { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #9CA3AF; font-size: 12px; padding: 7px 12px; transition: background 0.15s; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.13); }
+
+  /* CAT BAR */
+  #cat-bar { background: var(--card); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; overflow-x: auto; }
+  #cat-bar::-webkit-scrollbar { height: 0; }
+  .cat-btn { background: none; border: none; border-bottom: 2px solid transparent; color: var(--slate); font-weight: 500; font-size: 13px; padding: 13px 18px 11px; white-space: nowrap; transition: all 0.12s; }
+  .cat-btn:hover { color: var(--text); }
+  .cat-btn.active { color: var(--amber); border-bottom-color: var(--amber); font-weight: 700; }
+
+  /* STATS */
+  #stats-bar { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; display: flex; flex-direction: column; gap: 2px; }
+  .stat-label { font-size: 11px; color: var(--slate); text-transform: uppercase; letter-spacing: 0.07em; }
+  .stat-val { font-size: 20px; font-weight: 800; color: var(--text); }
+
+  /* BANNER */
+  #signup-banner { background: var(--amber-bg); border: 1px solid #FCD34D; border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+  #signup-banner:hover { opacity: 0.9; }
+  .banner-title { font-weight: 700; color: #92400E; font-size: 14px; }
+  .banner-sub { font-size: 12px; color: #B45309; }
+  .banner-btn { margin-left: auto; background: var(--amber); border: none; border-radius: 8px; color: #fff; font-weight: 700; font-size: 13px; padding: 8px 16px; white-space: nowrap; }
+
+  /* MARKET GRID */
+  #market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+  .market-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; transition: all 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .market-card:hover { background: var(--card-hover); border-color: #C8CEDE; box-shadow: 0 4px 18px rgba(0,0,0,0.09); }
+  .card-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--page); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .card-meta { font-size: 11px; color: var(--slate-light); margin-bottom: 3px; }
+  .card-meta strong { font-weight: 600; }
+  .card-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; }
+  .prob-bar-wrap { height: 5px; border-radius: 99px; background: var(--red-pill); overflow: hidden; margin-bottom: 10px; }
+  .prob-bar-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.5s ease; }
+  .pills { display: flex; gap: 8px; }
+  .pill { display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px 5px 8px; border-radius: 6px; border: 1.5px solid transparent; font-weight: 700; font-size: 13px; transition: all 0.12s; white-space: nowrap; line-height: 1; }
+  .pill-yes { background: var(--green-pill); color: var(--green); }
+  .pill-yes:hover { background: var(--green-bg); border-color: var(--green); }
+  .pill-no { background: var(--red-pill); color: var(--red); }
+  .pill-no:hover { background: var(--red-bg); border-color: var(--red); }
+  .pill span.pl { font-size: 11px; opacity: 0.7; }
+  .option-row { display: flex; align-items: center; gap: 8px; }
+  .option-label { flex: 1; font-size: 13px; color: var(--text-mid); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .option-pct { font-size: 13px; font-weight: 700; color: var(--text); width: 36px; text-align: right; flex-shrink: 0; }
+  .card-footer { display: flex; gap: 16px; font-size: 11px; color: var(--slate-light); border-top: 1px solid var(--border); padding-top: 10px; }
+  .card-footer span:last-child { margin-left: auto; }
+
+  /* PORTFOLIO */
+  .section-box { background: var(--card); border-radius: 14px; border: 1px solid var(--border); overflow: hidden; }
+  .section-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .section-head h3 { font-size: 16px; font-weight: 700; color: var(--text); }
+  .pos-row { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 12px; }
+  .pos-market { font-size: 12px; color: var(--slate-light); margin-bottom: 3px; }
+  .pos-meta { display: flex; gap: 8px; font-size: 12px; }
+  .pos-side-yes { font-weight: 700; color: var(--green); }
+  .pos-side-no { font-weight: 700; color: var(--red); }
+  .pos-pnl-pos { font-size: 13px; font-weight: 700; color: var(--green); }
+  .pos-pnl-neg { font-size: 13px; font-weight: 700; color: var(--red); }
+  .pos-now { font-size: 11px; color: var(--slate-light); }
+
+  /* LEADERBOARD */
+  .lb-row { padding: 13px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .lb-rank { width: 22px; font-size: 14px; font-weight: 700; text-align: center; }
+  .lb-name { flex: 1; font-size: 14px; color: var(--text); }
+  .lb-acc { font-size: 12px; color: var(--slate-light); }
+  .lb-pts { font-size: 14px; font-weight: 700; color: var(--amber); }
+
+  /* MODALS */
+  .overlay { position: fixed; inset: 0; background: rgba(11,14,26,0.7); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 16px; animation: fadeIn 0.15s ease; }
+  .modal { background: var(--card); border-radius: 16px; padding: 28px; width: 100%; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); max-height: 90vh; overflow-y: auto; }
+  .modal-close { background: none; border: none; font-size: 20px; color: var(--slate); cursor: pointer; padding: 0; line-height: 1; }
+  .modal-header { display: flex; justify-content: space-between; align-items: flex-start; }
+  .modal-eyebrow { font-size: 11px; color: var(--slate-light); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 4px; }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800; color: var(--text); }
+  .tab-switcher { display: flex; background: var(--page); border-radius: 8px; padding: 3px; gap: 3px; }
+  .tab-opt { flex: 1; padding: 8px 0; border-radius: 6px; border: none; background: transparent; color: var(--slate); font-weight: 500; font-size: 13px; transition: all 0.15s; }
+  .tab-opt.active { background: var(--card); color: var(--text); font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 12px; color: var(--slate); }
+  .inp { width: 100%; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; padding: 10px 12px; background: var(--page); color: var(--text); }
+  .inp-lg { font-size: 20px; font-weight: 700; }
+  .error-box { background: var(--error-bg); border: 1px solid #FECACA; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--error); }
+  .info-box { background: var(--amber-bg); border: 1px solid #FCD34D; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #92400E; }
+  .divider { display: flex; align-items: center; gap: 12px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider span { font-size: 12px; color: var(--slate-light); white-space: nowrap; }
+  .quick-amounts { display: flex; gap: 6px; margin-top: 8px; }
+  .qa-btn { flex: 1; padding: 6px 0; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--slate); font-size: 12px; }
+  .qa-btn:hover { background: var(--page); }
+  .summary-box { background: var(--page); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .summary-row { display: flex; justify-content: space-between; font-size: 13px; }
+  .summary-row span:first-child { color: var(--slate); }
+  .summary-row span:last-child { font-weight: 700; }
+  .summary-row.total { border-top: 1px solid var(--border); padding-top: 10px; }
+  .summary-row.total span:last-child { color: var(--amber); }
+  .side-box { border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+  .side-label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; }
+  .side-val { font-size: 22px; font-weight: 800; margin-top: 2px; }
+  .odds-label { font-size: 11px; color: var(--slate); text-align: right; }
+  .odds-val { font-size: 26px; font-weight: 800; text-align: right; }
+  .btn-full { width: 100%; border: none; border-radius: 10px; color: #fff; font-weight: 700; font-size: 15px; padding: 13px 0; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.15s; }
+  .btn-full:hover:not(:disabled) { opacity: 0.9; }
+  .btn-full:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-google { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 11px 0; border-radius: 10px; border: 1.5px solid var(--border); background: var(--card); color: var(--text); font-weight: 600; font-size: 14px; transition: all 0.15s; }
+  .btn-google:hover { border-color: #CBD5E1; background: #F8FAFC; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+  /* TOAST */
+  #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--nav); color: #fff; border-radius: 10px; padding: 12px 20px; font-size: 14px; font-weight: 600; z-index: 500; animation: slideUp 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.2); white-space: nowrap; display: none; }
+  #toast.error { background: var(--error); }
+
+  /* FOOTER */
+  #footer { text-align: center; padding: 24px; font-size: 12px; color: var(--slate-light); border-top: 1px solid var(--border); background: var(--card); margin-top: 20px; }
+  #footer span { color: var(--amber); font-weight: 600; }
+
+  /* EMPTY */
+  .empty { text-align: center; padding: 60px; color: var(--slate); font-size: 15px; grid-column: 1/-1; }
+  .loading-wrap { text-align: center; padding: 80px; }
+
+  /* Fields row */
+  .fields-row { display: flex; gap: 12px; }
+  .fields-row .field { flex: 1; }
+
+  main { padding: 24px; max-width: 1200px; margin: 0 auto; }
+
+  /* ─── MARKET DETAIL PAGE ─── */
+  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--slate); margin-bottom: 16px; background: none; border: none; padding: 0; }
+  .back-link:hover { color: var(--text); }
+  #detail-grid { display: grid; grid-template-columns: 1fr 360px; gap: 20px; align-items: start; }
+  @media (max-width: 860px) { #detail-grid { grid-template-columns: 1fr; } }
+
+  .detail-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; }
+  .detail-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .detail-icon { width: 52px; height: 52px; border-radius: 12px; background: var(--page); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+  .detail-title-wrap { flex: 1; min-width: 0; }
+  .detail-eyebrow { font-size: 12px; color: var(--slate); margin-bottom: 3px; }
+  .detail-eyebrow strong { font-weight: 700; }
+  .detail-title { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .detail-actions { display: flex; gap: 8px; flex-shrink: 0; }
+  .icon-btn { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); background: var(--page); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--slate); transition: all 0.12s; }
+  .icon-btn:hover { background: #fff; border-color: #C8CEDE; color: var(--text); }
+
+  .chart-legend { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 13px; }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .chart-wrap { position: relative; height: 280px; margin: 8px 0 4px; }
+  #price-chart { width: 100%; height: 100%; display: block; }
+  .chart-meta-row { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); margin-top: 8px; }
+  .chart-vol { font-size: 13px; color: var(--slate); }
+  .range-btns { display: flex; gap: 4px; }
+  .range-btn { padding: 5px 12px; border-radius: 6px; border: none; background: transparent; color: var(--slate); font-size: 12px; font-weight: 600; }
+  .range-btn.active { background: var(--page); color: var(--text); }
+  .range-btn:hover:not(.active) { color: var(--text); }
+
+  .outcome-table { margin-top: 18px; }
+  .outcome-table-head { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--slate); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .oh-name { flex: 1; }
+  .oh-chance { width: 70px; text-align: left; }
+  .oh-actions { width: 240px; }
+  .outcome-detail-row { display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); gap: 12px; }
+  .outcome-avatar { width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; background: var(--page); border: 1px solid var(--border); font-weight: 700; color: var(--slate); }
+  .outcome-info { flex: 1; min-width: 0; }
+  .outcome-name { font-size: 14px; font-weight: 600; color: var(--text); }
+  .outcome-sub { font-size: 12px; color: var(--slate-light); }
+  .outcome-chance-val { width: 70px; font-size: 18px; font-weight: 800; color: var(--text); flex-shrink: 0; }
+  .outcome-pills { width: 240px; display: flex; gap: 8px; flex-shrink: 0; }
+  .outcome-pill { flex: 1; padding: 9px 0; border-radius: 8px; font-weight: 700; font-size: 13px; text-align: center; border: 1.5px solid; transition: all 0.12s; }
+  .op-yes { color: var(--green); border-color: var(--green-pill); background: var(--green-pill); }
+  .op-yes:hover { background: var(--green-bg); border-color: var(--green); }
+  .op-no { color: var(--red); border-color: var(--red-pill); background: var(--red-pill); }
+  .op-no:hover { background: var(--red-bg); border-color: var(--red); }
+
+  .about-box { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .about-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .about-text { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+
+  /* Sticky trade panel */
+  .trade-panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; position: sticky; top: 76px; }
+  .tp-head { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+  .tp-avatar { width: 44px; height: 44px; border-radius: 10px; background: var(--page); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .tp-title { font-size: 13px; color: var(--text); line-height: 1.4; margin-bottom: 2px; }
+  .tp-side { font-size: 13px; font-weight: 700; }
+  .tp-buysell { display: flex; background: var(--page); border-radius: 8px; padding: 3px; gap: 3px; margin-bottom: 14px; }
+  .tp-bs-btn { flex: 1; padding: 8px 0; border-radius: 6px; border: none; background: transparent; color: var(--slate); font-weight: 600; font-size: 13px; }
+  .tp-bs-btn.active { background: var(--card); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .tp-yesno { display: flex; gap: 8px; margin-bottom: 14px; }
+  .tp-yn-btn { flex: 1; padding: 11px 0; border-radius: 9px; font-weight: 700; font-size: 14px; border: 1.5px solid; text-align: center; transition: all 0.12s; }
+  .tp-yn-btn.sel-yes { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+  .tp-yn-btn.sel-no { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+  .tp-yn-btn:not(.sel-yes):not(.sel-no) { background: var(--page); border-color: var(--border); color: var(--slate); }
+
+  /* LIVE indicator */
+  #live-dot { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #6B7280; padding: 0 4px; }
+  .live-pulse { width: 7px; height: 7px; border-radius: 50%; background: #4B5563; flex-shrink: 0; }
+  .live-pulse.on { background: #22C55E; box-shadow: 0 0 0 0 rgba(34,197,94,0.6); animation: pulse 2s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); } 70% { box-shadow: 0 0 0 5px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="brand">
+    <span style="font-size:20px">🌍</span>
+    <span class="brand-text">Labari<span>Predict</span></span>
+  </div>
+  <div id="nav-search-wrap">
+    <span class="search-icon">🔍</span>
+    <input id="nav-search" placeholder="Search markets…" oninput="filterMarkets()" />
+  </div>
+  <div id="nav-right">
+    <div id="live-dot"><span class="live-pulse" id="live-pulse-el"></span><span id="live-label">Connecting…</span></div>
+    <div id="nav-auth-area"></div>
+  </div>
+</nav>
+
+<!-- CATEGORY BAR -->
+<div id="cat-bar"></div>
+
+<!-- MAIN -->
+<main>
+  <div id="stats-bar"></div>
+  <div id="signup-banner" onclick="openAuth()" style="display:none">
+    <span style="font-size:20px">🎯</span>
+    <div>
+      <div class="banner-title">Sign up to start predicting</div>
+      <div class="banner-sub">Get 1,000 Labari Points free. Sign in with Google or email.</div>
+    </div>
+    <button class="banner-btn">Get started →</button>
+  </div>
+  <div id="market-count" style="font-size:13px;color:var(--slate);margin-bottom:16px"></div>
+  <div id="content"></div>
+</main>
+
+<div id="footer">
+  Labari Predict · Virtual points only, no real money · A <span>Labari Media</span> product
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+const SUPABASE_URL = "https://xtmqqwrlpflclinkxzmg.supabase.co";
+const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0bXFxd3JscGZsY2xpbmt4em1nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0ODQzNTgsImV4cCI6MjA5ODA2MDM1OH0.5GeWf5noOwEvcwizmQpNwHLC82u3I-utN_KRccn0XdY";
+const GOOGLE_CLIENT_ID = "356413521431-sagdiuicnr08evp5gbtg9qathkr1qdjc.apps.googleusercontent.com";
+const WORKER_URL = "https://labari-predict-api.joseph-kuuire.workers.dev";
+
+// Calls the Cloudflare Worker, which holds the service_role key and does all
+// trade math server-side. The browser only ever sends intent — never the
+// resulting price or share count, which the Worker computes and is final.
+async function executeTrade(marketId, optionId, side, amount) {
+  const res = await fetch(`${WORKER_URL}/trade`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${state.session?.access_token || ""}`,
+    },
+    body: JSON.stringify({ market_id: marketId, option_id: optionId, side, amount }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || "Trade failed.");
+  return data;
+}
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let state = {
+  session: null,
+  profile: null,
+  markets: [],
+  portfolios: [],
+  activeTab: "markets",
+  activeCat: "All",
+  search: "",
+  pendingCount: 0,
+};
+
+// ─── SUPABASE ────────────────────────────────────────────────────────────────
+const sb = {
+  token() { return state.session?.access_token || SUPABASE_ANON; },
+  headers(extra = {}) {
+    return { "Content-Type": "application/json", apikey: SUPABASE_ANON, Authorization: `Bearer ${this.token()}`, ...extra };
+  },
+  async req(path, opts = {}) {
+    const res = await fetch(`${SUPABASE_URL}${path}`, { headers: this.headers(opts.headers || {}), ...opts });
+    const text = await res.text();
+    try { return { data: JSON.parse(text), ok: res.ok, status: res.status }; }
+    catch { return { data: text, ok: res.ok, status: res.status }; }
+  },
+  async signUp(email, password, displayName, countryFlag) {
+    return this.req("/auth/v1/signup", { method: "POST", body: JSON.stringify({ email, password, data: { display_name: displayName, country_flag: countryFlag } }) });
+  },
+  async signIn(email, password) {
+    return this.req("/auth/v1/token?grant_type=password", { method: "POST", body: JSON.stringify({ email, password }) });
+  },
+  async signInGoogle(idToken) {
+    return this.req("/auth/v1/token?grant_type=id_token", { method: "POST", body: JSON.stringify({ provider: "google", id_token: idToken, access_token: idToken }) });
+  },
+  async signOut() { return this.req("/auth/v1/logout", { method: "POST" }); },
+  async getProfiles(userId) { return this.req(`/rest/v1/profiles?id=eq.${userId}&select=*`); },
+  async updateProfile(userId, data) { return this.req(`/rest/v1/profiles?id=eq.${userId}`, { method: "PATCH", body: JSON.stringify(data), headers: { Prefer: "return=representation" } }); },
+  async getMarkets() { return this.req("/rest/v1/markets?status=eq.open&select=*&order=created_at.desc"); },
+  async getPendingMarkets() { return this.req("/rest/v1/markets?status=eq.pending&select=*&order=created_at.asc"); },
+  async reviewMarket(id, status, reviewerId, note) {
+    const body = { status, reviewed_by: reviewerId, reviewed_at: new Date().toISOString() };
+    if (note) body.rejection_note = note;
+    return this.req(`/rest/v1/markets?id=eq.${id}`, { method: "PATCH", body: JSON.stringify(body), headers: { Prefer: "return=representation" } });
+  },
+  async getOptions() { return this.req("/rest/v1/options?select=*"); },
+  async updateOption(id, data) { return this.req(`/rest/v1/options?id=eq.${id}`, { method: "PATCH", body: JSON.stringify(data), headers: { Prefer: "return=representation" } }); },
+  async insertTrade(data) { return this.req("/rest/v1/trades", { method: "POST", body: JSON.stringify(data), headers: { Prefer: "return=representation" } }); },
+  async upsertPortfolio(data) { return this.req("/rest/v1/portfolios?on_conflict=user_id,option_id,side", { method: "POST", body: JSON.stringify(data), headers: { Prefer: "return=representation,resolution=merge-duplicates" } }); },
+  async getPortfolios(userId) { return this.req(`/rest/v1/portfolios?user_id=eq.${userId}&select=*`); },
+  async getLeaderboard() { return this.req("/rest/v1/profiles?select=display_name,country_flag,points,accuracy_correct,accuracy_total&order=points.desc&limit=10"); },
+  async insertMarket(data) { return this.req("/rest/v1/markets", { method: "POST", body: JSON.stringify(data), headers: { Prefer: "return=representation" } }); },
+  async insertOption(data) { return this.req("/rest/v1/options", { method: "POST", body: JSON.stringify(data), headers: { Prefer: "return=representation" } }); },
+};
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+const prob = (yes, no) => { const t = yes + no; return t === 0 ? 50 : Math.round(yes / t * 100); };
+const fmtPts = n => n >= 1000 ? (n / 1000).toFixed(1) + "k" : String(n);
+const daysLeft = d => {
+  const days = Math.ceil((new Date(d) - new Date()) / 86400000);
+  if (days < 0) return "Ended"; if (days === 0) return "Ends today";
+  if (days === 1) return "Ends tomorrow"; if (days < 30) return `Ends in ${days}d`;
+  return `Ends in ~${Math.round(days / 30)}mo`;
+};
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+const CATEGORY_ACCENT = { Politics:"#3B4FBF", Football:"#0D7A4E", Economics:"#9B3A2A", Technology:"#1E6FA8", Other:"#6B5B9E" };
+const CATS = ["All","Politics","Football","Economics","Technology"];
+const COUNTRIES = [["🇬🇭","Ghana"],["🇳🇬","Nigeria"],["🇰🇪","Kenya"],["🇿🇦","South Africa"],["🇪🇹","Ethiopia"],["🇸🇳","Senegal"],["🇹🇿","Tanzania"],["🇨🇮","Côte d'Ivoire"],["🇷🇼","Rwanda"],["🇲🇦","Morocco"],["🇦🇴","Angola"],["🇺🇬","Uganda"],["🌍","Pan-Africa"]];
+const CAT_ICONS = { Politics:"🏛️", Football:"⚽", Economics:"📊", Technology:"💻", Other:"❓" };
+
+let toastTimer;
+function showToast(msg, type = "success") {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.className = type === "error" ? "error" : "";
+  t.style.display = "block"; clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.style.display = "none"; }, 3500);
+}
+
+function spinner(size = 20, color = "var(--amber)") {
+  return `<div class="spinner" style="width:${size}px;height:${size}px;border-top-color:${color}"></div>`;
+}
+
+// ─── SESSION ─────────────────────────────────────────────────────────────────
+function saveSession(s) {
+  state.session = s;
+  localStorage.setItem("lp_session", JSON.stringify(s));
+}
+function clearSession() {
+  state.session = null; state.profile = null;
+  localStorage.removeItem("lp_session");
+}
+function restoreSession() {
+  try {
+    const s = JSON.parse(localStorage.getItem("lp_session") || "null");
+    if (s && s.expires_at && s.expires_at * 1000 > Date.now()) { state.session = s; return s; }
+    localStorage.removeItem("lp_session");
+  } catch {}
+  return null;
+}
+
+// ─── RENDER NAV AUTH ─────────────────────────────────────────────────────────
+function renderNavAuth() {
+  const el = document.getElementById("nav-auth-area");
+  if (state.session && state.profile) {
+    el.innerHTML = `
+      <div style="text-align:right"><div class="pts-label">Points</div><div class="pts-val">${fmtPts(state.profile.points)}</div></div>
+      <span style="font-size:18px">${esc(state.profile.country_flag)}</span>
+      <button class="btn-amber" onclick="openCreateMarket()">+ Create</button>
+      <button class="btn-ghost" onclick="doSignOut()">Sign out</button>`;
+  } else {
+    el.innerHTML = `<button class="btn-amber" onclick="openAuth()">Sign in / Sign up</button>`;
+  }
+}
+
+// ─── RENDER CAT BAR ──────────────────────────────────────────────────────────
+function renderCatBar() {
+  const bar = document.getElementById("cat-bar");
+  const onMarkets = state.activeTab === "markets";
+  bar.innerHTML = CATS.map(c => `<button class="cat-btn ${state.activeCat === c && onMarkets ? 'active' : ''}" onclick="setTab('markets','${c}')">${esc(c)}</button>`).join("") +
+    (state.session ? `<button class="cat-btn ${state.activeTab === 'portfolio' ? 'active' : ''}" onclick="setTab('portfolio')">My Bets${state.portfolios.length > 0 ? ` (${state.portfolios.length})` : ""}</button>` : "") +
+    `<button class="cat-btn ${state.activeTab === 'leaderboard' ? 'active' : ''}" onclick="setTab('leaderboard')">Leaderboard</button>` +
+    (state.profile?.is_admin ? `<button class="cat-btn ${state.activeTab === 'review' ? 'active' : ''}" onclick="setTab('review')" style="margin-left:auto">🛡️ Review${state.pendingCount ? ` (${state.pendingCount})` : ""}</button>` : "");
+}
+
+// ─── RENDER STATS ─────────────────────────────────────────────────────────────
+function renderStats() {
+  const bar = document.getElementById("stats-bar");
+  const p = state.profile;
+  const acc = p && p.accuracy_total > 0 ? Math.round(p.accuracy_correct / p.accuracy_total * 100) + "%" : "—";
+  bar.innerHTML = [
+    { label: "Your Points", val: state.session && p ? fmtPts(p.points) + " pts" : "—", color: "var(--amber)" },
+    { label: "Open Positions", val: state.session ? state.portfolios.length : "—", color: "var(--text)" },
+    { label: "Live Markets", val: state.markets.length, color: "var(--text)" },
+    { label: "Accuracy", val: state.session ? acc : "—", color: "var(--green)" },
+  ].map(s => `<div class="stat-card"><span class="stat-label">${s.label}</span><span class="stat-val" style="color:${s.color}">${s.val}</span></div>`).join("");
+}
+
+// ─── RENDER MARKETS ───────────────────────────────────────────────────────────
+function getFilteredMarkets() {
+  return state.markets.filter(m => {
+    const catOk = state.activeCat === "All" || m.category === state.activeCat;
+    const searchOk = !state.search || m.title.toLowerCase().includes(state.search.toLowerCase()) || m.country.toLowerCase().includes(state.search.toLowerCase());
+    return catOk && searchOk;
+  });
+}
+
+function renderMarkets() {
+  const filtered = getFilteredMarkets();
+  document.getElementById("market-count").textContent = `${filtered.length} market${filtered.length !== 1 ? "s" : ""}`;
+  if (filtered.length === 0) {
+    document.getElementById("content").innerHTML = `<div class="empty">No markets match your search.</div>`;
+    return;
+  }
+  document.getElementById("content").innerHTML = `<div id="market-grid">${filtered.map(marketCardHTML).join("")}</div>`;
+}
+
+function marketCardHTML(m) {
+  const accent = CATEGORY_ACCENT[m.category] || "#6B5B9E";
+  const isBinary = m.type === "binary";
+  const opts = m.options || [];
+
+  let outcomesHTML = "";
+  if (isBinary && opts[0]) {
+    const o = opts[0]; const p = prob(o.yes_shares, o.no_shares);
+    outcomesHTML = `
+      <div><div class="prob-bar-wrap"><div class="prob-bar-fill" style="width:${p}%"></div></div>
+      <div class="pills">
+        <button class="pill pill-yes" onclick="openTrade(${m.id},${o.id},'YES')"><span class="pl">Buy Yes</span> ${p}%</button>
+        <button class="pill pill-no" onclick="openTrade(${m.id},${o.id},'NO')"><span class="pl">Buy No</span> ${100 - p}%</button>
+      </div></div>`;
+  } else {
+    outcomesHTML = `<div style="display:flex;flex-direction:column;gap:8px">${opts.map(o => {
+      const p = prob(o.yes_shares, o.no_shares);
+      return `<div class="option-row">
+        <span class="option-label">${esc(o.label)}</span>
+        <span class="option-pct">${p}%</span>
+        <button class="pill pill-yes" onclick="openTrade(${m.id},${o.id},'YES')"><span class="pl">Yes</span> ${p}%</button>
+        <button class="pill pill-no" onclick="openTrade(${m.id},${o.id},'NO')"><span class="pl">No</span> ${100-p}%</button>
+      </div>`;
+    }).join("")}</div>`;
+  }
+
+  return `<div class="market-card">
+    <div style="display:flex;gap:12px;align-items:flex-start;cursor:pointer" onclick="openMarketDetail(${m.id})">
+      <div class="card-icon">${esc(m.icon)}</div>
+      <div style="flex:1;min-width:0">
+        <div class="card-meta"><strong style="color:${accent}">${esc(m.category)}</strong> · ${esc(m.flag)} ${esc(m.country)}</div>
+        <div class="card-title">${esc(m.title)}</div>
+      </div>
+    </div>
+    ${outcomesHTML}
+    <div class="card-footer"><span>🔄 ${(m.trades||0).toLocaleString()} trades</span><span style="cursor:pointer" onclick="openMarketDetail(${m.id})">⏱ ${daysLeft(m.closes_at)}</span></div>
+  </div>`;
+}
+
+// ─── RENDER PORTFOLIO ─────────────────────────────────────────────────────────
+function renderPortfolio() {
+  document.getElementById("market-count").textContent = "";
+  if (state.portfolios.length === 0) {
+    document.getElementById("content").innerHTML = `<div class="section-box"><div style="padding:40px;text-align:center;color:var(--slate)">No positions yet — trade on any market to get started.</div></div>`;
+    return;
+  }
+  const rows = state.portfolios.map(pos => {
+    const market = state.markets.find(m => m.id === pos.market_id);
+    if (!market) return "";
+    const option = (market.options || []).find(o => o.id === pos.option_id);
+    if (!option) return "";
+    const p = pos.side === "YES" ? prob(option.yes_shares, option.no_shares) : 100 - prob(option.yes_shares, option.no_shares);
+    const currentVal = Math.round(p / 100 * pos.total_shares);
+    const pnl = currentVal - pos.total_spent;
+    const sideClass = pos.side === "YES" ? "pos-side-yes" : "pos-side-no";
+    const pnlClass = pnl >= 0 ? "pos-pnl-pos" : "pos-pnl-neg";
+    return `<div class="pos-row">
+      <div>
+        <div class="pos-market">${esc(market.flag)} ${esc(market.title)}${option.label !== "Main" ? ` → ${esc(option.label)}` : ""}</div>
+        <div class="pos-meta"><span class="${sideClass}">${esc(pos.side)}</span><span style="color:var(--slate)">${pos.total_shares} shares · Spent ${pos.total_spent} pts</span></div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div class="${pnlClass}">${pnl >= 0 ? "+" : ""}${pnl} pts</div>
+        <div class="pos-now">~${currentVal} pts now</div>
+      </div>
+    </div>`;
+  }).join("");
+  document.getElementById("content").innerHTML = `<div class="section-box"><div class="section-head"><h3>My Positions</h3></div>${rows}</div>`;
+}
+
+// ─── RENDER LEADERBOARD ───────────────────────────────────────────────────────
+async function renderLeaderboard() {
+  document.getElementById("market-count").textContent = "";
+  document.getElementById("content").innerHTML = `<div class="loading-wrap">${spinner(36)}</div>`;
+  const r = await sb.getLeaderboard();
+  if (!r.ok || !r.data?.length) {
+    document.getElementById("content").innerHTML = `<div class="section-box"><div style="padding:40px;text-align:center;color:var(--slate)">No forecasters yet. Sign up to be first!</div></div>`;
+    return;
+  }
+  const rows = r.data.map((u, i) => {
+    const acc = u.accuracy_total > 0 ? Math.round(u.accuracy_correct / u.accuracy_total * 100) + "% acc" : "";
+    return `<div class="lb-row">
+      <span class="lb-rank" style="color:${i < 3 ? 'var(--amber)' : 'var(--slate-light)'}">${i+1}</span>
+      <span style="font-size:18px">${esc(u.country_flag)}</span>
+      <span class="lb-name">${esc(u.display_name)}</span>
+      ${acc ? `<span class="lb-acc">${acc}</span>` : ""}
+      <span class="lb-pts">${fmtPts(u.points)} pts</span>
+    </div>`;
+  }).join("");
+  document.getElementById("content").innerHTML = `<div class="section-box"><div class="section-head"><h3>Top Forecasters</h3><span style="font-size:12px;color:var(--slate)">By virtual points</span></div>${rows}</div>`;
+}
+
+// ─── ADMIN REVIEW QUEUE ───────────────────────────────────────────────────────
+async function renderReviewQueue() {
+  document.getElementById("market-count").textContent = "";
+  document.getElementById("content").innerHTML = `<div class="loading-wrap">${spinner(36)}</div>`;
+  const r = await sb.getPendingMarkets();
+  if (!r.ok) {
+    document.getElementById("content").innerHTML = `<div class="section-box"><div style="padding:40px;text-align:center;color:var(--error)">Could not load submissions.</div></div>`;
+    return;
+  }
+  const pending = r.data || [];
+  state.pendingCount = pending.length;
+  renderCatBar();
+
+  if (pending.length === 0) {
+    document.getElementById("content").innerHTML = `<div class="section-box"><div style="padding:40px;text-align:center;color:var(--slate)">✅ No pending submissions. All caught up.</div></div>`;
+    return;
+  }
+
+  // We need the options for each pending market too (for multi-outcome previews)
+  const or = await sb.getOptions();
+  const oList = or.ok ? (or.data || []) : [];
+
+  const rows = pending.map(m => {
+    const opts = oList.filter(o => o.market_id === m.id);
+    const accent = CATEGORY_ACCENT[m.category] || "#6B5B9E";
+    const optionsPreview = m.type === "multi"
+      ? `<div style="font-size:12px;color:var(--slate);margin-top:6px">Outcomes: ${opts.map(o => esc(o.label)).join(", ")}</div>`
+      : "";
+    return `<div style="padding:18px 20px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+        <div>
+          <div style="font-size:11px;color:var(--slate-light);margin-bottom:4px"><strong style="color:${accent}">${esc(m.category)}</strong> · ${esc(m.flag)} ${esc(m.country)} · Closes ${new Date(m.closes_at).toLocaleDateString()}</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text)">${esc(m.title)}</div>
+          ${m.description ? `<div style="font-size:13px;color:var(--text-mid);margin-top:6px;line-height:1.5">${esc(m.description)}</div>` : ""}
+          ${optionsPreview}
+        </div>
+        <span style="font-size:11px;color:var(--slate-light);white-space:nowrap">${new Date(m.created_at).toLocaleDateString()}</span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-full" style="background:var(--green);flex:1;padding:9px 0;font-size:13px" onclick="approveMarket(${m.id})">✓ Approve</button>
+        <button class="btn-full" style="background:var(--red);flex:1;padding:9px 0;font-size:13px" onclick="promptReject(${m.id})">✕ Reject</button>
+      </div>
+    </div>`;
+  }).join("");
+
+  document.getElementById("content").innerHTML = `<div class="section-box">
+    <div class="section-head"><h3>Pending Submissions</h3><span style="font-size:12px;color:var(--slate)">${pending.length} awaiting review</span></div>
+    ${rows}
+  </div>`;
+}
+
+async function approveMarket(marketId) {
+  const r = await sb.reviewMarket(marketId, "open", state.session.user.id);
+  if (!r.ok) { showToast("Failed to approve market.", "error"); return; }
+  showToast("Market approved and now live! ✅");
+  await fetchMarkets();
+  renderReviewQueue();
+}
+
+function promptReject(marketId) {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay"; overlay.id = "reject-overlay";
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+  overlay.innerHTML = `<div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <span style="font-size:18px;font-weight:700;color:var(--text)">Reject submission</span>
+      <button class="modal-close" onclick="document.getElementById('reject-overlay').remove()">×</button>
+    </div>
+    <div class="field"><label>Reason (shown to the submitter)</label><textarea class="inp" id="reject-note" style="min-height:80px" placeholder="e.g. Resolution criteria too vague — please specify an exact date and source."></textarea></div>
+    <button class="btn-full" style="background:var(--red)" onclick="confirmReject(${marketId})">Confirm rejection</button>
+  </div>`;
+  document.body.appendChild(overlay);
+}
+
+async function confirmReject(marketId) {
+  const note = document.getElementById("reject-note")?.value?.trim() || "Did not meet submission guidelines.";
+  const r = await sb.reviewMarket(marketId, "rejected", state.session.user.id, note);
+  document.getElementById("reject-overlay")?.remove();
+  if (!r.ok) { showToast("Failed to reject market.", "error"); return; }
+  showToast("Submission rejected.");
+  renderReviewQueue();
+}
+
+// ─── SET TAB ─────────────────────────────────────────────────────────────────
+function setTab(tab, cat) {
+  state.activeTab = tab;
+  if (cat !== undefined) state.activeCat = cat;
+  document.getElementById("signup-banner").style.display = (!state.session && tab === "markets") ? "flex" : "none";
+  renderCatBar(); renderStats();
+  if (tab === "markets") renderMarkets();
+  else if (tab === "portfolio") renderPortfolio();
+  else if (tab === "leaderboard") renderLeaderboard();
+  else if (tab === "review") renderReviewQueue();
+}
+
+function filterMarkets() {
+  state.search = document.getElementById("nav-search").value;
+  if (state.activeTab === "markets") renderMarkets();
+}
+
+// ─── FETCH DATA ───────────────────────────────────────────────────────────────
+async function fetchMarkets() {
+  document.getElementById("content").innerHTML = `<div class="loading-wrap">${spinner(36)}</div>`;
+  const [mr, or] = await Promise.all([sb.getMarkets(), sb.getOptions()]);
+  if (!mr.ok) { showToast("Could not load markets.", "error"); return; }
+  const oList = or.ok ? (or.data || []) : [];
+  state.markets = (mr.data || []).map(m => ({ ...m, options: oList.filter(o => o.market_id === m.id), trades: 0 }));
+  renderMarkets();
+}
+
+async function fetchProfile(userId, retriesLeft = 3) {
+  const r = await sb.getProfiles(userId);
+  if (r.ok && r.data?.[0]) {
+    state.profile = r.data[0];
+    renderNavAuth(); renderStats();
+    if (state.profile.is_admin) {
+      const pr = await sb.getPendingMarkets();
+      state.pendingCount = pr.ok ? (pr.data || []).length : 0;
+      renderCatBar();
+    }
+    return true;
+  }
+
+  // The profile row is created by a database trigger on signup, which can
+  // occasionally lag by a moment. Retry briefly before giving up.
+  if (retriesLeft > 0) {
+    await new Promise(res => setTimeout(res, 600));
+    return fetchProfile(userId, retriesLeft - 1);
+  }
+
+  showToast("We couldn't load your profile. Try refreshing — if this keeps happening, the account setup trigger may need checking.", "error");
+  return false;
+}
+
+async function fetchPortfolio(userId) {
+  const r = await sb.getPortfolios(userId);
+  if (r.ok) { state.portfolios = r.data || []; renderCatBar(); renderStats(); }
+}
+
+// ─── AUTH ─────────────────────────────────────────────────────────────────────
+function openAuth() { renderAuthModal(); }
+
+function renderAuthModal(mode = "signin") {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay"; overlay.id = "auth-overlay";
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+
+  overlay.innerHTML = `<div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <div><div class="modal-eyebrow">🌍 Labari Predict</div><div class="modal-title">${mode === "signin" ? "Welcome back" : "Create account"}</div></div>
+      <button class="modal-close" onclick="document.getElementById('auth-overlay').remove()">×</button>
+    </div>
+    <button class="btn-google" id="google-btn" onclick="handleGoogleClick()">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Continue with Google
+    </button>
+    <div class="divider"><div class="divider-line"></div><span>or continue with email</span><div class="divider-line"></div></div>
+    <div class="tab-switcher">
+      <button class="tab-opt ${mode==='signin'?'active':''}" onclick="renderAuthModal('signin')" id="tab-signin">Sign in</button>
+      <button class="tab-opt ${mode==='signup'?'active':''}" onclick="renderAuthModal('signup')" id="tab-signup">Sign up</button>
+    </div>
+    <div id="auth-error" style="display:none" class="error-box"></div>
+    ${mode === "signup" ? `
+    <div class="field"><label>Display name</label><input class="inp" id="auth-name" placeholder="e.g. Kwame A." /></div>
+    <div class="field"><label>Your country</label><select class="inp" id="auth-country">${COUNTRIES.map(([f,n])=>`<option value="${f}">${f} ${n}</option>`).join("")}</select></div>` : ""}
+    <div class="field"><label>Email</label><input class="inp" id="auth-email" type="email" placeholder="you@example.com" /></div>
+    <div class="field"><label>Password</label><input class="inp" id="auth-pass" type="password" placeholder="${mode==='signup'?'At least 6 characters':'••••••••'}" onkeydown="if(event.key==='Enter')submitAuth('${mode}')" /></div>
+    ${mode === "signup" ? `<div class="info-box">🎁 You'll start with <strong>1,000 Labari Points</strong> to trade with. No real money.</div>` : ""}
+    <button class="btn-full" style="background:var(--amber)" id="auth-submit-btn" onclick="submitAuth('${mode}')">
+      ${mode === "signin" ? "Sign in" : "Create account"}
+    </button>
+    <p style="font-size:12px;color:var(--slate-light);text-align:center">Virtual points only. No money, no risk.</p>
+  </div>`;
+
+  document.body.appendChild(overlay);
+}
+
+function setAuthError(msg) {
+  const el = document.getElementById("auth-error");
+  if (el) { el.textContent = msg; el.style.display = msg ? "block" : "none"; }
+}
+
+function setAuthLoading(loading, mode) {
+  const btn = document.getElementById("auth-submit-btn");
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.innerHTML = loading ? `${spinner(16, "#fff")} ${mode === "signin" ? "Signing in…" : "Creating account…"}` : mode === "signin" ? "Sign in" : "Create account";
+}
+
+async function submitAuth(mode) {
+  setAuthError("");
+  const email = document.getElementById("auth-email")?.value?.trim();
+  const pass = document.getElementById("auth-pass")?.value;
+  if (!email || !pass) { setAuthError("Email and password are required."); return; }
+  if (mode === "signup" && !document.getElementById("auth-name")?.value?.trim()) { setAuthError("Display name is required."); return; }
+  if (mode === "signup" && pass.length < 6) { setAuthError("Password must be at least 6 characters."); return; }
+
+  setAuthLoading(true, mode);
+  try {
+    let r;
+    if (mode === "signin") {
+      r = await sb.signIn(email, pass);
+    } else {
+      const name = document.getElementById("auth-name").value.trim();
+      const flag = document.getElementById("auth-country").value;
+      r = await sb.signUp(email, pass, name, flag);
+    }
+
+    if (!r.ok) {
+      setAuthError(r.data?.msg || r.data?.error_description || r.data?.message || "Something went wrong.");
+      setAuthLoading(false, mode);
+      return;
+    }
+
+    // Supabase signup can return two different shapes depending on whether
+    // email confirmation is required for the project:
+    //  - Confirmation OFF: { access_token, user: {...}, ... } — fully signed in
+    //  - Confirmation ON:  { id, email, confirmation_sent_at, ... } — no session yet
+    const hasSession = !!(r.data && r.data.access_token && r.data.user);
+
+    if (hasSession) {
+      await handleAuthSuccess(r.data);
+    } else if (mode === "signup") {
+      // Account created but needs email confirmation before it can sign in
+      showSignupConfirmationNotice(email);
+      setAuthLoading(false, mode);
+    } else {
+      // Sign-in returned ok but no token — shouldn't normally happen, surface it plainly
+      setAuthError("Sign in succeeded but no session was returned. Please try again.");
+      setAuthLoading(false, mode);
+    }
+  } catch (e) {
+    setAuthError("Network error. Please try again.");
+    setAuthLoading(false, mode);
+  }
+}
+
+function showSignupConfirmationNotice(email) {
+  const overlay = document.getElementById("auth-overlay");
+  if (!overlay) return;
+  const modal = overlay.querySelector(".modal");
+  if (!modal) return;
+  modal.innerHTML = `
+    <div class="modal-header">
+      <div><div class="modal-eyebrow">🌍 Labari Predict</div><div class="modal-title">Check your email</div></div>
+      <button class="modal-close" onclick="document.getElementById('auth-overlay').remove()">×</button>
+    </div>
+    <div class="info-box">📧 We sent a confirmation link to <strong>${esc(email)}</strong>. Click it to activate your account, then come back and sign in.</div>
+    <p style="font-size:13px;color:var(--slate)">Didn't get it? Check your spam folder, or try signing up again in a minute.</p>
+    <button class="btn-full" style="background:var(--amber)" onclick="renderAuthModal('signin')">Back to sign in</button>
+  `;
+}
+
+let googleInitialized = false;
+
+function initGoogleIfNeeded() {
+  if (googleInitialized || !window.google?.accounts?.id) return;
+  window.google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: handleGoogleCredential,
+    auto_select: false,
+    cancel_on_tap_outside: true,
+    ux_mode: "popup",
+  });
+  googleInitialized = true;
+}
+
+async function handleGoogleCredential(response) {
+  const btn = document.getElementById("google-btn");
+  try {
+    const r = await sb.signInGoogle(response.credential);
+    if (r.ok && r.data.access_token) {
+      await handleAuthSuccess(r.data);
+    } else {
+      setAuthError(r.data?.msg || r.data?.error_description || "Google sign-in failed.");
+      resetGoogleButton(btn);
+    }
+  } catch {
+    setAuthError("Network error during Google sign-in.");
+    resetGoogleButton(btn);
+  }
+}
+
+function resetGoogleButton(btn) {
+  if (!btn) return;
+  btn.disabled = false;
+  btn.innerHTML = googleButtonInnerHTML();
+}
+
+function googleButtonInnerHTML() {
+  return `<svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Continue with Google`;
+}
+
+async function handleGoogleClick() {
+  const btn = document.getElementById("google-btn");
+
+  if (!window.google?.accounts?.id) {
+    setAuthError("Google Sign-In is still loading — please try again in a moment.");
+    return;
+  }
+
+  initGoogleIfNeeded();
+
+  if (btn) { btn.disabled = true; btn.innerHTML = `${spinner(18, "var(--slate)")} Opening Google sign-in…`; }
+
+  // Safety net: if neither the credential callback nor the prompt notification
+  // fires within 10 seconds (can happen silently in sandboxed/iframe contexts
+  // where Google's One Tap is blocked), reset the button so it's never stuck.
+  const timeoutId = setTimeout(() => {
+    if (btn && btn.disabled) {
+      resetGoogleButton(btn);
+      setAuthError("Google sign-in didn't open. Your browser may be blocking the popup — please allow popups for this site, or use email instead.");
+    }
+  }, 10000);
+
+  try {
+    window.google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment() || notification.isDismissedMoment()) {
+        clearTimeout(timeoutId);
+        resetGoogleButton(btn);
+        if (notification.isNotDisplayed && notification.isNotDisplayed()) {
+          setAuthError("Google One Tap isn't available here. This can happen inside embedded previews — try opening the page directly in a new browser tab.");
+        }
+      }
+    });
+  } catch (e) {
+    clearTimeout(timeoutId);
+    resetGoogleButton(btn);
+    setAuthError("Could not start Google sign-in. Please use email instead.");
+  }
+}
+
+async function handleAuthSuccess(data) {
+  if (!data || !data.access_token || !data.user || !data.user.id) {
+    setAuthError("Sign-in response was incomplete. Please try again.");
+    return;
+  }
+  saveSession(data);
+  document.getElementById("auth-overlay")?.remove();
+  await fetchProfile(data.user.id);
+  await fetchPortfolio(data.user.id);
+  renderNavAuth(); renderCatBar(); renderStats();
+  document.getElementById("signup-banner").style.display = "none";
+  showToast("Welcome to Labari Predict! 🌍");
+}
+
+async function doSignOut() {
+  await sb.signOut(); clearSession();
+  state.portfolios = [];
+  renderNavAuth(); renderCatBar(); renderStats();
+  setTab("markets");
+  document.getElementById("signup-banner").style.display = "flex";
+  showToast("Signed out.");
+}
+
+// ─── TRADE ────────────────────────────────────────────────────────────────────
+function openTrade(marketId, optionId, side) {
+  if (!state.session) { openAuth(); return; }
+  const market = state.markets.find(m => m.id === marketId);
+  const option = market?.options?.find(o => o.id === optionId);
+  if (!market || !option) return;
+
+  const p = side === "YES" ? prob(option.yes_shares, option.no_shares) : 100 - prob(option.yes_shares, option.no_shares);
+  const isYes = side === "YES";
+  const sideColor = isYes ? "var(--green)" : "var(--red)";
+  const sideBg = isYes ? "var(--green-bg)" : "var(--red-bg)";
+
+  const overlay = document.createElement("div");
+  overlay.className = "overlay"; overlay.id = "trade-overlay";
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+
+  overlay.innerHTML = `<div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <div style="flex:1;padding-right:16px">
+        <div style="font-size:11px;color:var(--slate);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">${esc(market.flag)} ${esc(market.country)} · ${esc(market.category)}</div>
+        <div style="font-size:15px;font-weight:600;color:var(--text);line-height:1.4">${option.label !== "Main" ? esc(option.label) : esc(market.title)}</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('trade-overlay').remove()">×</button>
+    </div>
+    <div class="side-box" style="background:${sideBg}">
+      <div><div class="side-label" style="color:${sideColor}">YOU ARE BUYING</div><div class="side-val" style="color:${sideColor}">${side}</div></div>
+      <div><div class="odds-label">Current odds</div><div class="odds-val" style="color:${sideColor}" id="trade-odds">${p}%</div></div>
+    </div>
+    <div id="trade-error" class="error-box" style="display:none"></div>
+    <div class="field">
+      <label>Points to spend — balance: <strong>${fmtPts(state.profile?.points || 0)} pts</strong></label>
+      <input class="inp inp-lg" id="trade-amount" type="number" min="10" max="${state.profile?.points || 0}" step="10" value="100" oninput="updateTradeSummary(${p})" />
+      <div class="quick-amounts">
+        ${[50,100,250,500].map(v=>`<button class="qa-btn" onclick="document.getElementById('trade-amount').value=${Math.min(v,state.profile?.points||0)};updateTradeSummary(${p})">${v}</button>`).join("")}
+      </div>
+    </div>
+    <div class="summary-box">
+      <div class="summary-row"><span>Price per share</span><span id="t-price">${p} pts</span></div>
+      <div class="summary-row"><span>Shares you receive</span><span id="t-shares">${Math.floor(100*100/Math.max(1,p))}</span></div>
+      <div class="summary-row total"><span>If correct, you win</span><span id="t-win">${fmtPts(Math.floor(100*100/Math.max(1,p)))} pts</span></div>
+    </div>
+    <button class="btn-full" style="background:${sideColor}" id="trade-submit-btn" onclick="submitTrade(${marketId},${optionId},'${side}',${p})">
+      Buy ${side} · 100 pts
+    </button>
+  </div>`;
+  document.body.appendChild(overlay);
+}
+
+function updateTradeSummary(p) {
+  const amount = parseInt(document.getElementById("trade-amount")?.value) || 0;
+  const pricePerShare = Math.max(1, p);
+  const shares = amount > 0 ? Math.floor(amount * 100 / pricePerShare) : 0;
+  document.getElementById("t-price").textContent = `${pricePerShare} pts`;
+  document.getElementById("t-shares").textContent = shares;
+  document.getElementById("t-win").textContent = `${fmtPts(shares)} pts`;
+  const btn = document.getElementById("trade-submit-btn");
+  if (btn) btn.textContent = `Buy · ${fmtPts(amount)} pts`;
+}
+
+async function submitTrade(marketId, optionId, side, p) {
+  const amount = parseInt(document.getElementById("trade-amount")?.value) || 0;
+  const userPts = state.profile?.points || 0;
+  if (amount <= 0 || amount > userPts) { document.getElementById("trade-error").textContent = amount > userPts ? "Insufficient points." : "Enter a valid amount."; document.getElementById("trade-error").style.display = "block"; return; }
+
+  const btn = document.getElementById("trade-submit-btn");
+  if (btn) { btn.disabled = true; btn.innerHTML = `${spinner(16,"#fff")} Placing trade…`; }
+
+  try {
+    const userId = state.session.user.id;
+    const result = await executeTrade(marketId, optionId, side, amount);
+
+    // Apply the server's authoritative result to local state
+    const market = state.markets.find(m => m.id === marketId);
+    const option = market?.options?.find(o => o.id === optionId);
+    if (option) {
+      state.markets = state.markets.map(m => m.id !== marketId ? m : { ...m, options: m.options.map(o => o.id !== optionId ? o : { ...o, yes_shares: result.new_yes_shares, no_shares: result.new_no_shares }), trades: (m.trades||0)+1 });
+    }
+    state.profile = { ...state.profile, points: result.new_points_balance };
+
+    await fetchPortfolio(userId);
+    document.getElementById("trade-overlay")?.remove();
+    renderNavAuth(); renderStats();
+    if (state.activeTab === "markets") renderMarkets();
+    showToast(`${side} trade placed! ${result.shares_bought} shares bought. 🎯`);
+  } catch (e) {
+    document.getElementById("trade-error").textContent = e.message || "Trade failed.";
+    document.getElementById("trade-error").style.display = "block";
+    if (btn) { btn.disabled = false; btn.textContent = `Buy ${side} · ${fmtPts(amount)} pts`; }
+  }
+}
+
+// ─── CREATE MARKET ────────────────────────────────────────────────────────────
+let createOptionCount = 2;
+
+function openCreateMarket() {
+  if (!state.session) { openAuth(); return; }
+  createOptionCount = 2;
+  const overlay = document.createElement("div");
+  overlay.className = "overlay"; overlay.id = "create-overlay";
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+
+  overlay.innerHTML = `<div class="modal" style="max-width:540px">
+    <div class="modal-header">
+      <span style="font-size:18px;font-weight:700;color:var(--text)">Create a Market</span>
+      <button class="modal-close" onclick="document.getElementById('create-overlay').remove()">×</button>
+    </div>
+    <div id="create-error" class="error-box" style="display:none"></div>
+
+    <div class="tab-switcher">
+      <button class="tab-opt active" id="type-binary-btn" onclick="setCreateType('binary')">Yes / No question</button>
+      <button class="tab-opt" id="type-multi-btn" onclick="setCreateType('multi')">Multiple outcomes</button>
+    </div>
+
+    <div class="field"><label id="c-title-label">Question (clear Yes/No outcome)</label><input class="inp" id="c-title" placeholder="Will X happen before Y?" /></div>
+
+    <div id="multi-options-wrap" style="display:none">
+      <label style="font-size:12px;color:var(--slate);display:block;margin-bottom:6px">Outcomes</label>
+      <div id="multi-options-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px"></div>
+      <button type="button" class="qa-btn" style="width:100%" onclick="addOptionRow()">+ Add another outcome</button>
+    </div>
+
+    <div class="field"><label>Resolution criteria</label><textarea class="inp" id="c-desc" style="min-height:70px;resize:vertical" placeholder="Describe exactly how this resolves — be precise, this is what reviewers and traders will hold you to."></textarea></div>
+    <div class="fields-row">
+      <div class="field"><label>Category</label><select class="inp" id="c-cat">${Object.entries(CAT_ICONS).map(([c,i])=>`<option value="${c}">${i} ${c}</option>`).join("")}</select></div>
+      <div class="field"><label>Country</label><select class="inp" id="c-country">${COUNTRIES.map(([f,n])=>`<option value="${f}||${n}">${f} ${n}</option>`).join("")}</select></div>
+    </div>
+    <div class="field"><label>Closes on</label><input class="inp" id="c-closes" type="date" /></div>
+
+    <div class="info-box">📋 Your market will be <strong>submitted for review</strong> before it goes live. Most submissions are reviewed within a day.</div>
+
+    <button class="btn-full" style="background:var(--amber)" id="create-submit-btn" onclick="submitCreateMarket()">Submit for review</button>
+  </div>`;
+  document.body.appendChild(overlay);
+  renderOptionRows();
+}
+
+function setCreateType(type) {
+  document.getElementById("type-binary-btn").classList.toggle("active", type === "binary");
+  document.getElementById("type-multi-btn").classList.toggle("active", type === "multi");
+  document.getElementById("multi-options-wrap").style.display = type === "multi" ? "block" : "none";
+  document.getElementById("c-title-label").textContent = type === "multi" ? "Market question" : "Question (clear Yes/No outcome)";
+  document.getElementById("c-title").placeholder = type === "multi" ? "e.g. Who will win the 2027 election?" : "Will X happen before Y?";
+  document.getElementById("create-overlay").dataset.type = type;
+}
+
+function renderOptionRows() {
+  const wrap = document.getElementById("multi-options-list");
+  let html = "";
+  for (let i = 0; i < createOptionCount; i++) {
+    html += `<div style="display:flex;gap:8px;align-items:center">
+      <input class="inp" placeholder="Outcome ${i + 1} (e.g. a candidate or scenario)" id="c-opt-${i}" />
+      ${createOptionCount > 2 ? `<button type="button" class="icon-btn" onclick="removeOptionRow(${i})">×</button>` : ""}
+    </div>`;
+  }
+  wrap.innerHTML = html;
+}
+
+function addOptionRow() { createOptionCount++; renderOptionRows(); }
+function removeOptionRow(idx) {
+  // Collect current values, drop the removed one, re-render
+  const vals = [];
+  for (let i = 0; i < createOptionCount; i++) {
+    if (i === idx) continue;
+    vals.push(document.getElementById(`c-opt-${i}`)?.value || "");
+  }
+  createOptionCount = Math.max(2, vals.length);
+  renderOptionRows();
+  vals.forEach((v, i) => { const el = document.getElementById(`c-opt-${i}`); if (el) el.value = v; });
+}
+
+async function submitCreateMarket() {
+  const title = document.getElementById("c-title")?.value?.trim();
+  const closes = document.getElementById("c-closes")?.value;
+  const type = document.getElementById("create-overlay")?.dataset.type === "multi" ? "multi" : "binary";
+
+  if (!title || !closes) { showCreateError("Question and closing date are required."); return; }
+
+  let optionLabels = ["Main"];
+  if (type === "multi") {
+    optionLabels = [];
+    for (let i = 0; i < createOptionCount; i++) {
+      const v = document.getElementById(`c-opt-${i}`)?.value?.trim();
+      if (v) optionLabels.push(v);
+    }
+    if (optionLabels.length < 2) { showCreateError("Add at least 2 outcomes."); return; }
+  }
+
+  const btn = document.getElementById("create-submit-btn");
+  if (btn) { btn.disabled = true; btn.innerHTML = `${spinner(16,"#fff")} Submitting…`; }
+
+  try {
+    const catVal = document.getElementById("c-cat")?.value || "Politics";
+    const countryVal = document.getElementById("c-country")?.value || "🇬🇭||Ghana";
+    const [flag, country] = countryVal.split("||");
+    const icon = CAT_ICONS[catVal] || "❓";
+
+    const mr = await sb.insertMarket({
+      title, description: document.getElementById("c-desc")?.value || "",
+      category: catVal, country, flag, icon, type,
+      status: "pending", closes_at: closes, created_by: state.session.user.id,
+    });
+    if (!mr.ok) throw new Error(mr.data?.message || "Failed to create market.");
+    const market = Array.isArray(mr.data) ? mr.data[0] : mr.data;
+
+    for (const label of optionLabels) {
+      const or = await sb.insertOption({ market_id: market.id, label, yes_shares: 500, no_shares: 500 });
+      if (!or.ok) throw new Error("Failed to create one of the outcomes.");
+    }
+
+    document.getElementById("create-overlay")?.remove();
+    showToast("Submitted! Your market is awaiting review. 📋");
+  } catch (e) {
+    showCreateError(e.message);
+    if (btn) { btn.disabled = false; btn.textContent = "Submit for review"; }
+  }
+}
+
+function showCreateError(msg) {
+  const el = document.getElementById("create-error");
+  if (el) { el.textContent = msg; el.style.display = "block"; }
+  const btn = document.getElementById("create-submit-btn");
+  if (btn) { btn.disabled = false; btn.textContent = "Submit for review"; }
+}
+
+// ─── MARKET DETAIL PAGE ───────────────────────────────────────────────────────
+let detailChartData = null; // cache for active range redraw
+
+function openMarketDetail(marketId) {
+  const market = state.markets.find(m => m.id === marketId);
+  if (!market) return;
+  state.activeTab = "detail";
+  state.detailMarketId = marketId;
+  window.scrollTo(0, 0);
+  renderMarketDetail(market);
+}
+
+function backToMarkets() {
+  state.activeTab = "markets";
+  state.detailMarketId = null;
+  setTab("markets");
+}
+
+// Generate a plausible probability history leading to the current value.
+// Once Phase 4/5 add real trade timestamps, this will be replaced by actual history.
+function synthHistory(currentProb, days = 60, volatility = 4) {
+  const points = [];
+  let p = 50 + (Math.random() - 0.5) * 10;
+  const target = currentProb;
+  for (let i = 0; i < days; i++) {
+    const pull = (target - p) * 0.04; // drift toward current value
+    p += pull + (Math.random() - 0.5) * volatility;
+    p = Math.max(2, Math.min(98, p));
+    points.push(Math.round(p));
+  }
+  points[points.length - 1] = currentProb;
+  return points;
+}
+
+function drawChart(canvasId, series, colors) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  const W = rect.width, H = rect.height;
+  const padL = 6, padR = 44, padT = 14, padB = 24;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Y-axis gridlines (0,20,40,60,80,100)
+  ctx.font = "11px DM Sans, sans-serif";
+  ctx.fillStyle = "#9CA3AF";
+  ctx.strokeStyle = "#E4E6EF";
+  ctx.lineWidth = 1;
+  [0, 20, 40, 60, 80, 100].forEach(v => {
+    const y = padT + plotH * (1 - v / 100);
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
+    ctx.fillText(v + "%", padL + plotW + 6, y + 3);
+  });
+
+  const maxLen = Math.max(...series.map(s => s.length));
+
+  series.forEach((data, si) => {
+    if (!data.length) return;
+    ctx.beginPath();
+    ctx.strokeStyle = colors[si];
+    ctx.lineWidth = 2;
+    data.forEach((val, i) => {
+      const x = padL + (i / (maxLen - 1)) * plotW;
+      const y = padT + plotH * (1 - val / 100);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // End dot
+    const lastVal = data[data.length - 1];
+    const lastX = padL + ((data.length - 1) / (maxLen - 1)) * plotW;
+    const lastY = padT + plotH * (1 - lastVal / 100);
+    ctx.beginPath(); ctx.arc(lastX, lastY, 4, 0, 2 * Math.PI);
+    ctx.fillStyle = colors[si]; ctx.fill();
+  });
+}
+
+function renderMarketDetail(market) {
+  const isBinary = market.type === "binary";
+  const opts = market.options || [];
+  const accent = CATEGORY_ACCENT[market.category] || "#6B5B9E";
+  const colors = ["#0D7A4E", "#D4820A", "#3B4FBF", "#C0392B", "#1E6FA8", "#9B3A2A"];
+
+  // Build chart series — one per option (or Yes/No for binary)
+  let chartSeries, legendItems;
+  if (isBinary && opts[0]) {
+    const p = prob(opts[0].yes_shares, opts[0].no_shares);
+    chartSeries = [synthHistory(p, 60, 4)];
+    legendItems = [{ label: `Yes`, color: colors[0] }];
+  } else {
+    chartSeries = opts.slice(0, 6).map(o => synthHistory(prob(o.yes_shares, o.no_shares), 60, 4));
+    legendItems = opts.slice(0, 6).map((o, i) => ({ label: o.label, color: colors[i % colors.length] }));
+  }
+
+  const totalVol = (market.trades || 0) * 137; // placeholder until real volume tracked
+  const closesDate = new Date(market.closes_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+
+  // Outcome rows for the main card (table style, Kalshi-like)
+  const outcomeRowsHTML = opts.map((o, i) => {
+    const p = prob(o.yes_shares, o.no_shares);
+    const initials = o.label === "Main" ? "" : o.label.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+    return `<div class="outcome-detail-row">
+      <div class="outcome-avatar" style="${o.label === 'Main' ? `background:${accent}22;color:${accent}` : ''}">${o.label === "Main" ? esc(market.icon) : initials}</div>
+      <div class="outcome-info">
+        <div class="outcome-name">${o.label === "Main" ? esc(market.title) : esc(o.label)}</div>
+        <div class="outcome-sub">${(market.trades||0)} trades on this outcome</div>
+      </div>
+      <div class="outcome-chance-val">${p}%</div>
+      <div class="outcome-pills">
+        <button class="outcome-pill op-yes" onclick="openTrade(${market.id},${o.id},'YES')">Yes ${p}%</button>
+        <button class="outcome-pill op-no" onclick="openTrade(${market.id},${o.id},'NO')">No ${100-p}%</button>
+      </div>
+    </div>`;
+  }).join("");
+
+  // Primary trade panel target = first option, YES side by default
+  const primaryOption = opts[0];
+  const primaryProb = primaryOption ? prob(primaryOption.yes_shares, primaryOption.no_shares) : 50;
+
+  document.getElementById("market-count").textContent = "";
+  document.getElementById("signup-banner").style.display = "none";
+
+  document.getElementById("content").innerHTML = `
+    <button class="back-link" onclick="backToMarkets()">← Back to markets</button>
+    <div id="detail-grid">
+      <!-- LEFT: Chart + outcomes -->
+      <div>
+        <div class="detail-card">
+          <div class="detail-head">
+            <div class="detail-icon">${esc(market.icon)}</div>
+            <div class="detail-title-wrap">
+              <div class="detail-eyebrow"><strong style="color:${accent}">${esc(market.category)}</strong> · ${esc(market.flag)} ${esc(market.country)} · Closes ${closesDate}</div>
+              <div class="detail-title">${esc(market.title)}</div>
+            </div>
+            <div class="detail-actions">
+              <button class="icon-btn" title="Share">↗</button>
+              <button class="icon-btn" title="Bookmark">☆</button>
+            </div>
+          </div>
+
+          <div class="chart-legend">
+            ${legendItems.map(l => `<span class="legend-dot" style="background:${l.color}"></span><span style="color:${l.color};font-weight:700">${esc(l.label)}</span>`).join("<span style='width:14px'></span>")}
+          </div>
+
+          <div class="chart-wrap"><canvas id="price-chart"></canvas></div>
+
+          <div class="chart-meta-row">
+            <span class="chart-vol">${fmtPts(totalVol)} pts vol</span>
+            <div class="range-btns">
+              <button class="range-btn">1D</button><button class="range-btn">1W</button><button class="range-btn">1M</button><button class="range-btn active">ALL</button>
+            </div>
+          </div>
+
+          <div class="outcome-table">
+            <div class="outcome-table-head"><span class="oh-name">Outcome</span><span class="oh-chance">Chance</span><span class="oh-actions"></span></div>
+            ${outcomeRowsHTML}
+          </div>
+
+          ${market.description ? `<div class="about-box"><div class="about-title">Resolution criteria</div><div class="about-text">${esc(market.description)}</div></div>` : ""}
+        </div>
+      </div>
+
+      <!-- RIGHT: Sticky trade panel -->
+      <div class="trade-panel" id="detail-trade-panel">
+        ${primaryOption ? detailTradePanelHTML(market, primaryOption, "YES") : ""}
+      </div>
+    </div>
+  `;
+
+  requestAnimationFrame(() => drawChart("price-chart", chartSeries, colors));
+}
+
+function detailTradePanelHTML(market, option, side) {
+  const p = side === "YES" ? prob(option.yes_shares, option.no_shares) : 100 - prob(option.yes_shares, option.no_shares);
+  const sideColor = side === "YES" ? "var(--green)" : "var(--red)";
+  return `
+    <div class="tp-head">
+      <div class="tp-avatar">${esc(market.icon)}</div>
+      <div>
+        <div class="tp-title">${option.label !== "Main" ? esc(option.label) : esc(market.title)}</div>
+        <div class="tp-side" style="color:${sideColor}">Buy ${side}</div>
+      </div>
+    </div>
+    <div class="tp-yesno">
+      <button class="tp-yn-btn ${side === 'YES' ? 'sel-yes' : ''}" onclick="switchDetailSide(${market.id},${option.id},'YES')">Yes ${prob(option.yes_shares, option.no_shares)}%</button>
+      <button class="tp-yn-btn ${side === 'NO' ? 'sel-no' : ''}" onclick="switchDetailSide(${market.id},${option.id},'NO')">No ${100-prob(option.yes_shares, option.no_shares)}%</button>
+    </div>
+    <div class="field" style="margin-bottom:14px">
+      <label>Points to spend ${state.session ? `— balance: <strong>${fmtPts(state.profile?.points||0)} pts</strong>` : ""}</label>
+      <input class="inp inp-lg" id="dp-amount" type="number" min="10" step="10" value="100" oninput="updateDetailPanel(${market.id},${option.id},'${side}')" />
+      <div class="quick-amounts">
+        ${[50,100,250,500].map(v=>`<button class="qa-btn" onclick="document.getElementById('dp-amount').value=${v};updateDetailPanel(${market.id},${option.id},'${side}')">${v}</button>`).join("")}
+      </div>
+    </div>
+    <div class="summary-box" style="margin-bottom:14px">
+      <div class="summary-row"><span>Price per share</span><span id="dp-price">${Math.max(1,p)} pts</span></div>
+      <div class="summary-row"><span>Shares you receive</span><span id="dp-shares">${Math.floor(100*100/Math.max(1,p))}</span></div>
+      <div class="summary-row total"><span>If correct, you win</span><span id="dp-win">${fmtPts(Math.floor(100*100/Math.max(1,p)))} pts</span></div>
+    </div>
+    <button class="btn-full" style="background:${sideColor}" id="dp-submit-btn" onclick="submitDetailTrade(${market.id},${option.id},'${side}')">
+      ${state.session ? `Buy ${side} · 100 pts` : "Sign in to trade"}
+    </button>
+  `;
+}
+
+function switchDetailSide(marketId, optionId, side) {
+  const market = state.markets.find(m => m.id === marketId);
+  const option = market?.options?.find(o => o.id === optionId);
+  if (!market || !option) return;
+  document.getElementById("detail-trade-panel").innerHTML = detailTradePanelHTML(market, option, side);
+}
+
+function updateDetailPanel(marketId, optionId, side) {
+  const market = state.markets.find(m => m.id === marketId);
+  const option = market?.options?.find(o => o.id === optionId);
+  if (!option) return;
+  const p = side === "YES" ? prob(option.yes_shares, option.no_shares) : 100 - prob(option.yes_shares, option.no_shares);
+  const pricePerShare = Math.max(1, p);
+  const amount = parseInt(document.getElementById("dp-amount")?.value) || 0;
+  const shares = amount > 0 ? Math.floor(amount * 100 / pricePerShare) : 0;
+  document.getElementById("dp-price").textContent = `${pricePerShare} pts`;
+  document.getElementById("dp-shares").textContent = shares;
+  document.getElementById("dp-win").textContent = `${fmtPts(shares)} pts`;
+  const btn = document.getElementById("dp-submit-btn");
+  if (btn && state.session) btn.textContent = `Buy ${side} · ${fmtPts(amount)} pts`;
+}
+
+async function submitDetailTrade(marketId, optionId, side) {
+  if (!state.session) { openAuth(); return; }
+  const amount = parseInt(document.getElementById("dp-amount")?.value) || 0;
+  const userPts = state.profile?.points || 0;
+  if (amount <= 0 || amount > userPts) { showToast(amount > userPts ? "Insufficient points." : "Enter a valid amount.", "error"); return; }
+
+  const market = state.markets.find(m => m.id === marketId);
+  const option = market?.options?.find(o => o.id === optionId);
+  if (!option) return;
+
+  const btn = document.getElementById("dp-submit-btn");
+  if (btn) { btn.disabled = true; btn.innerHTML = `${spinner(16,"#fff")} Placing trade…`; }
+
+  try {
+    const userId = state.session.user.id;
+    const result = await executeTrade(marketId, optionId, side, amount);
+
+    state.markets = state.markets.map(m => m.id !== marketId ? m : { ...m, options: m.options.map(o => o.id !== optionId ? o : { ...o, yes_shares: result.new_yes_shares, no_shares: result.new_no_shares }), trades: (m.trades||0)+1 });
+    state.profile = { ...state.profile, points: result.new_points_balance };
+
+    await fetchPortfolio(userId);
+    renderNavAuth(); renderStats();
+    showToast(`${side} trade placed! ${result.shares_bought} shares bought. 🎯`);
+    renderMarketDetail(state.markets.find(m => m.id === marketId));
+  } catch (e) {
+    showToast(e.message || "Trade failed.", "error");
+    if (btn) { btn.disabled = false; btn.textContent = `Buy ${side} · ${fmtPts(amount)} pts`; }
+  }
+}
+
+// ─── REALTIME ─────────────────────────────────────────────────────────────────
+// Connects to Supabase's Realtime server over WebSocket and listens for
+// changes on the `options` and `profiles` tables. When a change arrives,
+// we patch in-memory state and re-render — no polling, no refresh needed.
+
+let rtSocket = null;
+let rtRef = 0;
+let rtHeartbeatTimer = null;
+let rtReconnectTimer = null;
+
+function rtNextRef() { return String(++rtRef); }
+
+function connectRealtime() {
+  if (rtSocket && (rtSocket.readyState === WebSocket.OPEN || rtSocket.readyState === WebSocket.CONNECTING)) return;
+
+  const wsUrl = SUPABASE_URL.replace("https://", "wss://") + `/realtime/v1/websocket?apikey=${SUPABASE_ANON}&vsn=1.0.0`;
+  rtSocket = new WebSocket(wsUrl);
+
+  rtSocket.onopen = () => {
+    console.log("Realtime connected");
+    setLiveStatus(true);
+    subscribeToTable("options", "options-changes");
+    subscribeToTable("profiles", "profiles-changes");
+
+    // Heartbeat — Supabase closes idle connections without this
+    clearInterval(rtHeartbeatTimer);
+    rtHeartbeatTimer = setInterval(() => {
+      if (rtSocket?.readyState === WebSocket.OPEN) {
+        rtSocket.send(JSON.stringify({ topic: "phoenix", event: "heartbeat", payload: {}, ref: rtNextRef() }));
+      }
+    }, 25000);
+  };
+
+  rtSocket.onmessage = (event) => {
+    try {
+      const msg = JSON.parse(event.data);
+      if (msg.event === "postgres_changes" || msg.event === "INSERT" || msg.event === "UPDATE") {
+        handleRealtimeChange(msg);
+      } else if (msg.payload?.data) {
+        handleRealtimeChange(msg);
+      }
+    } catch (e) { /* ignore malformed frames */ }
+  };
+
+  rtSocket.onclose = () => {
+    clearInterval(rtHeartbeatTimer);
+    setLiveStatus(false);
+    // Auto-reconnect after a short delay
+    clearTimeout(rtReconnectTimer);
+    rtReconnectTimer = setTimeout(connectRealtime, 3000);
+  };
+
+  rtSocket.onerror = () => { /* onclose will fire next and trigger reconnect */ };
+}
+
+function setLiveStatus(connected) {
+  const dot = document.getElementById("live-pulse-el");
+  const label = document.getElementById("live-label");
+  if (!dot || !label) return;
+  if (connected) { dot.className = "live-pulse on"; label.textContent = "Live"; }
+  else { dot.className = "live-pulse"; label.textContent = "Reconnecting…"; }
+}
+
+function subscribeToTable(table, channelTopic) {
+  const joinMsg = {
+    topic: `realtime:${channelTopic}`,
+    event: "phx_join",
+    payload: {
+      config: {
+        postgres_changes: [
+          { event: "*", schema: "public", table: table }
+        ]
+      }
+    },
+    ref: rtNextRef(),
+  };
+  rtSocket.send(JSON.stringify(joinMsg));
+}
+
+function handleRealtimeChange(msg) {
+  const change = msg.payload?.data;
+  if (!change) return;
+  const { table, type, record } = { table: msg.payload?.data?.table, type: change.type, record: change.record };
+  if (!record) return;
+
+  if (table === "options" || msg.topic === "realtime:options-changes") {
+    patchOptionInState(record);
+  } else if (table === "profiles" || msg.topic === "realtime:profiles-changes") {
+    patchProfileInState(record);
+  }
+}
+
+function patchOptionInState(updatedOption) {
+  let changed = false;
+  state.markets = state.markets.map(m => {
+    if (!m.options) return m;
+    const idx = m.options.findIndex(o => o.id === updatedOption.id);
+    if (idx === -1) return m;
+    changed = true;
+    const newOptions = [...m.options];
+    newOptions[idx] = { ...newOptions[idx], ...updatedOption };
+    return { ...m, options: newOptions };
+  });
+  if (!changed) return;
+
+  // Re-render whatever is currently visible
+  if (state.activeTab === "markets") renderMarkets();
+  if (state.activeTab === "detail" && state.detailMarketId) {
+    const m = state.markets.find(mm => mm.id === state.detailMarketId);
+    if (m) renderMarketDetail(m);
+  }
+}
+
+function patchProfileInState(updatedProfile) {
+  // Update own profile if it's us
+  if (state.session && updatedProfile.id === state.session.user.id) {
+    state.profile = { ...state.profile, ...updatedProfile };
+    renderNavAuth(); renderStats();
+  }
+  // Refresh leaderboard if currently viewing it (cheap — just re-fetch)
+  if (state.activeTab === "leaderboard") renderLeaderboard();
+}
+
+function disconnectRealtime() {
+  clearInterval(rtHeartbeatTimer);
+  clearTimeout(rtReconnectTimer);
+  if (rtSocket) { rtSocket.close(); rtSocket = null; }
+}
+
+// ─── BOOT ─────────────────────────────────────────────────────────────────────
+async function boot() {
+  renderCatBar(); renderStats(); renderNavAuth();
+  const s = restoreSession();
+  if (s) {
+    await Promise.all([fetchProfile(s.user.id), fetchPortfolio(s.user.id)]);
+    renderNavAuth(); renderCatBar(); renderStats();
+  } else {
+    document.getElementById("signup-banner").style.display = "flex";
+  }
+  await fetchMarkets();
+  connectRealtime();
+}
+
+boot();
+</script>
+</body>
+</html>
