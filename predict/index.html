@@ -52,7 +52,13 @@
   #nav-search { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #fff; font-size: 13px; padding: 8px 12px 8px 34px; }
   #nav-search::placeholder { color: #6B7280; }
   .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; color: #6B7280; pointer-events: none; }
-  #nav-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+  #nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .identity-chip { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 999px; padding: 5px 14px 5px 6px; }
+  .identity-flag { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
+  .identity-pts { display: flex; align-items: baseline; gap: 4px; }
+  .identity-pts-val { font-size: 14px; font-weight: 800; color: var(--amber); line-height: 1; }
+  .identity-pts-label { font-size: 10px; color: #8B92A8; letter-spacing: 0.04em; }
+  .nav-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.1); }
   .pts-label { font-size: 10px; color: #9CA3AF; letter-spacing: 0.07em; text-transform: uppercase; }
   .pts-val { font-size: 16px; font-weight: 800; color: var(--amber); line-height: 1; }
   .btn-amber { background: var(--amber); border: none; border-radius: 8px; color: #fff; font-weight: 700; font-size: 13px; padding: 8px 16px; white-space: nowrap; transition: opacity 0.15s; }
@@ -246,7 +252,7 @@
   .tp-yn-btn:not(.sel-yes):not(.sel-no) { background: var(--page); border-color: var(--border); color: var(--slate); }
 
   /* LIVE indicator */
-  #live-dot { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #6B7280; padding: 0 4px; }
+  #live-dot { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #5B6275; padding: 0 2px; flex-shrink: 0; }
   .live-pulse { width: 7px; height: 7px; border-radius: 50%; background: #4B5563; flex-shrink: 0; }
   .live-pulse.on { background: #22C55E; box-shadow: 0 0 0 0 rgba(34,197,94,0.6); animation: pulse 2s infinite; }
   @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); } 70% { box-shadow: 0 0 0 5px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
@@ -429,9 +435,15 @@ function renderNavAuth() {
   const el = document.getElementById("nav-auth-area");
   if (state.session && state.profile) {
     el.innerHTML = `
-      <div style="text-align:right"><div class="pts-label">Points</div><div class="pts-val">${fmtPts(state.profile.points)}</div></div>
-      <span style="font-size:18px">${esc(state.profile.country_flag)}</span>
+      <div class="identity-chip">
+        <span class="identity-flag">${esc(state.profile.country_flag)}</span>
+        <span class="identity-pts">
+          <span class="identity-pts-val">${fmtPts(state.profile.points)}</span>
+          <span class="identity-pts-label">pts</span>
+        </span>
+      </div>
       <button class="btn-amber" onclick="openCreateMarket()">+ Create</button>
+      <div class="nav-divider"></div>
       <button class="btn-ghost" onclick="doSignOut()">Sign out</button>`;
   } else {
     el.innerHTML = `<button class="btn-amber" onclick="openAuth()">Sign in / Sign up</button>`;
