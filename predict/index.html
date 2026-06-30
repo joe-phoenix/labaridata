@@ -42,27 +42,42 @@
   /* NAV */
   #nav {
     background: var(--nav); min-height: 56px; padding: 8px 20px;
-    display: flex; align-items: center; gap: 14px;
+    display: flex; align-items: center; gap: 12px;
     position: sticky; top: 0; z-index: 100;
     flex-wrap: nowrap;
   }
   .brand { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
   .brand-text { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: #fff; letter-spacing: -0.01em; white-space: nowrap; }
   .brand-text span { color: var(--amber); }
-  #nav-search-wrap { flex: 1; min-width: 80px; max-width: 420px; position: relative; }
+  #nav-search-wrap { flex: 1 1 auto; min-width: 0; max-width: 380px; position: relative; }
   #nav-search { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #fff; font-size: 13px; padding: 7px 10px 7px 32px; box-sizing: border-box; }
   #nav-search::placeholder { color: #6B7280; }
   .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); font-size: 12px; color: #6B7280; pointer-events: none; }
-  #nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-shrink: 0; flex-wrap: nowrap; }
-  .identity-chip { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 999px; padding: 4px 12px 4px 4px; flex-shrink: 0; }
-  .identity-flag { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
-  .identity-pts { display: flex; align-items: baseline; gap: 3px; white-space: nowrap; }
-  .identity-pts-val { font-size: 13px; font-weight: 800; color: var(--amber); line-height: 1; }
-  .identity-pts-label { font-size: 9px; color: #8B92A8; letter-spacing: 0.03em; }
-  .nav-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
-  .btn-amber { background: var(--amber); border: none; border-radius: 8px; color: #fff; font-weight: 700; font-size: 12.5px; padding: 7px 13px; white-space: nowrap; transition: opacity 0.15s; flex-shrink: 0; }
+
+  #nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+  /* Single unified account pill — flag, points, and sign-out all in one
+     compact bar instead of separate competing shapes */
+  .account-pill {
+    display: flex; align-items: center; gap: 0;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 999px; overflow: hidden; flex-shrink: 0; height: 34px;
+  }
+  .account-pill > * { display: flex; align-items: center; height: 100%; }
+  .ap-flag { font-size: 14px; padding: 0 6px 0 10px; }
+  .ap-pts { gap: 3px; padding: 0 10px 0 2px; white-space: nowrap; }
+  .ap-pts-val { font-size: 13px; font-weight: 800; color: var(--amber); }
+  .ap-pts-label { font-size: 9px; color: #8B92A8; }
+  .ap-signout {
+    padding: 0 12px; background: rgba(255,255,255,0.05);
+    border-left: 1px solid rgba(255,255,255,0.1);
+    color: #9CA3AF; font-size: 12px; cursor: pointer; transition: background 0.15s, color 0.15s;
+  }
+  .ap-signout:hover { background: rgba(255,255,255,0.1); color: #E5E7EB; }
+
+  .btn-amber { background: var(--amber); border: none; border-radius: 999px; color: #fff; font-weight: 700; font-size: 12.5px; padding: 0 16px; height: 34px; white-space: nowrap; transition: opacity 0.15s; flex-shrink: 0; display: flex; align-items: center; }
   .btn-amber:hover { opacity: 0.9; }
-  .btn-ghost { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #9CA3AF; font-size: 12px; padding: 7px 11px; transition: background 0.15s; white-space: nowrap; flex-shrink: 0; }
+  .btn-ghost { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; color: #9CA3AF; font-size: 12px; padding: 0 14px; height: 34px; transition: background 0.15s; white-space: nowrap; flex-shrink: 0; display: flex; align-items: center; }
   .btn-ghost:hover { background: rgba(255,255,255,0.13); }
 
   /* CAT BAR */
@@ -193,7 +208,7 @@
   @media (max-width: 720px) {
     #nav-search-wrap { display: none; }
     #live-dot #live-label { display: none; }
-    .identity-pts-label { display: none; }
+    .ap-pts-label { display: none; }
     .brand-text { font-size: 15px; }
   }
   @media (max-width: 540px) {
@@ -443,16 +458,12 @@ function renderNavAuth() {
   const el = document.getElementById("nav-auth-area");
   if (state.session && state.profile) {
     el.innerHTML = `
-      <div class="identity-chip">
-        <span class="identity-flag">${esc(state.profile.country_flag)}</span>
-        <span class="identity-pts">
-          <span class="identity-pts-val">${fmtPts(state.profile.points)}</span>
-          <span class="identity-pts-label">pts</span>
-        </span>
+      <div class="account-pill">
+        <span class="ap-flag">${esc(state.profile.country_flag)}</span>
+        <span class="ap-pts"><span class="ap-pts-val">${fmtPts(state.profile.points)}</span><span class="ap-pts-label">pts</span></span>
+        <span class="ap-signout" onclick="doSignOut()">Sign out</span>
       </div>
-      ${state.profile.is_admin ? `<button class="btn-amber" onclick="openCreateMarket()">+ Create</button>` : ""}
-      <div class="nav-divider"></div>
-      <button class="btn-ghost" onclick="doSignOut()">Sign out</button>`;
+      ${state.profile.is_admin ? `<button class="btn-amber" onclick="openCreateMarket()">+ Create</button>` : ""}`;
   } else {
     el.innerHTML = `<button class="btn-amber" onclick="openAuth()">Sign in / Sign up</button>`;
   }
