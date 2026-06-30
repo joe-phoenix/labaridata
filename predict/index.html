@@ -402,11 +402,17 @@ function spinner(size = 20, color = "var(--amber)") {
 // ─── SESSION ─────────────────────────────────────────────────────────────────
 function saveSession(s) {
   state.session = s;
-  localStorage.setItem("lp_session", JSON.stringify(s));
+  try {
+    localStorage.setItem("lp_session", JSON.stringify(s));
+  } catch (e) {
+    console.warn("Could not persist session to localStorage (storage may be blocked in this context):", e);
+    // Non-fatal — state.session is already set in memory, so the current
+    // page session still works. It just won't survive a refresh.
+  }
 }
 function clearSession() {
   state.session = null; state.profile = null;
-  localStorage.removeItem("lp_session");
+  try { localStorage.removeItem("lp_session"); } catch (e) { console.warn("Could not clear stored session:", e); }
 }
 function restoreSession() {
   try {
@@ -707,15 +713,26 @@ async function fetchPortfolio(userId) {
 // ─── AUTH ─────────────────────────────────────────────────────────────────────
 function openAuth() { renderAuthModal(); }
 
+function closeAuthModal() {
+  // Always cancel any pending Google prompt when the modal closes, so it
+  // can never keep running invisibly in the background and stack up next time.
+  if (googlePromptActive) {
+    try { window.google?.accounts?.id?.cancel(); } catch {}
+    clearTimeout(googlePromptTimeoutId);
+    googlePromptActive = false;
+  }
+  document.getElementById("auth-overlay")?.remove();
+}
+
 function renderAuthModal(mode = "signin") {
   const overlay = document.createElement("div");
   overlay.className = "overlay"; overlay.id = "auth-overlay";
-  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+  overlay.onclick = e => { if (e.target === overlay) closeAuthModal(); };
 
   overlay.innerHTML = `<div class="modal" style="max-width:420px">
     <div class="modal-header">
       <div><div class="modal-eyebrow">🌍 Labari Predict</div><div class="modal-title">${mode === "signin" ? "Welcome back" : "Create account"}</div></div>
-      <button class="modal-close" onclick="document.getElementById('auth-overlay').remove()">×</button>
+      <button class="modal-close" onclick="closeAuthModal()">×</button>
     </div>
     <button class="btn-google" id="google-btn" onclick="handleGoogleClick()">
       <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
@@ -797,7 +814,8 @@ async function submitAuth(mode) {
       setAuthLoading(false, mode);
     }
   } catch (e) {
-    setAuthError("Network error. Please try again.");
+    console.error("submitAuth error:", e);
+    setAuthError("Error: " + (e?.message || "Unknown error — check browser console for details."));
     setAuthLoading(false, mode);
   }
 }
@@ -810,7 +828,7 @@ function showSignupConfirmationNotice(email) {
   modal.innerHTML = `
     <div class="modal-header">
       <div><div class="modal-eyebrow">🌍 Labari Predict</div><div class="modal-title">Check your email</div></div>
-      <button class="modal-close" onclick="document.getElementById('auth-overlay').remove()">×</button>
+      <button class="modal-close" onclick="closeAuthModal()">×</button>
     </div>
     <div class="info-box">📧 We sent a confirmation link to <strong>${esc(email)}</strong>. Click it to activate your account, then come back and sign in.</div>
     <p style="font-size:13px;color:var(--slate)">Didn't get it? Check your spam folder, or try signing up again in a minute.</p>
@@ -833,6 +851,8 @@ function initGoogleIfNeeded() {
 }
 
 async function handleGoogleCredential(response) {
+  googlePromptActive = false;
+  clearTimeout(googlePromptTimeoutId);
   const btn = document.getElementById("google-btn");
   try {
     const r = await sb.signInGoogle(response.credential);
@@ -842,7 +862,8 @@ async function handleGoogleCredential(response) {
       setAuthError(r.data?.msg || r.data?.error_description || "Google sign-in failed.");
       resetGoogleButton(btn);
     }
-  } catch {
+  } catch (e) {
+    console.error("Google credential exchange error:", e);
     setAuthError("Network error during Google sign-in.");
     resetGoogleButton(btn);
   }
@@ -858,6 +879,9 @@ function googleButtonInnerHTML() {
   return `<svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Continue with Google`;
 }
 
+let googlePromptActive = false;
+let googlePromptTimeoutId = null;
+
 async function handleGoogleClick() {
   const btn = document.getElementById("google-btn");
 
@@ -866,14 +890,24 @@ async function handleGoogleClick() {
     return;
   }
 
+  // Prevent stacking multiple One Tap prompts — if one is already in
+  // flight, tear it down first instead of layering a second on top.
+  if (googlePromptActive) {
+    try { window.google.accounts.id.cancel(); } catch {}
+    clearTimeout(googlePromptTimeoutId);
+    googlePromptActive = false;
+  }
+
   initGoogleIfNeeded();
 
+  googlePromptActive = true;
   if (btn) { btn.disabled = true; btn.innerHTML = `${spinner(18, "var(--slate)")} Opening Google sign-in…`; }
 
   // Safety net: if neither the credential callback nor the prompt notification
   // fires within 10 seconds (can happen silently in sandboxed/iframe contexts
   // where Google's One Tap is blocked), reset the button so it's never stuck.
-  const timeoutId = setTimeout(() => {
+  googlePromptTimeoutId = setTimeout(() => {
+    googlePromptActive = false;
     if (btn && btn.disabled) {
       resetGoogleButton(btn);
       setAuthError("Google sign-in didn't open. Your browser may be blocking the popup — please allow popups for this site, or use email instead.");
@@ -883,7 +917,8 @@ async function handleGoogleClick() {
   try {
     window.google.accounts.id.prompt((notification) => {
       if (notification.isNotDisplayed() || notification.isSkippedMoment() || notification.isDismissedMoment()) {
-        clearTimeout(timeoutId);
+        googlePromptActive = false;
+        clearTimeout(googlePromptTimeoutId);
         resetGoogleButton(btn);
         if (notification.isNotDisplayed && notification.isNotDisplayed()) {
           setAuthError("Google One Tap isn't available here. This can happen inside embedded previews — try opening the page directly in a new browser tab.");
@@ -891,7 +926,8 @@ async function handleGoogleClick() {
       }
     });
   } catch (e) {
-    clearTimeout(timeoutId);
+    googlePromptActive = false;
+    clearTimeout(googlePromptTimeoutId);
     resetGoogleButton(btn);
     setAuthError("Could not start Google sign-in. Please use email instead.");
   }
@@ -903,7 +939,7 @@ async function handleAuthSuccess(data) {
     return;
   }
   saveSession(data);
-  document.getElementById("auth-overlay")?.remove();
+  closeAuthModal();
   await fetchProfile(data.user.id);
   await fetchPortfolio(data.user.id);
   renderNavAuth(); renderCatBar(); renderStats();
