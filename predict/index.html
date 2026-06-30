@@ -59,8 +59,6 @@
   .identity-pts-val { font-size: 14px; font-weight: 800; color: var(--amber); line-height: 1; }
   .identity-pts-label { font-size: 10px; color: #8B92A8; letter-spacing: 0.04em; }
   .nav-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.1); }
-  .pts-label { font-size: 10px; color: #9CA3AF; letter-spacing: 0.07em; text-transform: uppercase; }
-  .pts-val { font-size: 16px; font-weight: 800; color: var(--amber); line-height: 1; }
   .btn-amber { background: var(--amber); border: none; border-radius: 8px; color: #fff; font-weight: 700; font-size: 13px; padding: 8px 16px; white-space: nowrap; transition: opacity 0.15s; }
   .btn-amber:hover { opacity: 0.9; }
   .btn-ghost { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #9CA3AF; font-size: 12px; padding: 7px 12px; transition: background 0.15s; }
@@ -442,7 +440,7 @@ function renderNavAuth() {
           <span class="identity-pts-label">pts</span>
         </span>
       </div>
-      <button class="btn-amber" onclick="openCreateMarket()">+ Create</button>
+      ${state.profile.is_admin ? `<button class="btn-amber" onclick="openCreateMarket()">+ Create</button>` : ""}
       <div class="nav-divider"></div>
       <button class="btn-ghost" onclick="doSignOut()">Sign out</button>`;
   } else {
@@ -1088,6 +1086,7 @@ let createOptionCount = 2;
 
 function openCreateMarket() {
   if (!state.session) { openAuth(); return; }
+  if (!state.profile?.is_admin) { showToast("Only admins can create markets right now.", "error"); return; }
   createOptionCount = 2;
   document.getElementById("create-overlay")?.remove();
   const overlay = document.createElement("div");
