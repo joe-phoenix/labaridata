@@ -1,10 +1,10 @@
 {
-  "updated": "2026-07-01T09:11:22.716Z",
+  "updated": "2026-07-01T09:11:54.544Z",
   "providers": {
     "TapTap Send": {
       "GH": {
         "USD": {
-          "rate": 11.3
+          "rate": 0
         }
       }
     },
@@ -18,21 +18,21 @@
     "Nala": {
       "GH": {
         "USD": {
-          "rate": 11.3
+          "rate": 0
         }
       }
     },
     "Sendwave": {
       "GH": {
         "USD": {
-          "rate": 11.3
+          "rate": 0
         }
       }
     },
     "LemFi": {
       "GH": {
         "USD": {
-          "rate": 11.3
+          "rate": 0
         }
       }
     }
