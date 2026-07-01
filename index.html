@@ -41,6 +41,8 @@
     "logo": { "@type": "ImageObject", "url": "https://labaridata.com/favicon.svg" }
   }
 }
+
+  
 </script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232563EB'/%3E%3Crect x='5' y='5' width='9' height='9' rx='1.5' fill='white'/%3E%3Crect x='18' y='5' width='9' height='9' rx='1.5' fill='white'/%3E%3Crect x='5' y='18' width='9' height='9' rx='1.5' fill='white'/%3E%3Crect x='18' y='18' width='4.5' height='4.5' rx='1' fill='white'/%3E%3Crect x='22.5' y='22.5' width='4.5' height='4.5' rx='1' fill='white'/%3E%3C/svg%3E" />
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%232563EB'/%3E%3Crect x='28' y='28' width='52' height='52' rx='8' fill='white'/%3E%3Crect x='100' y='28' width='52' height='52' rx='8' fill='white'/%3E%3Crect x='28' y='100' width='52' height='52' rx='8' fill='white'/%3E%3Crect x='100' y='100' width='25' height='25' rx='5' fill='white'/%3E%3Crect x='127' y='127' width='25' height='25' rx='5' fill='white'/%3E%3C/svg%3E" />
@@ -64,6 +66,16 @@
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; overflow-x: hidden; }
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6V7MF72R0Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6V7MF72R0Q');
+</script>
+  
 /* NAV */
 nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2.5rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--nav-bg); backdrop-filter: blur(12px); z-index: 100; }
 .nav-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
