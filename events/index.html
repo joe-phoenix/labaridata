@@ -53,6 +53,24 @@
 
 
 
+
+    /* DISCLAIMER MODAL */
+    .disc-overlay { position: fixed; inset: 0; background: rgba(15,23,42,.6); z-index: 300; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .disc-overlay.hidden { display: none; }
+    .disc-modal { background: #fff; border-radius: 16px; max-width: 460px; width: 100%; padding: 32px; position: relative; box-shadow: 0 24px 64px rgba(0,0,0,.2); }
+    .disc-icon { width: 48px; height: 48px; background: #eff6ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+    .disc-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: #1e293b; margin-bottom: 10px; }
+    .disc-body { font-size: 14px; color: #475569; line-height: 1.7; margin-bottom: 20px; }
+    .disc-body strong { color: #1e293b; }
+    .disc-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .disc-btn-primary { flex: 1; background: #2563eb; color: #fff; border: none; padding: 11px 20px; border-radius: 9px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .15s; text-align: center; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+    .disc-btn-primary:hover { background: #1d4ed8; }
+    .disc-btn-cancel { flex: 0; background: #f1f5f9; color: #64748b; border: none; padding: 11px 20px; border-radius: 9px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background .15s; white-space: nowrap; }
+    .disc-btn-cancel:hover { background: #e2e8f0; }
+    @media (max-width: 640px) {
+      .disc-modal { padding: 24px; }
+      .disc-actions { flex-direction: column; }
+    }
     /* TOP BAR */
     .top-bar { background: #0f172a; padding: 0 28px; height: 42px; display: flex; align-items: center; justify-content: space-between; }
     .top-bar-brand { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; color: #f1f5f9; letter-spacing: -.1px; display: flex; align-items: center; gap: 7px; text-decoration: none; }
@@ -193,7 +211,6 @@
     .visit-btn { display: inline-flex; align-items: center; gap: 6px; background: #2563eb; color: #fff; padding: 10px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; }
     .visit-btn:hover { background: #1d4ed8; }
     .no-link { font-size: 13px; color: #94a3b8; font-style: italic; }
-    .event-url { font-size: 12px; color: #94a3b8; word-break: break-all; }
 
 
     /* MOBILE CALENDAR — week strip + agenda */
@@ -285,9 +302,9 @@
         <h1 class="hero-title">Discover Events<br><span>Across Africa</span></h1>
         <p class="hero-sub">Your go-to calendar for conferences, festivals, summits and more — spanning every corner of the continent.</p>
         <div class="hero-actions">
-          <a href="https://baserow.io/form/SZj6HavQ53MkG9wd63E-lRuqy-D6kj7fEbiHk_Vr3qM" target="_blank" rel="noreferrer" class="hero-btn-primary">
+          <button class="hero-btn-primary" onclick="openDisc()" style="border:none;cursor:pointer;">
             <span class="btn-icon">＋</span> Submit an Event
-          </a>
+          </button>
         </div>
       </div>
 
@@ -1056,8 +1073,7 @@ function openModal(ev) {
   // Footer link
   const hasLink = ev.link && ev.link !== "#";
   document.getElementById("modal-footer").innerHTML = hasLink
-    ? '<a href="' + esc(ev.link) + '" target="_blank" rel="noreferrer" class="visit-btn">Visit Event Site →</a>' +
-      '<span class="event-url">' + esc(ev.link) + '</span>'
+    ? '<a href="' + esc(ev.link) + '" target="_blank" rel="noreferrer" class="visit-btn">Visit Event Site →</a>'
     : '<span class="no-link">No event link available</span>';
 
   document.getElementById("modal-overlay").classList.remove("hidden");
@@ -1136,9 +1152,39 @@ function esc(str) {
   return String(str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
 
+
+// ─── DISCLAIMER MODAL ────────────────────────────────────────────────────────
+function openDisc() {
+  document.getElementById("disc-overlay").classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+function closeDisc() {
+  document.getElementById("disc-overlay").classList.add("hidden");
+  document.body.style.overflow = "";
+}
+function discClickOutside(e) {
+  if (e.target === document.getElementById("disc-overlay")) closeDisc();
+}
 // ─── START ───────────────────────────────────────────────────────────────────
 init();
 </script>
+  <!-- DISCLAIMER MODAL -->
+  <div class="disc-overlay hidden" id="disc-overlay" onclick="discClickOutside(event)">
+    <div class="disc-modal" id="disc-modal">
+      <div class="disc-icon">📋</div>
+      <div class="disc-title">Before You Submit</div>
+      <div class="disc-body">
+        Thank you for contributing to the Africa Events Calendar.<br><br>
+        Please note that <strong>Labari Media reserves the right to review, edit, or decline</strong> any submitted event before it is published on this platform.<br><br>
+        Events that are incomplete, inaccurate, or not relevant to African audiences may not be published. By proceeding, you agree to these terms.
+      </div>
+      <div class="disc-actions">
+        <button class="disc-btn-cancel" onclick="closeDisc()">Cancel</button>
+        <a id="disc-proceed-btn" href="https://baserow.io/form/SZj6HavQ53MkG9wd63E-lRuqy-D6kj7fEbiHk_Vr3qM" target="_blank" rel="noreferrer" class="disc-btn-primary" onclick="closeDisc()">I Understand — Submit Event →</a>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="site-footer-inner">
